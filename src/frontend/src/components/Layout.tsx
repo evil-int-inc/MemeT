@@ -338,7 +338,7 @@ export default function Layout({ children }: LayoutProps) {
         <aside className="bg-base-100 min-h-full w-64 flex flex-col border-r border-base-300">
           {/* Sidebar header */}
           <div className="flex items-center justify-between px-4 border-b border-base-300 h-16">
-            <span className="flex items-center">
+            <span className="flex items-center h-full">
               {/* Light theme logo (lofi) */}
               <img
                 src="/assets/evertwo-logo-light-2-019e6f67-0ad7-75ef-8326-d99b8ab241c6.png"
