@@ -287,7 +287,6 @@ const zh = {
       count: "{{count}} 个喜欢",
       add: "添加喜欢",
       remove: "取消喜欢",
-      likeUser: "喜欢用户",
       error: "更新喜欢失败",
       viewProfile: "查看个人资料",
       likedUsers: "喜欢的用户",

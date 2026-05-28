@@ -353,7 +353,6 @@ const en = {
       count: "{{count}} likes",
       add: "Add like",
       remove: "Remove like",
-      likeUser: "Like user",
       emptySubtext: "Users you like will appear here",
       error: "Failed to update like",
       viewProfile: "View profile",

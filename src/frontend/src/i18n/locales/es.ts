@@ -299,7 +299,6 @@ const es = {
       count: "{{count}} me gusta",
       add: "Agregar me gusta",
       remove: "Quitar me gusta",
-      likeUser: "Dar me gusta al usuario",
       error: "Error al actualizar el me gusta",
       viewProfile: "Ver perfil",
       likedUsers: "Usuarios que me gustan",
