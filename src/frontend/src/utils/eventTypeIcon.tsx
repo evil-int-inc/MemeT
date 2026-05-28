@@ -7,11 +7,11 @@ import {
   Footprints,
   Gamepad2,
   Globe,
+  type LucideIcon,
   Music,
   Plane,
   Sparkles,
   Utensils,
-  type LucideIcon,
 } from "lucide-react";
 
 const EVENT_TYPE_ICONS: Record<EventType, LucideIcon> = {

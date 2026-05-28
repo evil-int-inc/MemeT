@@ -1,4 +1,4 @@
-import { u as useTranslation, a as useAuth, b as useNavigate, c as useBackend, d as useQueryClient, e as useQuery, f as useMutation, j as jsxRuntimeExports, a5 as Bookmark, C as Calendar, p as MapPin, x as User, X, h as ue } from "./index-BFTCPkdC.js";
+import { u as useTranslation, a as useAuth, b as useNavigate, c as useBackend, d as useQueryClient, e as useQuery, f as useMutation, j as jsxRuntimeExports, a5 as Bookmark, E as EventTypeIcon, p as MapPin, y as User, X, h as ue } from "./index-CynHsLMD.js";
 function MyJoinRequestsPage() {
   const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
@@ -53,8 +53,14 @@ function MyJoinRequestsPage() {
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-2 mt-2 text-sm opacity-70", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(Calendar, { className: "w-4 h-4" }),
-                  (_b = jr.ad) == null ? void 0 : _b.eventType
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    EventTypeIcon,
+                    {
+                      eventType: (_b = jr.ad) == null ? void 0 : _b.eventType,
+                      className: "w-4 h-4"
+                    }
+                  ),
+                  jr.ad ? t(`eventType.${jr.ad.eventType}`) : t("common.unknown")
                 ] }),
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "w-4 h-4" }),

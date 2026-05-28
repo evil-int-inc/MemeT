@@ -1,10 +1,11 @@
-import { o as createLucideIcon, u as useTranslation, i as useParams, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, g as getProfileAvatarUrl, G as Globe, p as MapPin, U as Users, C as Calendar, x as User, H as Heart } from "./index-BFTCPkdC.js";
-import { A as ArrowLeft } from "./arrow-left-BaKlbOmD.js";
-import { S as SquarePen } from "./square-pen-DafQjD_i.js";
-import { T as Trash2 } from "./trash-2-CUY6f-1h.js";
-import { W as Wallet } from "./wallet-D7KieR-K.js";
-import { E as ExternalLink } from "./external-link-Brrc1cp_.js";
-import { E as Eye } from "./eye-CGlTDaCm.js";
+import { o as createLucideIcon, u as useTranslation, i as useParams, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, g as getProfileAvatarUrl, E as EventTypeIcon, G as Globe, p as MapPin, U as Users, y as User, H as Heart } from "./index-CynHsLMD.js";
+import { A as ArrowLeft } from "./arrow-left-BIMr-dTV.js";
+import { S as SquarePen } from "./square-pen-DpQb_EiL.js";
+import { T as Trash2 } from "./trash-2-CHBP5txA.js";
+import { W as Wallet } from "./wallet-DC73PwK7.js";
+import { C as Calendar } from "./calendar-BXuPvEg3.js";
+import { E as ExternalLink } from "./external-link-CkQmmyqI.js";
+import { E as Eye } from "./eye-DNMIyMs5.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -344,7 +345,10 @@ function AdDetailPage() {
         ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-primary badge-lg gap-1", children: t(`eventType.${enumLabel(ad.eventType)}`) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-primary badge-lg gap-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3.5 h-3.5" }),
+          t(`eventType.${enumLabel(ad.eventType)}`)
+        ] }),
         ad.isVirtual ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-accent badge-lg gap-1", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, { size: 12 }),
           t("adDetail.virtual")

@@ -3773,16 +3773,6 @@
       position: relative;
     }
 
-    .tooltip-bottom > .tooltip-content, .tooltip-bottom[data-tip]:before {
-      transform: translateX(-50%) translateY(var(--tt-pos, -.25rem));
-      inset: var(--tt-off) auto auto 50%;
-    }
-
-    .tooltip-bottom:after {
-      transform: translateX(-50%) translateY(var(--tt-pos, -.25rem)) rotate(180deg);
-      inset: var(--tt-tail) auto auto 50%;
-    }
-
     .dropdown-end {
       --anchor-h: span-left;
     }
@@ -4228,6 +4218,10 @@
 
   .left-1\/2 {
     left: 50%;
+  }
+
+  .left-3 {
+    left: calc(var(--spacing) * 3);
   }
 
   .join {
@@ -4706,10 +4700,6 @@
 
   .h-svh {
     height: 100svh;
-  }
-
-  .max-h-8 {
-    max-height: calc(var(--spacing) * 8);
   }
 
   .max-h-80 {
@@ -5664,6 +5654,10 @@
     padding-left: calc(var(--spacing) * 8);
   }
 
+  .pl-10 {
+    padding-left: calc(var(--spacing) * 10);
+  }
+
   .text-center {
     text-align: center;
   }
@@ -5726,6 +5720,10 @@
 
   .text-\[0\.8rem\] {
     font-size: .8rem;
+  }
+
+  .text-\[0\.65rem\] {
+    font-size: .65rem;
   }
 
   .leading-none {

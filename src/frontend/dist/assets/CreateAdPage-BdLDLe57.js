@@ -1,10 +1,10 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-BFTCPkdC.js","assets/index-D7MUCY14.css"])))=>i.map(i=>d[i]);
-import { o as createLucideIcon, u as useTranslation, b as useNavigate, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, W as HowPaysForEvent, v as MeetType, f as useMutation, j as jsxRuntimeExports, L as LoadingSpinner, Y as AD_PUBLISH_PRICE_USD, E as EVENT_TYPES, p as MapPin, q as EXPECTED_COMPANION_SEX_OPTIONS, Z as HOW_PAYS_OPTIONS, J as MAX_PHOTO_SIZE_MB, K as MAX_PROFILE_PHOTOS, I as CircleCheck, _ as __vitePreload, T as ExternalBlob } from "./index-BFTCPkdC.js";
-import { C as CircleAlert, b as buildSuccessUrl, a as buildCancelUrl } from "./stripe-DoKxJiD6.js";
-import { u as useForm, a as Camera, v as validatePhotoCount, b as validateImage } from "./index.esm-DG-alfJS.js";
-import { S as SquarePen } from "./square-pen-DafQjD_i.js";
-import { C as CreditCard } from "./credit-card-DdGt8NeC.js";
-import { E as ExternalLink } from "./external-link-Brrc1cp_.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CynHsLMD.js","assets/index-vVKSa4Gm.css"])))=>i.map(i=>d[i]);
+import { o as createLucideIcon, u as useTranslation, b as useNavigate, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, W as HowPaysForEvent, w as MeetType, f as useMutation, j as jsxRuntimeExports, L as LoadingSpinner, Y as AD_PUBLISH_PRICE_USD, E as EventTypeIcon, q as EVENT_TYPES, p as MapPin, s as EXPECTED_COMPANION_SEX_OPTIONS, Z as HOW_PAYS_OPTIONS, J as MAX_PHOTO_SIZE_MB, K as MAX_PROFILE_PHOTOS, I as CircleCheck, _ as __vitePreload, T as ExternalBlob } from "./index-CynHsLMD.js";
+import { C as CircleAlert, b as buildSuccessUrl, a as buildCancelUrl } from "./stripe-Bi5LGuYs.js";
+import { u as useForm, a as Camera, v as validatePhotoCount, b as validateImage } from "./index.esm-BVsp9CEc.js";
+import { S as SquarePen } from "./square-pen-DpQb_EiL.js";
+import { C as CreditCard } from "./credit-card-CZ8JiEyu.js";
+import { E as ExternalLink } from "./external-link-CkQmmyqI.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -82,6 +82,7 @@ function CreateAdPage() {
     }
   });
   const photos = watch("photos") ?? [];
+  const selectedEventType = watch("eventType");
   reactExports.useEffect(() => {
     if (editAd) {
       reset({
@@ -105,7 +106,7 @@ function CreateAdPage() {
     if (!file) return;
     if (!validatePhotoCount(photos.length)) {
       __vitePreload(async () => {
-        const { toast } = await import("./index-BFTCPkdC.js").then((n) => n.a6);
+        const { toast } = await import("./index-CynHsLMD.js").then((n) => n.a6);
         return { toast };
       }, true ? __vite__mapDeps([0,1]) : void 0).then(
         ({ toast }) => toast.error(t("errors.tooManyPhotos", { max: MAX_PROFILE_PHOTOS }))
@@ -115,7 +116,7 @@ function CreateAdPage() {
     const validation = validateImage(file);
     if (!validation.valid) {
       __vitePreload(async () => {
-        const { toast } = await import("./index-BFTCPkdC.js").then((n) => n.a6);
+        const { toast } = await import("./index-CynHsLMD.js").then((n) => n.a6);
         return { toast };
       }, true ? __vite__mapDeps([0,1]) : void 0).then(
         ({ toast }) => toast.error(
@@ -139,7 +140,7 @@ function CreateAdPage() {
       setValue("photos", [...photos, meta]);
     } catch {
       __vitePreload(async () => {
-        const { toast } = await import("./index-BFTCPkdC.js").then((n) => n.a6);
+        const { toast } = await import("./index-CynHsLMD.js").then((n) => n.a6);
         return { toast };
       }, true ? __vite__mapDeps([0,1]) : void 0).then(({ toast }) => toast.error(t("profile.saveError")));
     } finally {
@@ -338,16 +339,27 @@ function CreateAdPage() {
               t("createAd.eventType"),
               " *"
             ] }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "select",
-              {
-                id: "ad-event-type",
-                className: "select select-bordered w-full",
-                "data-ocid": "create-ad.event_type_select",
-                ...register("eventType", { required: t("validation.required") }),
-                children: EVENT_TYPES.map((type) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: type.value, children: t(`eventType.${type.value}`) }, type.value))
-              }
-            )
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                EventTypeIcon,
+                {
+                  eventType: selectedEventType,
+                  className: "pointer-events-none absolute left-3 top-1/2 z-10 w-4 h-4 -translate-y-1/2 text-base-content/60"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "select",
+                {
+                  id: "ad-event-type",
+                  className: "select select-bordered w-full pl-10",
+                  "data-ocid": "create-ad.event_type_select",
+                  ...register("eventType", {
+                    required: t("validation.required")
+                  }),
+                  children: EVENT_TYPES.map((type) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: type.value, children: t(`eventType.${type.value}`) }, type.value))
+                }
+              )
+            ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "form-control", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "label", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "label-text font-medium", children: [

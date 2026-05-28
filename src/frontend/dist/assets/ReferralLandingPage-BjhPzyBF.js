@@ -1,4 +1,4 @@
-import { i as useParams, b as useNavigate, a as useAuth, c as useBackend, r as reactExports, j as jsxRuntimeExports, L as LoadingSpinner } from "./index-BFTCPkdC.js";
+import { i as useParams, b as useNavigate, a as useAuth, c as useBackend, r as reactExports, j as jsxRuntimeExports, L as LoadingSpinner } from "./index-CynHsLMD.js";
 const PENDING_REFERRAL_KEY = "pendingReferralCode";
 function ReferralLandingPage() {
   const params = useParams({ from: "/referral/$code" });

@@ -1,11 +1,11 @@
-import { o as createLucideIcon, u as useTranslation, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, a0 as AdStatus, R as Plus, I as CircleCheck, a1 as PaymentStatus, a2 as instance } from "./index-BFTCPkdC.js";
-import { E as ExternalLink } from "./external-link-Brrc1cp_.js";
-import { R as RefreshCw } from "./refresh-cw-BM_cAkUR.js";
-import { W as Wallet } from "./wallet-D7KieR-K.js";
-import { S as SquarePen } from "./square-pen-DafQjD_i.js";
-import { T as Trash2 } from "./trash-2-CUY6f-1h.js";
-import { C as CreditCard } from "./credit-card-DdGt8NeC.js";
-import { E as Eye } from "./eye-CGlTDaCm.js";
+import { o as createLucideIcon, u as useTranslation, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, a0 as AdStatus, R as Plus, I as CircleCheck, a1 as PaymentStatus, E as EventTypeIcon, a2 as instance } from "./index-CynHsLMD.js";
+import { E as ExternalLink } from "./external-link-CkQmmyqI.js";
+import { R as RefreshCw } from "./refresh-cw-Ut7SIZ8I.js";
+import { W as Wallet } from "./wallet-DC73PwK7.js";
+import { S as SquarePen } from "./square-pen-DpQb_EiL.js";
+import { T as Trash2 } from "./trash-2-CHBP5txA.js";
+import { C as CreditCard } from "./credit-card-CZ8JiEyu.js";
+import { E as Eye } from "./eye-DNMIyMs5.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -51,7 +51,7 @@ function StatusBadge({ status }) {
     deleted: "badge-neutral"
   };
   const cls = map[status] ?? "badge-ghost";
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${cls} badge-sm font-medium`, children: t(`myAds.status.${status}`) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${cls} badge-sm font-medium`, children: t(`adStatus.${status}`) });
 }
 function PaymentBadge({ paymentStatus }) {
   const { t } = useTranslation();
@@ -62,7 +62,7 @@ function PaymentBadge({ paymentStatus }) {
     failed: "badge-error"
   };
   const cls = map[paymentStatus] ?? "badge-ghost";
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${cls} badge-sm`, children: t(`myAds.paymentStatus.${paymentStatus}`) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${cls} badge-sm`, children: t(`paymentStatus.${paymentStatus}`) });
 }
 function SkeletonCard() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card bg-base-100 shadow-sm border border-base-200 animate-pulse", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body gap-3", children: [
@@ -156,7 +156,10 @@ function AdCard({
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 flex-wrap", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-outline badge-sm", children: t(`eventType.${ad.eventType}`) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-outline badge-sm gap-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3 h-3" }),
+            t(`eventType.${ad.eventType}`)
+          ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-outline badge-sm", children: ad.isVirtual ? t("common.virtual") : ad.city ?? t("common.noCity") }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-outline badge-sm gap-1", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "w-3 h-3" }),
@@ -236,7 +239,7 @@ function AdCard({
             )
           ] })
         ] }),
-        isDeleted && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-base-content/40 italic mt-1", children: t("myAds.status.deleted") })
+        isDeleted && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-base-content/40 italic mt-1", children: t("adStatus.deleted") })
       ] })
     }
   );

@@ -1,6 +1,7 @@
-import { Q as QueryObserver, k as infiniteQueryBehavior, l as hasPreviousPage, m as hasNextPage, n as useBaseQuery, o as createLucideIcon, u as useTranslation, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, M as MAX_FEED_PAGE_SIZE, j as jsxRuntimeExports, p as MapPin, X, E as EVENT_TYPES, S as SEX_OPTIONS, q as EXPECTED_COMPANION_SEX_OPTIONS, s as SUPPORTED_LOCALES, t as SortBy, v as MeetType, b as useNavigate, g as getProfileAvatarUrl, f as useMutation, G as Globe, U as Users, C as Calendar, w as Star, H as Heart } from "./index-BFTCPkdC.js";
-import { R as RefreshCw } from "./refresh-cw-BM_cAkUR.js";
-import { W as Wallet } from "./wallet-D7KieR-K.js";
+import { Q as QueryObserver, k as infiniteQueryBehavior, l as hasPreviousPage, m as hasNextPage, n as useBaseQuery, o as createLucideIcon, u as useTranslation, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, M as MAX_FEED_PAGE_SIZE, j as jsxRuntimeExports, p as MapPin, X, E as EventTypeIcon, q as EVENT_TYPES, S as SEX_OPTIONS, s as EXPECTED_COMPANION_SEX_OPTIONS, t as SUPPORTED_LOCALES, v as SortBy, w as MeetType, b as useNavigate, g as getProfileAvatarUrl, f as useMutation, G as Globe, U as Users, x as Star, H as Heart } from "./index-CynHsLMD.js";
+import { R as RefreshCw } from "./refresh-cw-Ut7SIZ8I.js";
+import { W as Wallet } from "./wallet-DC73PwK7.js";
+import { C as Calendar } from "./calendar-BXuPvEg3.js";
 var InfiniteQueryObserver = class extends QueryObserver {
   constructor(client, options) {
     super(client, options);
@@ -314,7 +315,10 @@ function AdCard({ ad }) {
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-base leading-tight", children: ad.eventName }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-1", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-primary badge-sm", children: t(`eventType.${ad.eventType}`) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-primary badge-sm", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3 h-3 mr-1" }),
+            t(`eventType.${ad.eventType}`)
+          ] }),
           ad.isVirtual ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-secondary badge-sm", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, { className: "w-3 h-3 mr-1" }),
             t("common.virtualEvent")
@@ -738,25 +742,20 @@ function FeedPage() {
           ]
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "div",
-        {
-          className: "tooltip tooltip-bottom",
-          "data-tip": t("feed.filters.saveFilters"),
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "input",
-            {
-              type: "checkbox",
-              className: "checkbox checkbox-sm",
-              checked: saveFilters,
-              onChange: (e) => setSaveFilters(e.target.checked),
-              title: t("feed.filters.saveFilters"),
-              "aria-label": t("feed.filters.saveFilters"),
-              "data-ocid": "feed.save_filters_toggle"
-            }
-          )
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { className: "flex items-center gap-2 text-sm cursor-pointer select-none", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "checkbox",
+            className: "checkbox checkbox-sm",
+            checked: saveFilters,
+            onChange: (e) => setSaveFilters(e.target.checked),
+            "aria-label": t("feed.filters.saveFilters"),
+            "data-ocid": "feed.save_filters_toggle"
+          }
+        ),
+        t("feed.filters.saveFilters")
+      ] })
     ] }),
     hasActiveFilters && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-2 mb-4", children: [
       activeFilterEntries.map(([key, value]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-primary gap-1", children: [
@@ -795,19 +794,28 @@ function FeedPage() {
             children: t("feed.filters.eventType")
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "select",
-          {
-            id: "filter-event-type",
-            className: "select select-bordered",
-            value: filter.eventType,
-            onChange: (e) => updateFilter({ eventType: e.target.value }),
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.allTypes") }),
-              EVENT_TYPES.map((et) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: et.value, children: t(`eventType.${et.value}`) }, et.value))
-            ]
-          }
-        )
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            EventTypeIcon,
+            {
+              eventType: filter.eventType,
+              className: "pointer-events-none absolute left-3 top-1/2 z-10 w-4 h-4 -translate-y-1/2 text-base-content/60"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "select",
+            {
+              id: "filter-event-type",
+              className: `select select-bordered w-full ${filter.eventType ? "pl-10" : ""}`,
+              value: filter.eventType,
+              onChange: (e) => updateFilter({ eventType: e.target.value }),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.allTypes") }),
+                EVENT_TYPES.map((et) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: et.value, children: t(`eventType.${et.value}`) }, et.value))
+              ]
+            }
+          )
+        ] })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-1", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -985,7 +993,6 @@ function FeedPage() {
             className: "checkbox checkbox-sm",
             checked: saveFilters,
             onChange: (e) => setSaveFilters(e.target.checked),
-            title: t("feed.filters.saveFilters"),
             "aria-label": t("feed.filters.saveFilters"),
             "data-ocid": "feed.filters.save_checkbox"
           }

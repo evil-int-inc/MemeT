@@ -352,16 +352,17 @@ export default function Layout({ children }: LayoutProps) {
                 className="h-full w-auto w-auto object-contain hidden [[data-theme=black]_&]:block"
               />
             </span>
-              <div className="flex items-center justify-between py-4">
-                <button
-              type="button"
-              className="btn btn-ghost btn-square btn-sm lg:hidden"
-              onClick={closeSidebar}
-              aria-label="Close sidebar"
-              data-ocid="layout.sidebar_close"
-                ><X className="w-4 h-4" />
-                </button>
-              </div>
+            <div className="flex items-center justify-between py-4">
+              <button
+                type="button"
+                className="btn btn-ghost btn-square btn-sm lg:hidden"
+                onClick={closeSidebar}
+                aria-label="Close sidebar"
+                data-ocid="layout.sidebar_close"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* Nav links */}

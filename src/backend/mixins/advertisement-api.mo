@@ -192,51 +192,54 @@ mixin (
         // After publishing, set paid = 4.99 and credit referral commission
         switch (result) {
           case (#ok(publishedAd)) {
-            // Set paid amount to 4.99 on the ad
-            let paidAd : AdTypes.Advertisement = { publishedAd with paid = 4.99 };
-            ads.add(adId, paidAd);
-            let creatorPrincipal = publishedAd.creatorPrincipal;
-            switch (profiles.get(creatorPrincipal)) {
-              case (null) {};
-              case (?creatorProfile) {
-                switch (creatorProfile.referredBy) {
-                  case (null) {}; // not referred — nothing to credit
-                  case (?referrerPrincipal) {
-                    let commission : Float = 4.99 * 0.33;
-                    // Credit referrer's balance
-                    switch (profiles.get(referrerPrincipal)) {
-                      case (null) {};
-                      case (?referrerProfile) {
-                        let updatedReferrer : ProfileTypes.UserProfile = { referrerProfile with balance = referrerProfile.balance + commission };
-                        profiles.add(referrerPrincipal, updatedReferrer);
-                      };
-                    };
-                    // Update referral ledger entry
-                    let ledgerKey = referrerPrincipal.toText() # ":" # creatorPrincipal.toText();
-                    switch (referralLedger.get(ledgerKey)) {
-                      case (null) {
-                        let newEntry : ReferralTypes.ReferralEntry = {
-                          referredPrincipal = creatorPrincipal;
-                          referredAt = Time.now();
-                          adsPublished = 1;
-                          totalEarned = commission;
-                        };
-                        referralLedger.add(ledgerKey, newEntry);
-                      };
-                      case (?existing) {
-                        let updatedEntry : ReferralTypes.ReferralEntry = {
-                          existing with
-                          adsPublished = existing.adsPublished + 1;
-                          totalEarned = existing.totalEarned + commission;
-                        };
-                        referralLedger.add(ledgerKey, updatedEntry);
-                      };
-                    };
-                  };
-                };
-              };
-            };
-            #ok(paidAd);
+            // ALPHA: Temporarily disabled — re-enable when prod Stripe keys are configured
+            // let paidAd : AdTypes.Advertisement = { publishedAd with paid = 4.99 };
+            // ads.add(adId, paidAd);
+
+            // ALPHA: Temporarily disabled — re-enable when prod Stripe keys are configured
+            // let creatorPrincipal = publishedAd.creatorPrincipal;
+            // switch (profiles.get(creatorPrincipal)) {
+            //   case (null) {};
+            //   case (?creatorProfile) {
+            //     switch (creatorProfile.referredBy) {
+            //       case (null) {}; // not referred — nothing to credit
+            //       case (?referrerPrincipal) {
+            //         let commission : Float = 4.99 * 0.33;
+            //         // Credit referrer's balance
+            //         switch (profiles.get(referrerPrincipal)) {
+            //           case (null) {};
+            //           case (?referrerProfile) {
+            //             let updatedReferrer : ProfileTypes.UserProfile = { referrerProfile with balance = referrerProfile.balance + commission };
+            //             profiles.add(referrerPrincipal, updatedReferrer);
+            //           };
+            //         };
+            //         // Update referral ledger entry
+            //         let ledgerKey = referrerPrincipal.toText() # ":" # creatorPrincipal.toText();
+            //         switch (referralLedger.get(ledgerKey)) {
+            //           case (null) {
+            //             let newEntry : ReferralTypes.ReferralEntry = {
+            //               referredPrincipal = creatorPrincipal;
+            //               referredAt = Time.now();
+            //               adsPublished = 1;
+            //               totalEarned = commission;
+            //             };
+            //             referralLedger.add(ledgerKey, newEntry);
+            //           };
+            //           case (?existing) {
+            //             let updatedEntry : ReferralTypes.ReferralEntry = {
+            //               existing with
+            //               adsPublished = existing.adsPublished + 1;
+            //               totalEarned = existing.totalEarned + commission;
+            //             };
+            //             referralLedger.add(ledgerKey, updatedEntry);
+            //           };
+            //         };
+            //       };
+            //     };
+            //   };
+            // };
+
+            #ok(publishedAd);
           };
           case (#err(e)) { #err(e) };
         };
