@@ -243,6 +243,23 @@ function AdCard({
               </>
             )}
 
+            {canRetry && (
+              <button
+                type="button"
+                className="btn btn-xs btn-neutral gap-1"
+                onClick={() => onRetryPayment(ad)}
+                disabled={isRetrying}
+                data-ocid={`my-ads.retry_payment_button.${ad.id}`}
+              >
+                {isRetrying ? (
+                  <span className="loading loading-infinity loading-xs" />
+                ) : (
+                  <CreditCard className="w-3 h-3" />
+                )}
+                {t("myAds.retryPayment")}
+              </button>
+            )}
+
             {statusKind === AdStatus.published && (
               <>
                 <button
