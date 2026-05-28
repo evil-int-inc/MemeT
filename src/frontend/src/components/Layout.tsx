@@ -165,6 +165,15 @@ export default function Layout({ children }: LayoutProps) {
                 </span>
               </div>
             )}
+            <span
+              className="text-[0.65rem] leading-none text-base-content/50 italic whitespace-nowrap"
+              style={{
+                fontFamily: '"Apple Chancery", "Comic Sans MS", cursive',
+              }}
+              data-ocid="layout.alpha_version"
+            >
+              alpha version
+            </span>
           </div>
 
           {/* Right: theme + lang + auth */}
@@ -328,30 +337,31 @@ export default function Layout({ children }: LayoutProps) {
         />
         <aside className="bg-base-100 min-h-full w-64 flex flex-col border-r border-base-300">
           {/* Sidebar header */}
-          <div className="flex items-center justify-between p-4 border-b border-base-300 h-16">
+          <div className="flex items-center justify-between px-4 border-b border-base-300 h-16">
             <span className="flex items-center">
               {/* Light theme logo (lofi) */}
               <img
                 src="/assets/evertwo-logo-light-2-019e6f67-0ad7-75ef-8326-d99b8ab241c6.png"
                 alt="EverTwo"
-                className="max-h-8 w-auto object-contain [[data-theme=black]_&]:hidden"
+                className="h-full w-auto object-contain [[data-theme=black]_&]:hidden"
               />
               {/* Dark theme logo (black) */}
               <img
                 src="/assets/evertwo-logo-dark-2-019e6f67-08ad-70b8-a1d8-a2f12a753cd2.png"
                 alt="EverTwo"
-                className="max-h-8 w-auto object-contain hidden [[data-theme=black]_&]:block"
+                className="h-full w-auto w-auto object-contain hidden [[data-theme=black]_&]:block"
               />
             </span>
-            <button
+              <div className="flex items-center justify-between py-4">
+                <button
               type="button"
               className="btn btn-ghost btn-square btn-sm lg:hidden"
               onClick={closeSidebar}
               aria-label="Close sidebar"
               data-ocid="layout.sidebar_close"
-            >
-              <X className="w-4 h-4" />
-            </button>
+                ><X className="w-4 h-4" />
+                </button>
+              </div>
           </div>
 
           {/* Nav links */}

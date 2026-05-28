@@ -1,10 +1,11 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import type { JoinRequestWithAd } from "@/types";
+import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import { useQuery } from "@tanstack/react-query";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { Bookmark, Calendar, MapPin, User, X } from "lucide-react";
+import { Bookmark, MapPin, User, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -77,8 +78,13 @@ export default function MyJoinRequestsPage() {
                     </button>
                     <div className="flex flex-wrap gap-2 mt-2 text-sm opacity-70">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {jr.ad?.eventType}
+                        <EventTypeIcon
+                          eventType={jr.ad?.eventType}
+                          className="w-4 h-4"
+                        />
+                        {jr.ad
+                          ? t(`eventType.${jr.ad.eventType}`)
+                          : t("common.unknown")}
                       </span>
                       <span className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />

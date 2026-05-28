@@ -216,6 +216,10 @@ const es = {
       deleteSuccess: "Anuncio eliminado",
       deleteError: "Error al eliminar el anuncio",
       createdAt: "Publicado el {{date}}",
+      loginRequired: {
+        title: "Inicia sesión para ver tus anuncios",
+        message: "Inicia sesión para gestionar tus anuncios.",
+      },
       stats: {
         total: "Total",
         published: "Publicados",
@@ -345,6 +349,13 @@ const es = {
       viewMyAds: "Ver Mis Anuncios",
       viewFeed: "Ver Inicio",
       checking: "Verificando estado del pago...",
+      newTabOpened: "La página de pago se abrió en una pestaña nueva",
+      newTabDesc:
+        "Completa el pago allí; esta página se actualizará automáticamente cuando se confirme.",
+      pollSuccess:
+        "¡Pago confirmado! Tu anuncio ya está publicado. Redirigiendo...",
+      pollTimeout:
+        "La confirmación del pago tardó demasiado. Revisa Mis Anuncios para ver el estado.",
       invalidCheckoutUrl:
         "URL de pago no válida recibida. Por favor, inténtelo de nuevo.",
       parseError: "Error al analizar la sesión de pago. Inténtelo de nuevo.",
@@ -368,8 +379,12 @@ const es = {
       back: "Atrás",
       next: "Siguiente",
       submit: "Enviar",
+      login: "Iniciar sesión",
+      view: "Ver",
       unknown: "Desconocido",
+      virtual: "Virtual",
       virtualEvent: "Virtual",
+      noCity: "Sin ciudad",
       yearsOld: "años",
       or: "o",
       invalidPromoCode: "Código promocional inválido",

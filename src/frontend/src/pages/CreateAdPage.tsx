@@ -15,6 +15,7 @@ import { buildCancelUrl, buildSuccessUrl } from "@/lib/stripe";
 import { useBackend } from "@/services/backend";
 import { validateImage, validatePhotoCount } from "@/services/imageService";
 import type { BlobMetadata } from "@/types";
+import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -126,6 +127,7 @@ export default function CreateAdPage() {
   });
 
   const photos = watch("photos") ?? [];
+  const selectedEventType = watch("eventType");
 
   // Populate form in edit mode
   useEffect(() => {
@@ -439,18 +441,26 @@ export default function CreateAdPage() {
               {t("createAd.eventType")} *
             </span>
           </label>
-          <select
-            id="ad-event-type"
-            className="select select-bordered w-full"
-            data-ocid="create-ad.event_type_select"
-            {...register("eventType", { required: t("validation.required") })}
-          >
-            {EVENT_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {t(`eventType.${type.value}`)}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <EventTypeIcon
+              eventType={selectedEventType}
+              className="pointer-events-none absolute left-3 top-1/2 z-10 w-4 h-4 -translate-y-1/2 text-base-content/60"
+            />
+            <select
+              id="ad-event-type"
+              className="select select-bordered w-full pl-10"
+              data-ocid="create-ad.event_type_select"
+              {...register("eventType", {
+                required: t("validation.required"),
+              })}
+            >
+              {EVENT_TYPES.map((type) => (
+                <option key={type.value} value={type.value}>
+                  {t(`eventType.${type.value}`)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Meet Type */}

@@ -1,8 +1,9 @@
-import { AdStatus, EventType, PaymentStatus } from "@/backend";
+import { AdStatus, PaymentStatus } from "@/backend";
 import type { Advertisement } from "@/backend";
 import { useAuth } from "@/hooks/useAuth";
 import i18n from "@/i18n";
 import { useBackend } from "@/services/backend";
+import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -56,7 +57,7 @@ function StatusBadge({ status }: { status: AdStatus }) {
   const cls = map[status] ?? "badge-ghost";
   return (
     <span className={`badge ${cls} badge-sm font-medium`}>
-      {t(`myAds.status.${status}`)}
+      {t(`adStatus.${status}`)}
     </span>
   );
 }
@@ -72,7 +73,7 @@ function PaymentBadge({ paymentStatus }: { paymentStatus: PaymentStatus }) {
   const cls = map[paymentStatus] ?? "badge-ghost";
   return (
     <span className={`badge ${cls} badge-sm`}>
-      {t(`myAds.paymentStatus.${paymentStatus}`)}
+      {t(`paymentStatus.${paymentStatus}`)}
     </span>
   );
 }
@@ -196,7 +197,8 @@ function AdCard({
         </div>
 
         <div className="flex gap-2 flex-wrap">
-          <span className="badge badge-outline badge-sm">
+          <span className="badge badge-outline badge-sm gap-1">
+            <EventTypeIcon eventType={ad.eventType} className="w-3 h-3" />
             {t(`eventType.${ad.eventType}`)}
           </span>
           <span className="badge badge-outline badge-sm">
@@ -241,23 +243,6 @@ function AdCard({
               </>
             )}
 
-            {canRetry && (
-              <button
-                type="button"
-                className="btn btn-xs btn-neutral gap-1"
-                onClick={() => onRetryPayment(ad)}
-                disabled={isRetrying}
-                data-ocid={`my-ads.retry_payment_button.${ad.id}`}
-              >
-                {isRetrying ? (
-                  <span className="loading loading-infinity loading-xs" />
-                ) : (
-                  <CreditCard className="w-3 h-3" />
-                )}
-                {t("myAds.retryPayment")}
-              </button>
-            )}
-
             {statusKind === AdStatus.published && (
               <>
                 <button
@@ -285,7 +270,7 @@ function AdCard({
 
         {isDeleted && (
           <p className="text-xs text-base-content/40 italic mt-1">
-            {t("myAds.status.deleted")}
+            {t("adStatus.deleted")}
           </p>
         )}
       </div>

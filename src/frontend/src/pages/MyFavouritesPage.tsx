@@ -1,10 +1,11 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import type { FavouriteWithAd } from "@/types";
+import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import { useQuery } from "@tanstack/react-query";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { Calendar, MapPin, Star, User } from "lucide-react";
+import { MapPin, Star, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -83,8 +84,13 @@ export default function MyFavouritesPage() {
                     </button>
                     <div className="flex flex-wrap gap-2 mt-2 text-sm opacity-70">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {fav.ad?.eventType}
+                        <EventTypeIcon
+                          eventType={fav.ad?.eventType}
+                          className="w-4 h-4"
+                        />
+                        {fav.ad
+                          ? t(`eventType.${fav.ad.eventType}`)
+                          : t("common.unknown")}
                       </span>
                       <span className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />

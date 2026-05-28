@@ -227,6 +227,10 @@ const fr = {
       deleteSuccess: "Annonce supprimée",
       deleteError: "Échec de la suppression de l'annonce",
       createdAt: "Publié le {{date}}",
+      loginRequired: {
+        title: "Connectez-vous pour voir vos annonces",
+        message: "Connectez-vous pour gérer vos annonces.",
+      },
       stats: {
         total: "Total",
         published: "Publiées",
@@ -364,6 +368,13 @@ const fr = {
       viewMyAds: "Voir mes annonces",
       viewFeed: "Voir le fil d'actualité",
       checking: "Vérification du statut du paiement...",
+      newTabOpened: "La page de paiement s'est ouverte dans un nouvel onglet",
+      newTabDesc:
+        "Terminez le paiement là-bas ; cette page se mettra à jour automatiquement une fois confirmé.",
+      pollSuccess:
+        "Paiement confirmé ! Votre annonce est maintenant publiée. Redirection...",
+      pollTimeout:
+        "La confirmation du paiement a expiré. Vérifiez Mes annonces pour voir le statut.",
       invalidCheckoutUrl: "URL de paiement invalide reçue. Veuillez réessayer.",
       parseError:
         "Impossible d'analyser la session de paiement. Veuillez réessayer.",
@@ -388,8 +399,12 @@ const fr = {
       back: "Retour",
       next: "Suivant",
       submit: "Soumettre",
+      login: "Connexion",
+      view: "Voir",
       unknown: "Inconnu",
+      virtual: "Virtuel",
       virtualEvent: "Virtuel",
+      noCity: "Aucune ville",
       yearsOld: "ans",
       or: "ou",
       invalidPromoCode: "Code promo invalide",

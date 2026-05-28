@@ -16,6 +16,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { getProfileAvatarUrl } from "@/utils/avatar";
+import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import {
   type InfiniteData,
   useInfiniteQuery,
@@ -288,6 +289,7 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
         <h3 className="font-bold text-base leading-tight">{ad.eventName}</h3>
         <div className="flex flex-wrap gap-1">
           <span className="badge badge-primary badge-sm">
+            <EventTypeIcon eventType={ad.eventType} className="w-3 h-3 mr-1" />
             {t(`eventType.${ad.eventType}`)}
           </span>
           {ad.isVirtual ? (
@@ -796,20 +798,17 @@ export default function FeedPage() {
           />
           {t("feed.refresh")}
         </button>
-        <div
-          className="tooltip tooltip-bottom"
-          data-tip={t("feed.filters.saveFilters")}
-        >
+        <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
           <input
             type="checkbox"
             className="checkbox checkbox-sm"
             checked={saveFilters}
             onChange={(e) => setSaveFilters(e.target.checked)}
-            title={t("feed.filters.saveFilters")}
             aria-label={t("feed.filters.saveFilters")}
             data-ocid="feed.save_filters_toggle"
           />
-        </div>
+          {t("feed.filters.saveFilters")}
+        </label>
       </div>
 
       {hasActiveFilters && (
@@ -846,21 +845,27 @@ export default function FeedPage() {
             >
               {t("feed.filters.eventType")}
             </label>
-            <select
-              id="filter-event-type"
-              className="select select-bordered"
-              value={filter.eventType}
-              onChange={(e) =>
-                updateFilter({ eventType: e.target.value as EventType | "" })
-              }
-            >
-              <option value="">{t("feed.filters.allTypes")}</option>
-              {EVENT_TYPES.map((et) => (
-                <option key={et.value} value={et.value}>
-                  {t(`eventType.${et.value}`)}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <EventTypeIcon
+                eventType={filter.eventType}
+                className="pointer-events-none absolute left-3 top-1/2 z-10 w-4 h-4 -translate-y-1/2 text-base-content/60"
+              />
+              <select
+                id="filter-event-type"
+                className={`select select-bordered w-full ${filter.eventType ? "pl-10" : ""}`}
+                value={filter.eventType}
+                onChange={(e) =>
+                  updateFilter({ eventType: e.target.value as EventType | "" })
+                }
+              >
+                <option value="">{t("feed.filters.allTypes")}</option>
+                {EVENT_TYPES.map((et) => (
+                  <option key={et.value} value={et.value}>
+                    {t(`eventType.${et.value}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           {/* Creator sex */}
           <div className="flex flex-col gap-1">
@@ -1042,7 +1047,6 @@ export default function FeedPage() {
               className="checkbox checkbox-sm"
               checked={saveFilters}
               onChange={(e) => setSaveFilters(e.target.checked)}
-              title={t("feed.filters.saveFilters")}
               aria-label={t("feed.filters.saveFilters")}
               data-ocid="feed.filters.save_checkbox"
             />

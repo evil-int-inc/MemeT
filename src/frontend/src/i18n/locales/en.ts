@@ -230,6 +230,10 @@ const en = {
       deleteSuccess: "Advertisement deleted",
       deleteError: "Failed to delete advertisement",
       createdAt: "Posted on {{date}}",
+      loginRequired: {
+        title: "Log in to view your ads",
+        message: "Please log in to manage your advertisements.",
+      },
       stats: {
         total: "Total",
         published: "Published",
@@ -284,6 +288,7 @@ const en = {
       study: "Study",
       concert: "Concert",
       travel: "Travel",
+      virtual: "Virtual",
       other: "Other",
     },
 
@@ -420,8 +425,12 @@ const en = {
       back: "Back",
       next: "Next",
       submit: "Submit",
+      login: "Login",
+      view: "View",
       unknown: "Unknown",
+      virtual: "Virtual",
       virtualEvent: "Virtual",
+      noCity: "No city",
       yearsOld: "years old",
       or: "or",
       invalidPromoCode: "Invalid promo code",

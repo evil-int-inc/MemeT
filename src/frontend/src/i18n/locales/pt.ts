@@ -224,6 +224,10 @@ const pt = {
       deleteSuccess: "Anúncio excluído",
       deleteError: "Falha ao excluir anúncio",
       createdAt: "Publicado em {{date}}",
+      loginRequired: {
+        title: "Entre para ver seus anúncios",
+        message: "Entre para gerenciar seus anúncios.",
+      },
       stats: {
         total: "Total",
         published: "Publicados",
@@ -360,6 +364,13 @@ const pt = {
       viewMyAds: "Ver Meus Anúncios",
       viewFeed: "Ver Feed",
       checking: "Verificando status do pagamento...",
+      newTabOpened: "A página de pagamento foi aberta em uma nova aba",
+      newTabDesc:
+        "Conclua o pagamento lá; esta página será atualizada automaticamente após a confirmação.",
+      pollSuccess:
+        "Pagamento confirmado! Seu anúncio já está publicado. Redirecionando...",
+      pollTimeout:
+        "A confirmação do pagamento expirou. Verifique Meus Anúncios para ver o status.",
       invalidCheckoutUrl:
         "URL de pagamento inválida recebida. Por favor, tente novamente.",
       parseError:
@@ -385,8 +396,12 @@ const pt = {
       back: "Voltar",
       next: "Próximo",
       submit: "Enviar",
+      login: "Entrar",
+      view: "Ver",
       unknown: "Desconhecido",
+      virtual: "Virtual",
       virtualEvent: "Virtual",
+      noCity: "Sem cidade",
       yearsOld: "anos",
       or: "ou",
       invalidPromoCode: "Código promocional inválido",

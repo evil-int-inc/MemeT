@@ -1,6 +1,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { getProfileAvatarUrl } from "@/utils/avatar";
+import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import {
@@ -322,6 +323,7 @@ export default function AdDetailPage() {
           {/* badges */}
           <div className="flex flex-wrap gap-2">
             <span className="badge badge-primary badge-lg gap-1">
+              <EventTypeIcon eventType={ad.eventType} className="w-3.5 h-3.5" />
               {t(`eventType.${enumLabel(ad.eventType)}`)}
             </span>
             {ad.isVirtual ? (
