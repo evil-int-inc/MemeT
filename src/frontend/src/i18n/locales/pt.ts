@@ -313,6 +313,7 @@ const pt = {
       count: "{{count}} curtidas",
       add: "Adicionar curtida",
       remove: "Remover curtida",
+      likeUser: "Curtir usuário",
       error: "Falha ao atualizar curtida",
       viewProfile: "Ver perfil",
       likedUsers: "Usuários curtidos",

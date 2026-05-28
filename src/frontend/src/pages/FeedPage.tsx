@@ -247,7 +247,7 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
           <div className="avatar flex-shrink-0">
             <button
               type="button"
-              className="w-12 h-12 rounded-full bg-base-300 overflow-hidden flex items-center justify-center p-0 border-0 bg-transparent"
+              className="w-12 h-12 rounded-full bg-base-300 overflow-hidden flex items-center justify-center p-0 border-0 bg-transparent cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate({
@@ -259,7 +259,7 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
               <img
                 src={avatarUrl}
                 alt=""
-                className="w-full h-full object-cover hover:opacity-80 transition-opacity"
+                className="w-full h-full object-cover hover:opacity-80 transition-opacity cursor-pointer"
                 loading="lazy"
               />
             </button>
@@ -398,13 +398,8 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
                       }
                 }
                 disabled={isOwner || favMutation.isPending}
-                title={
-                  isOwner
-                    ? ""
-                    : isFav
-                      ? t("favourites.removeTooltip")
-                      : t("favourites.addButton")
-                }
+                title={t("favourites.addButton")}
+                aria-label={t("favourites.addButton")}
                 data-ocid={`feed.ad_card.${ad.id}.favourite_button`}
               >
                 {favMutation.isPending ? (
@@ -433,7 +428,8 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
                   likeMutation.mutate();
                 }}
                 disabled={likeMutation.isPending}
-                title={isLiked ? t("likes.remove") : t("likes.add")}
+                title={t("likes.likeUser")}
+                aria-label={t("likes.likeUser")}
                 data-ocid={`feed.ad_card.${ad.id}.like_button`}
               >
                 {likeMutation.isPending ? (
@@ -460,6 +456,8 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
                 type="button"
                 className="btn btn-neutral btn-sm btn-square opacity-50 cursor-not-allowed"
                 disabled
+                title={t("likes.likeUser")}
+                aria-label={t("likes.likeUser")}
                 data-ocid={`feed.ad_card.${ad.id}.like_button`}
               >
                 <Heart size={16} />
@@ -549,7 +547,10 @@ export default function FeedPage() {
   const backend = useBackend();
   const queryClient = useQueryClient();
 
-  const [filter, setFilter] = useState<FeedFilter>({});
+  const [filter, setFilter] = useState<SavedFilters>(() => ({
+    ...EMPTY_FILTER_VALUES,
+    ...(loadSavedFilters() ?? {}),
+  }));
   const [defaultFiltersApplied, setDefaultFiltersApplied] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [saveFilters, setSaveFilters] = useState<boolean>(
@@ -560,31 +561,7 @@ export default function FeedPage() {
   const [isRefreshingFirstPage, setIsRefreshingFirstPage] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const refreshingFirstPageRef = useRef(false);
-
-  // Initialise filter state — restore from localStorage if save was enabled
-  const savedFilters = useRef(loadSavedFilters());
-  const initialFilterValues: SavedFilters = {
-    ...EMPTY_FILTER_VALUES,
-    ...(savedFilters.current ?? {}),
-  };
-  const [searchText, setSearchText] = useState(initialFilterValues.searchText);
-  const [eventType, setEventType] = useState<EventType | "">(
-    initialFilterValues.eventType,
-  );
-  const [creatorSex, setCreatorSex] = useState<Sex | "">(
-    initialFilterValues.creatorSex,
-  );
-  const [companionSex, setCompanionSex] = useState<ExpectedCompanionSex | "">(
-    initialFilterValues.companionSex,
-  );
-  const [ageMin, setAgeMin] = useState(initialFilterValues.ageMin);
-  const [ageMax, setAgeMax] = useState(initialFilterValues.ageMax);
-  const [city, setCity] = useState(initialFilterValues.city);
-  const [language, setLanguage] = useState(initialFilterValues.language);
-  const [sortBy, setSortBy] = useState<SortBy | "">(initialFilterValues.sortBy);
-  const [meetType, setMeetType] = useState<"inPerson" | "online" | "all">(
-    initialFilterValues.meetType ?? "all",
-  );
+  const feedFilter = useMemo(() => buildFeedFilter(filter), [filter]);
 
   // Load user profile for the explicit "By my city" shortcut.
   const { data: myProfile } = useQuery({
@@ -595,6 +572,20 @@ export default function FeedPage() {
   const profileCity = myProfile?.city ?? "";
   const myCity = profileCity;
   const isMyCityFilterActive = Boolean(myCity && filter.city === myCity);
+
+  const updateFilter = useCallback((updates: Partial<SavedFilters>) => {
+    setFilter((currentFilter) => ({
+      ...currentFilter,
+      ...updates,
+    }));
+  }, []);
+
+  const persistFiltersIfEnabled = useCallback(
+    (filters: SavedFilters) => {
+      if (saveFilters) persistFilters(filters);
+    },
+    [saveFilters],
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -608,161 +599,42 @@ export default function FeedPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const buildFilter = useCallback(() => {
-    return buildFeedFilter({
-      searchText,
-      eventType,
-      creatorSex,
-      companionSex,
-      ageMin,
-      ageMax,
-      city,
-      language,
-      sortBy,
-      meetType,
-    });
-  }, [
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    city,
-    language,
-    sortBy,
-    meetType,
-  ]);
-
   // Apply only saved filters before enabling the initial feed request.
   useEffect(() => {
     if (defaultFiltersApplied || isAuthLoading) return;
-
-    const nextValues: SavedFilters = {
-      searchText,
-      eventType,
-      creatorSex,
-      companionSex,
-      ageMin,
-      ageMax,
-      city,
-      language,
-      sortBy,
-      meetType,
-    };
-
-    setFilter(buildFeedFilter(nextValues));
     setDefaultFiltersApplied(true);
-  }, [
-    defaultFiltersApplied,
-    isAuthLoading,
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    city,
-    language,
-    sortBy,
-    meetType,
-  ]);
-
-  const applyFilters = useCallback(() => {
-    const f = buildFilter();
-    setFilter(f);
-  }, [buildFilter]);
+  }, [defaultFiltersApplied, isAuthLoading]);
 
   const applyMyCityFilter = useCallback(() => {
     if (!myCity) return;
-
-    setCity(myCity);
-    setFilter(
-      buildFeedFilter({
-        searchText,
-        eventType,
-        creatorSex,
-        companionSex,
-        ageMin,
-        ageMax,
-        city: myCity,
-        language,
-        sortBy,
-        meetType,
-      }),
-    );
-  }, [
-    myCity,
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    language,
-    sortBy,
-    meetType,
-  ]);
+    updateFilter({ city: myCity });
+  }, [myCity, updateFilter]);
 
   const clearFilters = () => {
-    setSearchText("");
-    setEventType("");
-    setCreatorSex("");
-    setCompanionSex("");
-    setAgeMin("");
-    setAgeMax("");
-    setCity("");
-    setLanguage("");
-    setSortBy("");
-    setMeetType("all");
-    setFilter({});
+    setFilter({ ...EMPTY_FILTER_VALUES });
   };
 
-  // When panel closes: save filters if enabled, and auto-apply
-  const prevShowFilters = useRef(false);
+  const clearFilter = useCallback(
+    (key: keyof SavedFilters) => {
+      const nextValue = key === "meetType" ? "all" : "";
+      updateFilter({ [key]: nextValue } as Partial<SavedFilters>);
+    },
+    [updateFilter],
+  );
+
+  // Persist filters to localStorage whenever the single filter object changes.
   useEffect(() => {
-    const wasOpen = prevShowFilters.current;
-    prevShowFilters.current = showFilters;
-    if (wasOpen && !showFilters) {
-      // Save filters to localStorage if checkbox is enabled
-      if (saveFilters) {
-        persistFilters({
-          searchText,
-          eventType,
-          creatorSex,
-          companionSex,
-          ageMin,
-          ageMax,
-          city,
-          language,
-          sortBy,
-          meetType,
-        });
-      }
-      setFilter(buildFilter());
-    }
-  }, [
-    showFilters,
-    saveFilters,
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    city,
-    language,
-    sortBy,
-    meetType,
-    buildFilter,
-  ]);
+    persistFiltersIfEnabled(filter);
+  }, [filter, persistFiltersIfEnabled]);
 
   // Persist saveFilters flag to localStorage when it changes
   useEffect(() => {
     localStorage.setItem(LS_SAVE_ENABLED_KEY, saveFilters ? "true" : "false");
   }, [saveFilters]);
 
-  const activeFilterEntries = Object.entries(filter);
+  const activeFilterEntries = Object.entries(filter).filter(([, value]) =>
+    Boolean(value && value !== "all"),
+  );
   const hasActiveFilters = activeFilterEntries.length > 0;
   const feedQueryKey = useMemo(() => ["feed", filter] as const, [filter]);
 
@@ -776,7 +648,7 @@ export default function FeedPage() {
   } = useInfiniteQuery({
     queryKey: feedQueryKey,
     queryFn: ({ pageParam }) =>
-      backend.getFeed(filter, Number(pageParam), MAX_FEED_PAGE_SIZE),
+      backend.getFeed(feedFilter, Number(pageParam), MAX_FEED_PAGE_SIZE),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
       lastPage.length === MAX_FEED_PAGE_SIZE
@@ -784,6 +656,22 @@ export default function FeedPage() {
         : undefined,
     enabled: defaultFiltersApplied,
   });
+
+  useEffect(() => {
+    if (!defaultFiltersApplied) return;
+
+    queryClient.setQueryData<InfiniteData<AdvertisementPublic[], number>>(
+      feedQueryKey,
+      (currentData) => {
+        if (!currentData || currentData.pages.length <= 1) return currentData;
+
+        return {
+          pages: [currentData.pages[0]],
+          pageParams: [currentData.pageParams[0] ?? 0],
+        };
+      },
+    );
+  }, [defaultFiltersApplied, feedQueryKey, queryClient]);
 
   const ads = useMemo(() => {
     const seenAdIds = new Set<string>();
@@ -803,7 +691,7 @@ export default function FeedPage() {
     setIsRefreshingFirstPage(true);
 
     try {
-      const firstPage = await backend.getFeed(filter, 0, MAX_FEED_PAGE_SIZE);
+      const firstPage = await backend.getFeed(feedFilter, 0, MAX_FEED_PAGE_SIZE);
       queryClient.setQueryData<InfiniteData<AdvertisementPublic[], number>>(
         feedQueryKey,
         {
@@ -815,7 +703,12 @@ export default function FeedPage() {
       refreshingFirstPageRef.current = false;
       setIsRefreshingFirstPage(false);
     }
-  }, [backend, defaultFiltersApplied, feedQueryKey, filter, queryClient]);
+  }, [backend, defaultFiltersApplied, feedFilter, feedQueryKey, queryClient]);
+
+  const handleRefreshClick = useCallback(() => {
+    persistFiltersIfEnabled(filter);
+    void refreshFirstPage();
+  }, [filter, persistFiltersIfEnabled, refreshFirstPage]);
 
   useEffect(() => {
     if (!defaultFiltersApplied || !isOnFirstPage) return;
@@ -890,7 +783,7 @@ export default function FeedPage() {
         <button
           type="button"
           className="btn btn-neutral btn-outline gap-2"
-          onClick={() => void refreshFirstPage()}
+          onClick={handleRefreshClick}
           disabled={!defaultFiltersApplied || isRefreshingFirstPage}
           data-ocid="feed.refetch"
         >
@@ -922,11 +815,7 @@ export default function FeedPage() {
               {key}: {String(value)}
               <button
                 type="button"
-                onClick={() => {
-                  const u = { ...filter };
-                  delete (u as Record<string, unknown>)[key];
-                  setFilter(u);
-                }}
+                onClick={() => clearFilter(key as keyof SavedFilters)}
               >
                 <X className="w-3 h-3" />
               </button>
@@ -945,25 +834,6 @@ export default function FeedPage() {
 
       {showFilters && (
         <div className="card bg-base-200 p-4 mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Search text */}
-          <div className="flex flex-col gap-1">
-            <label
-              htmlFor="filter-search"
-              className="block text-sm font-medium"
-            >
-              {t("feed.filters.searchText")}
-            </label>
-            <input
-              id="filter-search"
-              type="text"
-              className="input input-bordered w-full"
-              placeholder={t("feed.filters.searchText")}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && applyFilters()}
-              data-ocid="feed.filters.search_input"
-            />
-          </div>
           {/* Event type */}
           <div className="flex flex-col gap-1">
             <label
@@ -975,8 +845,10 @@ export default function FeedPage() {
             <select
               id="filter-event-type"
               className="select select-bordered"
-              value={eventType}
-              onChange={(e) => setEventType(e.target.value as EventType | "")}
+              value={filter.eventType}
+              onChange={(e) =>
+                updateFilter({ eventType: e.target.value as EventType | "" })
+              }
             >
               <option value="">{t("feed.filters.allTypes")}</option>
               {EVENT_TYPES.map((et) => (
@@ -997,8 +869,10 @@ export default function FeedPage() {
             <select
               id="filter-creator-sex"
               className="select select-bordered"
-              value={creatorSex}
-              onChange={(e) => setCreatorSex(e.target.value as Sex | "")}
+              value={filter.creatorSex}
+              onChange={(e) =>
+                updateFilter({ creatorSex: e.target.value as Sex | "" })
+              }
             >
               <option value="">{t("feed.filters.any")}</option>
               {SEX_OPTIONS.map((s) => (
@@ -1019,9 +893,11 @@ export default function FeedPage() {
             <select
               id="filter-companion-sex"
               className="select select-bordered"
-              value={companionSex}
+              value={filter.companionSex}
               onChange={(e) =>
-                setCompanionSex(e.target.value as ExpectedCompanionSex | "")
+                updateFilter({
+                  companionSex: e.target.value as ExpectedCompanionSex | "",
+                })
               }
             >
               <option value="">{t("feed.filters.any")}</option>
@@ -1041,8 +917,8 @@ export default function FeedPage() {
               id="filter-city"
               type="text"
               className="input input-bordered"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={filter.city}
+              onChange={(e) => updateFilter({ city: e.target.value })}
               placeholder={t("feed.filters.cityPlaceholder")}
             />
           </div>
@@ -1057,8 +933,8 @@ export default function FeedPage() {
             <select
               id="filter-language"
               className="select select-bordered"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              value={filter.language}
+              onChange={(e) => updateFilter({ language: e.target.value })}
             >
               <option value="">{t("feed.filters.any")}</option>
               {SUPPORTED_LOCALES.map((l) => (
@@ -1082,8 +958,8 @@ export default function FeedPage() {
                 type="number"
                 className="input input-bordered w-1/2"
                 placeholder={t("feed.filters.ageMin")}
-                value={ageMin}
-                onChange={(e) => setAgeMin(e.target.value)}
+                value={filter.ageMin}
+                onChange={(e) => updateFilter({ ageMin: e.target.value })}
                 min="13"
                 max="120"
               />
@@ -1092,8 +968,8 @@ export default function FeedPage() {
                 type="number"
                 className="input input-bordered w-1/2"
                 placeholder={t("feed.filters.ageMax")}
-                value={ageMax}
-                onChange={(e) => setAgeMax(e.target.value)}
+                value={filter.ageMax}
+                onChange={(e) => updateFilter({ ageMax: e.target.value })}
                 min="13"
                 max="120"
               />
@@ -1107,8 +983,10 @@ export default function FeedPage() {
             <select
               id="filter-sort"
               className="select select-bordered"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortBy | "")}
+              value={filter.sortBy}
+              onChange={(e) =>
+                updateFilter({ sortBy: e.target.value as SortBy | "" })
+              }
             >
               <option value="">{t("feed.filters.defaultSort")}</option>
               <option value={SortBy.newest}>
@@ -1141,8 +1019,8 @@ export default function FeedPage() {
                     className="radio radio-sm"
                     name="filter-meet-type"
                     value={val}
-                    checked={meetType === val}
-                    onChange={() => setMeetType(val)}
+                    checked={filter.meetType === val}
+                    onChange={() => updateFilter({ meetType: val })}
                     data-ocid={`feed.filters.meet_type_${val}_radio`}
                   />
                   <span className="label-text">
