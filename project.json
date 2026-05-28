@@ -1,0 +1,27 @@
+{
+  "overview": "Couple Cups is a social event advertisement platform on the Internet Computer. Users browse and post paid event invitations — cinema, restaurants, gaming, walks, and more — and connect with someone to share the experience. Features include Internet Identity login, Stripe payments, ICP blob storage for photos, 8-language support, and a fully responsive DaisyUI interface.",
+  "features": [
+    "Public feed with filterable event advertisements",
+    "Internet Identity authentication",
+    "Profile management with photo upload (ICP blob storage)",
+    "Advertisement creation with Stripe payment checkout ($1 USD)",
+    "Link preview for event URLs",
+    "8-language i18n with auto browser detection",
+    "Auto light/dark theme per system preference",
+    "City and language detection utilities",
+    "My Advertisements dashboard with payment retry",
+    "Responsive DaisyUI design with Lucide icons"
+  ],
+  "category": "social",
+  "tags": [
+    "social",
+    "events",
+    "dating",
+    "icp",
+    "stripe",
+    "i18n",
+    "daisyui",
+    "internet-identity"
+  ],
+  "last_updated": "2026-05-15T19:00:42.317Z"
+}

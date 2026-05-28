@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  /* biome-ignore lint/correctness/noUnknownProperty: DaisyUI @plugin custom property */
+  name: "lofi";
+  /* biome-ignore lint/correctness/noUnknownProperty: DaisyUI @plugin custom property */
+  default: true;
+}
+@plugin "daisyui/theme" {
+  /* biome-ignore lint/correctness/noUnknownProperty: DaisyUI @plugin custom property */
+  name: "black";
+  /* biome-ignore lint/correctness/noUnknownProperty: DaisyUI @plugin custom property */
+  prefersdark: true;
+}

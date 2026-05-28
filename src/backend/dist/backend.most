@@ -1,0 +1,182 @@
+// Version: 1.0.0
+type AdLike__1013456673 =
+  {adId : Text; createdAt : Int; id : Text; userPrincipal : Principal};
+type AdStatus__342136045 =
+  {#deleted; #draft; #pending_payment; #published; #rejected};
+type Advertisement__1003727115 =
+  {
+    city : ?Text;
+    createdAt : Int;
+    creatorPrincipal : Principal;
+    description : Text;
+    eventLink : ?Text;
+    eventName : Text;
+    eventType : EventType__492079268;
+    expectedCompanionSex : ExpectedCompanionSex__598050792;
+    howPaysForEvent : HowPaysForEvent__471933430;
+    id : Text;
+    isVirtual : Bool;
+    linkPreview : ?LinkPreview__27851479;
+    meetType : MeetType__737040288;
+    paid : Float;
+    paymentProvider : ?Text;
+    paymentReference : ?Text;
+    paymentStatus : PaymentStatus__123365764;
+    photos : [BlobMetadata__151021658];
+    publishedAt : ?Int;
+    status : AdStatus__342136045;
+    updatedAt : Int
+  };
+type BlobMetadata__151021658 =
+  {
+    blob : ExternalBlob__671167343;
+    contentType : Text;
+    createdAt : Int;
+    size : Nat
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type EventType__492079268 =
+  {
+    #cinema;
+    #coffee;
+    #concert;
+    #gaming;
+    #other;
+    #restaurant;
+    #sport;
+    #study;
+    #travel;
+    #virtual;
+    #walking
+  };
+type ExpectedCompanionSex__598050792 = {#both; #female; #male};
+type ExternalBlob__671167343 = Blob;
+type Favourite__879417414 =
+  {adId : Text; createdAt : Int; id : Text; userPrincipal : Principal};
+type HowPaysForEvent__471933430 = {#free; #me; #split; #you};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type JoinRequestStatus__928260881 = {#active; #cancelled};
+type JoinRequest__632747822 =
+  {
+    adId : Text;
+    createdAt : Int;
+    id : Text;
+    requesterPrincipal : Principal;
+    status : JoinRequestStatus__928260881
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LinkPreview__27851479 =
+  {
+    description : ?Text;
+    domain : ?Text;
+    image : ?Text;
+    title : ?Text;
+    url : Text
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MeetType__737040288 = {#inPerson; #online};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type PaymentStatus__123365764 = {#failed; #paid; #pending; #unpaid};
+type ProfileLike__675856249 =
+  {
+    createdAt : Int;
+    id : Text;
+    likerPrincipal : Principal;
+    profilePrincipal : Principal
+  };
+type ReferralEntry__47930665 =
+  {
+    adsPublished : Nat;
+    referredAt : Int;
+    referredPrincipal : Principal;
+    totalEarned : Float
+  };
+type Sex__699448499 = {#female; #male; #other};
+type StripeConfiguration__87721349 =
+  {allowedCountries : [Text]; secretKey : Text};
+type UserProfile__446616884 =
+  {
+    age : ?Nat;
+    balance : Float;
+    bio : Text;
+    city : ?Text;
+    createdAt : Int;
+    defaultAvatar : Text;
+    fullName : Text;
+    hideContactsInAds : Bool;
+    instagram : ?Text;
+    language : Text;
+    phoneNumber : ?Text;
+    photos : [BlobMetadata__151021658];
+    principal : Principal;
+    referralCode : ?Text;
+    referredBy : ?Principal;
+    sex : Sex__699448499;
+    telegram : ?Text;
+    updatedAt : Int;
+    username : ?Text
+  };
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable PROMO_CODE : Text;
+  stable STRIPE_PUBLISHABLE_KEY : Text;
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable adLikes :
+    {
+      var root : Node__46230540<Text, AdLike__1013456673>;
+      var size : Nat__490723111
+    };
+  stable adState : {var nextAdId : Nat};
+  stable ads :
+    {
+      var root : Node__46230540<Text, Advertisement__1003727115>;
+      var size : Nat__490723111
+    };
+  stable var dateOfBirthEntries : [(Principal, Int)];
+  stable var dateOfBirths :
+    {var root : Node__46230540<Principal, Int>; var size : Nat__490723111};
+  stable defaultStripeCfg : {allowedCountries : [Text]; secretKey : Text};
+  stable favourites :
+    {
+      var root : Node__46230540<Text, Favourite__879417414>;
+      var size : Nat__490723111
+    };
+  stable joinRequests :
+    {
+      var root : Node__46230540<Text, JoinRequest__632747822>;
+      var size : Nat__490723111
+    };
+  stable profileLikes :
+    {
+      var root : Node__46230540<Text, ProfileLike__675856249>;
+      var size : Nat__490723111
+    };
+  stable profiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__446616884>;
+      var size : Nat__490723111
+    };
+  stable referralCodeIndex :
+    {var root : Node__46230540<Text, Principal>; var size : Nat__490723111};
+  stable referralLedger :
+    {
+      var root : Node__46230540<Text, ReferralEntry__47930665>;
+      var size : Nat__490723111
+    };
+  stable stripeConfig : {var config : ?StripeConfiguration__87721349};
+  stable var stripeConfiguration : ?StripeConfiguration__87721349;
+  stable usernameIndex :
+    {var root : Node__46230540<Text, Principal>; var size : Nat__490723111}
+};

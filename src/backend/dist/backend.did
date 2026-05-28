@@ -1,0 +1,454 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfilePublic = 
+ record {
+   age: opt nat;
+   bio: text;
+   city: opt text;
+   createdAt: int;
+   dateOfBirth: opt int;
+   defaultAvatar: text;
+   fullName: text;
+   hideContactsInAds: bool;
+   language: text;
+   photos: vec BlobMetadata;
+   "principal": principal;
+   sex: Sex;
+   updatedAt: int;
+   username: opt text;
+ };
+type UserProfile = 
+ record {
+   age: opt nat;
+   balance: float64;
+   bio: text;
+   city: opt text;
+   createdAt: int;
+   defaultAvatar: text;
+   fullName: text;
+   hideContactsInAds: bool;
+   instagram: opt text;
+   language: text;
+   phoneNumber: opt text;
+   photos: vec BlobMetadata;
+   "principal": principal;
+   referralCode: opt text;
+   referredBy: opt principal;
+   sex: Sex;
+   telegram: opt text;
+   updatedAt: int;
+   username: opt text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type StripeSessionStatus = 
+ variant {
+   completed: record {
+                response: text;
+                userPrincipal: opt text;
+              };
+   failed: record {error: text;};
+ };
+type StripeConfiguration = 
+ record {
+   allowedCountries: vec text;
+   secretKey: text;
+ };
+type SortBy = 
+ variant {
+   city;
+   eventType;
+   newest;
+   oldest;
+ };
+type ShoppingItem = 
+ record {
+   currency: text;
+   priceInCents: nat;
+   productDescription: text;
+   productName: text;
+   quantity: nat;
+ };
+type Sex = 
+ variant {
+   female;
+   male;
+   other;
+ };
+type Result_9 = 
+ variant {
+   err: text;
+   ok: vec FavouriteWithAd;
+ };
+type Result_8 = 
+ variant {
+   err: text;
+   ok: vec record {
+             ad: opt AdvertisementPublic;
+             request: JoinRequestPublic;
+           };
+ };
+type Result_7 = 
+ variant {
+   err: text;
+   ok: vec ReferralEntry;
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: bool;
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: JoinRequestPublic;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: Advertisement;
+ };
+type Result_12 = 
+ variant {
+   err: text;
+   ok: FavouritePublic;
+ };
+type Result_11 = 
+ variant {
+   err: text;
+   ok:
+    vec record {
+          profile: opt UserProfilePublic;
+          request: JoinRequestPublic;
+        };
+ };
+type Result_10 = 
+ variant {
+   err: text;
+   ok: vec AdLikeWithAd;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: LinkPreview;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: UserProfile;
+ };
+type ReferralEntry = 
+ record {
+   adsPublished: nat;
+   referredAt: int;
+   referredPrincipal: principal;
+   totalEarned: float64;
+ };
+type ProfileInput = 
+ record {
+   bio: text;
+   city: opt text;
+   dateOfBirth: opt int;
+   fullName: text;
+   hideContactsInAds: bool;
+   instagram: opt text;
+   language: text;
+   phoneNumber: opt text;
+   photos: vec BlobMetadata;
+   sex: Sex;
+   telegram: opt text;
+   username: opt text;
+ };
+type PaymentStatus = 
+ variant {
+   failed;
+   paid;
+   pending;
+   unpaid;
+ };
+type MeetType = 
+ variant {
+   inPerson;
+   online;
+ };
+type LinkPreview = 
+ record {
+   description: opt text;
+   domain: opt text;
+   image: opt text;
+   title: opt text;
+   url: text;
+ };
+type JoinRequestStatus = 
+ variant {
+   active;
+   cancelled;
+ };
+type JoinRequestPublic = 
+ record {
+   adId: text;
+   createdAt: int;
+   id: text;
+   requesterPrincipal: principal;
+   status: JoinRequestStatus;
+ };
+type HowPaysForEvent = 
+ variant {
+   free;
+   me;
+   split;
+   you;
+ };
+type FeedFilter = 
+ record {
+   ageMax: opt nat;
+   ageMin: opt nat;
+   city: opt text;
+   creatorSex: opt Sex;
+   eventType: opt EventType;
+   expectedCompanionSex: opt ExpectedCompanionSex;
+   language: opt text;
+   meetType: opt MeetType;
+   offlineOnly: opt bool;
+   searchText: opt text;
+   sortBy: opt SortBy;
+   virtualOnly: opt bool;
+ };
+type FavouriteWithAd = 
+ record {
+   ad: opt AdvertisementPublic;
+   favourite: FavouritePublic;
+ };
+type FavouritePublic = 
+ record {
+   adId: text;
+   createdAt: int;
+   id: text;
+   userPrincipal: principal;
+ };
+type ExternalBlob = blob;
+type ExpectedCompanionSex = 
+ variant {
+   both;
+   female;
+   male;
+ };
+type EventType = 
+ variant {
+   cinema;
+   coffee;
+   concert;
+   gaming;
+   other;
+   restaurant;
+   sport;
+   study;
+   travel;
+   virtual;
+   walking;
+ };
+type BlobMetadata = 
+ record {
+   "blob": ExternalBlob;
+   contentType: text;
+   createdAt: int;
+   size: nat;
+ };
+type AdvertisementPublic = 
+ record {
+   city: opt text;
+   createdAt: int;
+   creatorPrincipal: principal;
+   creatorProfile: opt UserProfilePublic;
+   description: text;
+   eventLink: opt text;
+   eventName: text;
+   eventType: EventType;
+   expectedCompanionSex: ExpectedCompanionSex;
+   howPaysForEvent: HowPaysForEvent;
+   id: text;
+   isVirtual: bool;
+   linkPreview: opt LinkPreview;
+   meetType: MeetType;
+   paid: float64;
+   paymentProvider: opt text;
+   paymentReference: opt text;
+   paymentStatus: PaymentStatus;
+   photos: vec BlobMetadata;
+   publishedAt: opt int;
+   status: AdStatus;
+   updatedAt: int;
+ };
+type Advertisement = 
+ record {
+   city: opt text;
+   createdAt: int;
+   creatorPrincipal: principal;
+   description: text;
+   eventLink: opt text;
+   eventName: text;
+   eventType: EventType;
+   expectedCompanionSex: ExpectedCompanionSex;
+   howPaysForEvent: HowPaysForEvent;
+   id: text;
+   isVirtual: bool;
+   linkPreview: opt LinkPreview;
+   meetType: MeetType;
+   paid: float64;
+   paymentProvider: opt text;
+   paymentReference: opt text;
+   paymentStatus: PaymentStatus;
+   photos: vec BlobMetadata;
+   publishedAt: opt int;
+   status: AdStatus;
+   updatedAt: int;
+ };
+type AdStatus = 
+ variant {
+   deleted;
+   draft;
+   pending_payment;
+   published;
+   rejected;
+ };
+type AdLikeWithAd = 
+ record {
+   ad: opt AdvertisementPublic;
+   like: AdLike;
+ };
+type AdLike = 
+ record {
+   adId: text;
+   createdAt: int;
+   id: text;
+   userPrincipal: principal;
+ };
+type AdInput = 
+ record {
+   city: opt text;
+   description: text;
+   eventLink: opt text;
+   eventName: text;
+   eventType: EventType;
+   expectedCompanionSex: ExpectedCompanionSex;
+   howPaysForEvent: HowPaysForEvent;
+   isVirtual: bool;
+   meetType: MeetType;
+   photos: vec BlobMetadata;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  addAdLike: (adId: text) -> (Result_3);
+  addProfileLike: (profilePrincipal: principal) -> (Result_3);
+  addToFavourites: (adId: text) -> (Result_12);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  cancelJoinRequest: (requestId: text) -> (Result_3);
+  confirmPayment: (adId: text, sessionId: text) -> (Result_2);
+  createAd: (input: AdInput) -> (Result_2);
+  createCheckoutSession: (items: vec ShoppingItem, successUrl: text,
+   cancelUrl: text) -> (text);
+  createStripeSession: (adId: text, successUrl: text, cancelUrl: text) ->
+   (Result_6);
+  creditReferralCommission: (publisherPrincipal: principal, adPaymentAmount:
+   float64) -> () oneway;
+  deleteAd: (id: text) -> (Result_3);
+  getAdById: (id: text) -> (opt AdvertisementPublic) query;
+  getAdLikeCount: (adId: text) -> (nat) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getFavouriteCount: (adId: text) -> (nat) query;
+  getFeed: (filter: FeedFilter, offset: nat, limit: nat) ->
+   (vec AdvertisementPublic) query;
+  getJoinRequestsForAd: (adId: text) -> (Result_11) query;
+  getMyAdLikes: () -> (Result_10) query;
+  getMyAds: () -> (vec Advertisement) query;
+  getMyFavourites: () -> (Result_9) query;
+  getMyJoinRequests: () -> (Result_8) query;
+  getMyProfile: () -> (opt UserProfile) query;
+  getMyProfileLikes: () -> (vec principal) query;
+  getMyReferrals: () -> (Result_7) query;
+  getProfileLikeCount: (profilePrincipal: principal) -> (nat) query;
+  getPublicProfile: (principalText: text) -> (opt UserProfilePublic) query;
+  getPublicProfileWithContact: (principalText: text) -> (Result);
+  getReferralCode: () -> (Result_6);
+  getStripePublishableKey: () -> (text) query;
+  getStripeSessionStatus: (sessionId: text) -> (StripeSessionStatus);
+  handleStripeWebhook: (_payload: text, _signature: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  hasJoinRequest: (adId: text) -> (Result_5) query;
+  isAdLikedByMe: (adId: text) -> (bool) query;
+  isCallerAdmin: () -> (bool) query;
+  isFavourited: (adId: text) -> (bool) query;
+  isProfileLikedByMe: (profilePrincipal: principal) -> (bool) query;
+  isStripeConfigured: () -> (bool) query;
+  publishByPromoCode: (adId: text, code: text) -> (Result_3);
+  removeAdLike: (adId: text) -> (Result_3);
+  removeFromFavourites: (adId: text) -> (Result_3);
+  removeProfileLike: (profilePrincipal: principal) -> (Result_3);
+  savePaymentReference: (adId: text, sessionId: text) -> (Result_3);
+  sendJoinRequest: (adId: text) -> (Result_4);
+  setReferredBy: (code: text) -> (Result_3);
+  setStripeConfiguration: (config: StripeConfiguration) -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateAd: (id: text, input: AdInput) -> (Result_2);
+  updateLinkPreview: (adId: text) -> (Result_1);
+  upsertProfile: (input: ProfileInput) -> (Result);
+}
