@@ -1,6 +1,6 @@
-import { Q as QueryObserver, k as infiniteQueryBehavior, l as hasPreviousPage, m as hasNextPage, n as useBaseQuery, o as createLucideIcon, u as useTranslation, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, M as MAX_FEED_PAGE_SIZE, j as jsxRuntimeExports, p as MapPin, X, E as EVENT_TYPES, S as SEX_OPTIONS, q as EXPECTED_COMPANION_SEX_OPTIONS, s as SUPPORTED_LOCALES, t as SortBy, v as MeetType, b as useNavigate, g as getProfileAvatarUrl, f as useMutation, G as Globe, U as Users, C as Calendar, w as Star, H as Heart } from "./index-Bwrfbo5-.js";
-import { R as RefreshCw } from "./refresh-cw-CwegvwAq.js";
-import { W as Wallet } from "./wallet-19MMABAS.js";
+import { Q as QueryObserver, k as infiniteQueryBehavior, l as hasPreviousPage, m as hasNextPage, n as useBaseQuery, o as createLucideIcon, u as useTranslation, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, M as MAX_FEED_PAGE_SIZE, j as jsxRuntimeExports, p as MapPin, X, E as EVENT_TYPES, S as SEX_OPTIONS, q as EXPECTED_COMPANION_SEX_OPTIONS, s as SUPPORTED_LOCALES, t as SortBy, v as MeetType, b as useNavigate, g as getProfileAvatarUrl, f as useMutation, G as Globe, U as Users, C as Calendar, w as Star, H as Heart } from "./index-BFTCPkdC.js";
+import { R as RefreshCw } from "./refresh-cw-BM_cAkUR.js";
+import { W as Wallet } from "./wallet-D7KieR-K.js";
 var InfiniteQueryObserver = class extends QueryObserver {
   constructor(client, options) {
     super(client, options);
@@ -283,7 +283,7 @@ function AdCard({ ad }) {
             "button",
             {
               type: "button",
-              className: "w-12 h-12 rounded-full bg-base-300 overflow-hidden flex items-center justify-center p-0 border-0 bg-transparent",
+              className: "w-12 h-12 rounded-full bg-base-300 overflow-hidden flex items-center justify-center p-0 border-0 bg-transparent cursor-pointer",
               onClick: (e) => {
                 e.stopPropagation();
                 navigate({
@@ -296,7 +296,7 @@ function AdCard({ ad }) {
                 {
                   src: avatarUrl,
                   alt: "",
-                  className: "w-full h-full object-cover hover:opacity-80 transition-opacity",
+                  className: "w-full h-full object-cover hover:opacity-80 transition-opacity cursor-pointer",
                   loading: "lazy"
                 }
               )
@@ -407,7 +407,8 @@ function AdCard({ ad }) {
                   favMutation.mutate();
                 },
                 disabled: isOwner || favMutation.isPending,
-                title: isOwner ? "" : isFav ? t("favourites.removeTooltip") : t("favourites.addButton"),
+                title: t("favourites.addButton"),
+                "aria-label": t("favourites.addButton"),
                 "data-ocid": `feed.ad_card.${ad.id}.favourite_button`,
                 children: favMutation.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "loading loading-infinity loading-xs" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Star,
@@ -429,7 +430,8 @@ function AdCard({ ad }) {
                   likeMutation.mutate();
                 },
                 disabled: likeMutation.isPending,
-                title: isLiked ? t("likes.remove") : t("likes.add"),
+                title: t("likes.likeUser"),
+                "aria-label": t("likes.likeUser"),
                 "data-ocid": `feed.ad_card.${ad.id}.like_button`,
                 children: likeMutation.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "loading loading-infinity loading-xs" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Heart,
@@ -449,6 +451,8 @@ function AdCard({ ad }) {
                 type: "button",
                 className: "btn btn-neutral btn-sm btn-square opacity-50 cursor-not-allowed",
                 disabled: true,
+                title: t("likes.likeUser"),
+                "aria-label": t("likes.likeUser"),
                 "data-ocid": `feed.ad_card.${ad.id}.like_button`,
                 children: /* @__PURE__ */ jsxRuntimeExports.jsx(Heart, { size: 16 })
               }
@@ -517,7 +521,10 @@ function FeedPage() {
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const backend = useBackend();
   const queryClient = useQueryClient();
-  const [filter, setFilter] = reactExports.useState({});
+  const [filter, setFilter] = reactExports.useState(() => ({
+    ...EMPTY_FILTER_VALUES,
+    ...loadSavedFilters() ?? {}
+  }));
   const [defaultFiltersApplied, setDefaultFiltersApplied] = reactExports.useState(false);
   const [showFilters, setShowFilters] = reactExports.useState(false);
   const [saveFilters, setSaveFilters] = reactExports.useState(
@@ -528,29 +535,7 @@ function FeedPage() {
   const [isRefreshingFirstPage, setIsRefreshingFirstPage] = reactExports.useState(false);
   const loadMoreRef = reactExports.useRef(null);
   const refreshingFirstPageRef = reactExports.useRef(false);
-  const savedFilters = reactExports.useRef(loadSavedFilters());
-  const initialFilterValues = {
-    ...EMPTY_FILTER_VALUES,
-    ...savedFilters.current ?? {}
-  };
-  const [searchText, setSearchText] = reactExports.useState(initialFilterValues.searchText);
-  const [eventType, setEventType] = reactExports.useState(
-    initialFilterValues.eventType
-  );
-  const [creatorSex, setCreatorSex] = reactExports.useState(
-    initialFilterValues.creatorSex
-  );
-  const [companionSex, setCompanionSex] = reactExports.useState(
-    initialFilterValues.companionSex
-  );
-  const [ageMin, setAgeMin] = reactExports.useState(initialFilterValues.ageMin);
-  const [ageMax, setAgeMax] = reactExports.useState(initialFilterValues.ageMax);
-  const [city, setCity] = reactExports.useState(initialFilterValues.city);
-  const [language, setLanguage] = reactExports.useState(initialFilterValues.language);
-  const [sortBy, setSortBy] = reactExports.useState(initialFilterValues.sortBy);
-  const [meetType, setMeetType] = reactExports.useState(
-    initialFilterValues.meetType ?? "all"
-  );
+  const feedFilter = reactExports.useMemo(() => buildFeedFilter(filter), [filter]);
   const { data: myProfile } = useQuery({
     queryKey: ["myProfile"],
     queryFn: () => backend.getMyProfile(),
@@ -559,6 +544,18 @@ function FeedPage() {
   const profileCity = (myProfile == null ? void 0 : myProfile.city) ?? "";
   const myCity = profileCity;
   const isMyCityFilterActive = Boolean(myCity && filter.city === myCity);
+  const updateFilter = reactExports.useCallback((updates) => {
+    setFilter((currentFilter) => ({
+      ...currentFilter,
+      ...updates
+    }));
+  }, []);
+  const persistFiltersIfEnabled = reactExports.useCallback(
+    (filters) => {
+      if (saveFilters) persistFilters(filters);
+    },
+    [saveFilters]
+  );
   reactExports.useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -569,147 +566,33 @@ function FeedPage() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const buildFilter = reactExports.useCallback(() => {
-    return buildFeedFilter({
-      searchText,
-      eventType,
-      creatorSex,
-      companionSex,
-      ageMin,
-      ageMax,
-      city,
-      language,
-      sortBy,
-      meetType
-    });
-  }, [
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    city,
-    language,
-    sortBy,
-    meetType
-  ]);
   reactExports.useEffect(() => {
     if (defaultFiltersApplied || isAuthLoading) return;
-    const nextValues = {
-      searchText,
-      eventType,
-      creatorSex,
-      companionSex,
-      ageMin,
-      ageMax,
-      city,
-      language,
-      sortBy,
-      meetType
-    };
-    setFilter(buildFeedFilter(nextValues));
     setDefaultFiltersApplied(true);
-  }, [
-    defaultFiltersApplied,
-    isAuthLoading,
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    city,
-    language,
-    sortBy,
-    meetType
-  ]);
-  const applyFilters = reactExports.useCallback(() => {
-    const f = buildFilter();
-    setFilter(f);
-  }, [buildFilter]);
+  }, [defaultFiltersApplied, isAuthLoading]);
   const applyMyCityFilter = reactExports.useCallback(() => {
     if (!myCity) return;
-    setCity(myCity);
-    setFilter(
-      buildFeedFilter({
-        searchText,
-        eventType,
-        creatorSex,
-        companionSex,
-        ageMin,
-        ageMax,
-        city: myCity,
-        language,
-        sortBy,
-        meetType
-      })
-    );
-  }, [
-    myCity,
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    language,
-    sortBy,
-    meetType
-  ]);
+    updateFilter({ city: myCity });
+  }, [myCity, updateFilter]);
   const clearFilters = () => {
-    setSearchText("");
-    setEventType("");
-    setCreatorSex("");
-    setCompanionSex("");
-    setAgeMin("");
-    setAgeMax("");
-    setCity("");
-    setLanguage("");
-    setSortBy("");
-    setMeetType("all");
-    setFilter({});
+    setFilter({ ...EMPTY_FILTER_VALUES });
   };
-  const prevShowFilters = reactExports.useRef(false);
+  const clearFilter = reactExports.useCallback(
+    (key) => {
+      const nextValue = key === "meetType" ? "all" : "";
+      updateFilter({ [key]: nextValue });
+    },
+    [updateFilter]
+  );
   reactExports.useEffect(() => {
-    const wasOpen = prevShowFilters.current;
-    prevShowFilters.current = showFilters;
-    if (wasOpen && !showFilters) {
-      if (saveFilters) {
-        persistFilters({
-          searchText,
-          eventType,
-          creatorSex,
-          companionSex,
-          ageMin,
-          ageMax,
-          city,
-          language,
-          sortBy,
-          meetType
-        });
-      }
-      setFilter(buildFilter());
-    }
-  }, [
-    showFilters,
-    saveFilters,
-    searchText,
-    eventType,
-    creatorSex,
-    companionSex,
-    ageMin,
-    ageMax,
-    city,
-    language,
-    sortBy,
-    meetType,
-    buildFilter
-  ]);
+    persistFiltersIfEnabled(filter);
+  }, [filter, persistFiltersIfEnabled]);
   reactExports.useEffect(() => {
     localStorage.setItem(LS_SAVE_ENABLED_KEY, saveFilters ? "true" : "false");
   }, [saveFilters]);
-  const activeFilterEntries = Object.entries(filter);
+  const activeFilterEntries = Object.entries(filter).filter(
+    ([, value]) => Boolean(value && value !== "all")
+  );
   const hasActiveFilters = activeFilterEntries.length > 0;
   const feedQueryKey = reactExports.useMemo(() => ["feed", filter], [filter]);
   const {
@@ -721,11 +604,24 @@ function FeedPage() {
     isFetchingNextPage
   } = useInfiniteQuery({
     queryKey: feedQueryKey,
-    queryFn: ({ pageParam }) => backend.getFeed(filter, Number(pageParam), MAX_FEED_PAGE_SIZE),
+    queryFn: ({ pageParam }) => backend.getFeed(feedFilter, Number(pageParam), MAX_FEED_PAGE_SIZE),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => lastPage.length === MAX_FEED_PAGE_SIZE ? allPages.length * MAX_FEED_PAGE_SIZE : void 0,
     enabled: defaultFiltersApplied
   });
+  reactExports.useEffect(() => {
+    if (!defaultFiltersApplied) return;
+    queryClient.setQueryData(
+      feedQueryKey,
+      (currentData) => {
+        if (!currentData || currentData.pages.length <= 1) return currentData;
+        return {
+          pages: [currentData.pages[0]],
+          pageParams: [currentData.pageParams[0] ?? 0]
+        };
+      }
+    );
+  }, [defaultFiltersApplied, feedQueryKey, queryClient]);
   const ads = reactExports.useMemo(() => {
     const seenAdIds = /* @__PURE__ */ new Set();
     return (feedData == null ? void 0 : feedData.pages.flat().filter((ad) => {
@@ -739,7 +635,11 @@ function FeedPage() {
     refreshingFirstPageRef.current = true;
     setIsRefreshingFirstPage(true);
     try {
-      const firstPage = await backend.getFeed(filter, 0, MAX_FEED_PAGE_SIZE);
+      const firstPage = await backend.getFeed(
+        feedFilter,
+        0,
+        MAX_FEED_PAGE_SIZE
+      );
       queryClient.setQueryData(
         feedQueryKey,
         {
@@ -751,7 +651,11 @@ function FeedPage() {
       refreshingFirstPageRef.current = false;
       setIsRefreshingFirstPage(false);
     }
-  }, [backend, defaultFiltersApplied, feedQueryKey, filter, queryClient]);
+  }, [backend, defaultFiltersApplied, feedFilter, feedQueryKey, queryClient]);
+  const handleRefreshClick = reactExports.useCallback(() => {
+    persistFiltersIfEnabled(filter);
+    void refreshFirstPage();
+  }, [filter, persistFiltersIfEnabled, refreshFirstPage]);
   reactExports.useEffect(() => {
     if (!defaultFiltersApplied || !isOnFirstPage) return;
     const intervalId = window.setInterval(() => {
@@ -820,7 +724,7 @@ function FeedPage() {
         {
           type: "button",
           className: "btn btn-neutral btn-outline gap-2",
-          onClick: () => void refreshFirstPage(),
+          onClick: handleRefreshClick,
           disabled: !defaultFiltersApplied || isRefreshingFirstPage,
           "data-ocid": "feed.refetch",
           children: [
@@ -863,11 +767,7 @@ function FeedPage() {
           "button",
           {
             type: "button",
-            onClick: () => {
-              const u = { ...filter };
-              delete u[key];
-              setFilter(u);
-            },
+            onClick: () => clearFilter(key),
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-3 h-3" })
           }
         )
@@ -890,29 +790,6 @@ function FeedPage() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "label",
           {
-            htmlFor: "filter-search",
-            className: "block text-sm font-medium",
-            children: t("feed.filters.searchText")
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "input",
-          {
-            id: "filter-search",
-            type: "text",
-            className: "input input-bordered w-full",
-            placeholder: t("feed.filters.searchText"),
-            value: searchText,
-            onChange: (e) => setSearchText(e.target.value),
-            onKeyDown: (e) => e.key === "Enter" && applyFilters(),
-            "data-ocid": "feed.filters.search_input"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-1", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "label",
-          {
             htmlFor: "filter-event-type",
             className: "block text-sm font-medium",
             children: t("feed.filters.eventType")
@@ -923,8 +800,8 @@ function FeedPage() {
           {
             id: "filter-event-type",
             className: "select select-bordered",
-            value: eventType,
-            onChange: (e) => setEventType(e.target.value),
+            value: filter.eventType,
+            onChange: (e) => updateFilter({ eventType: e.target.value }),
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.allTypes") }),
               EVENT_TYPES.map((et) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: et.value, children: t(`eventType.${et.value}`) }, et.value))
@@ -946,8 +823,8 @@ function FeedPage() {
           {
             id: "filter-creator-sex",
             className: "select select-bordered",
-            value: creatorSex,
-            onChange: (e) => setCreatorSex(e.target.value),
+            value: filter.creatorSex,
+            onChange: (e) => updateFilter({ creatorSex: e.target.value }),
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.any") }),
               SEX_OPTIONS.map((s) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: s.value, children: t(`sex.${s.value}`) }, s.value))
@@ -969,8 +846,10 @@ function FeedPage() {
           {
             id: "filter-companion-sex",
             className: "select select-bordered",
-            value: companionSex,
-            onChange: (e) => setCompanionSex(e.target.value),
+            value: filter.companionSex,
+            onChange: (e) => updateFilter({
+              companionSex: e.target.value
+            }),
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.any") }),
               EXPECTED_COMPANION_SEX_OPTIONS.map((s) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: s.value, children: t(`companionSex.${s.value}`) }, s.value))
@@ -986,8 +865,8 @@ function FeedPage() {
             id: "filter-city",
             type: "text",
             className: "input input-bordered",
-            value: city,
-            onChange: (e) => setCity(e.target.value),
+            value: filter.city,
+            onChange: (e) => updateFilter({ city: e.target.value }),
             placeholder: t("feed.filters.cityPlaceholder")
           }
         )
@@ -1006,8 +885,8 @@ function FeedPage() {
           {
             id: "filter-language",
             className: "select select-bordered",
-            value: language,
-            onChange: (e) => setLanguage(e.target.value),
+            value: filter.language,
+            onChange: (e) => updateFilter({ language: e.target.value }),
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.any") }),
               SUPPORTED_LOCALES.map((l) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: l.code, children: l.nativeName }, l.code))
@@ -1032,8 +911,8 @@ function FeedPage() {
               type: "number",
               className: "input input-bordered w-1/2",
               placeholder: t("feed.filters.ageMin"),
-              value: ageMin,
-              onChange: (e) => setAgeMin(e.target.value),
+              value: filter.ageMin,
+              onChange: (e) => updateFilter({ ageMin: e.target.value }),
               min: "13",
               max: "120"
             }
@@ -1045,8 +924,8 @@ function FeedPage() {
               type: "number",
               className: "input input-bordered w-1/2",
               placeholder: t("feed.filters.ageMax"),
-              value: ageMax,
-              onChange: (e) => setAgeMax(e.target.value),
+              value: filter.ageMax,
+              onChange: (e) => updateFilter({ ageMax: e.target.value }),
               min: "13",
               max: "120"
             }
@@ -1060,8 +939,8 @@ function FeedPage() {
           {
             id: "filter-sort",
             className: "select select-bordered",
-            value: sortBy,
-            onChange: (e) => setSortBy(e.target.value),
+            value: filter.sortBy,
+            onChange: (e) => updateFilter({ sortBy: e.target.value }),
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: t("feed.filters.defaultSort") }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: SortBy.newest, children: t("feed.sortOptions.newest") }),
@@ -1086,8 +965,8 @@ function FeedPage() {
                   className: "radio radio-sm",
                   name: "filter-meet-type",
                   value: val,
-                  checked: meetType === val,
-                  onChange: () => setMeetType(val),
+                  checked: filter.meetType === val,
+                  onChange: () => updateFilter({ meetType: val }),
                   "data-ocid": `feed.filters.meet_type_${val}_radio`
                 }
               ),

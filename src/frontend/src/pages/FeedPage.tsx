@@ -691,7 +691,11 @@ export default function FeedPage() {
     setIsRefreshingFirstPage(true);
 
     try {
-      const firstPage = await backend.getFeed(feedFilter, 0, MAX_FEED_PAGE_SIZE);
+      const firstPage = await backend.getFeed(
+        feedFilter,
+        0,
+        MAX_FEED_PAGE_SIZE,
+      );
       queryClient.setQueryData<InfiniteData<AdvertisementPublic[], number>>(
         feedQueryKey,
         {

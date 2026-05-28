@@ -332,13 +332,13 @@ export default function Layout({ children }: LayoutProps) {
             <span className="flex items-center">
               {/* Light theme logo (lofi) */}
               <img
-                src="/assets/evertwo-logo-light-019e6ead-f0e9-7698-9c63-736273dcd5e2.png"
+                src="/assets/evertwo-logo-light-2-019e6f67-0ad7-75ef-8326-d99b8ab241c6.png"
                 alt="EverTwo"
                 className="max-h-8 w-auto object-contain [[data-theme=black]_&]:hidden"
               />
               {/* Dark theme logo (black) */}
               <img
-                src="/assets/evertwo-logo-dark-019e6ead-f731-726f-a6cd-3a6eee17d392.png"
+                src="/assets/evertwo-logo-dark-2-019e6f67-08ad-70b8-a1d8-a2f12a753cd2.png"
                 alt="EverTwo"
                 className="max-h-8 w-auto object-contain hidden [[data-theme=black]_&]:block"
               />

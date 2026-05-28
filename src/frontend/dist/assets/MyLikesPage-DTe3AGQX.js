@@ -1,4 +1,4 @@
-import { u as useTranslation, a as useAuth, b as useNavigate, c as useBackend, d as useQueryClient, e as useQuery, f as useMutation, j as jsxRuntimeExports, H as Heart, g as getProfileAvatarUrl, h as ue, P as Principal } from "./index-Bwrfbo5-.js";
+import { u as useTranslation, a as useAuth, b as useNavigate, c as useBackend, d as useQueryClient, e as useQuery, f as useMutation, j as jsxRuntimeExports, H as Heart, g as getProfileAvatarUrl, h as ue, P as Principal } from "./index-BFTCPkdC.js";
 function MyLikesPage() {
   const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
