@@ -316,6 +316,7 @@ const fr = {
       count: "{{count}} j'aime",
       add: "Ajouter j'aime",
       remove: "Retirer j'aime",
+      likeUser: "Aimer l'utilisateur",
       error: "Échec de la mise à jour du j'aime",
       viewProfile: "Voir le profil",
       likedUsers: "Utilisateurs aimés",
