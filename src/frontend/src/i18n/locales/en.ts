@@ -86,6 +86,7 @@ const en = {
       by: "by",
       lookingFor: "Looking for",
       published: "Published",
+      publishedAt: "published at",
       visitLink: "Visit Link",
       viewDetails: "View Details",
     },
@@ -104,6 +105,20 @@ const en = {
       backToFeed: "Back to Feed",
       eventLink: "Event Link",
       notFound: "Advertisement not found",
+      notPublished: "This advertisement is not published",
+      virtual: "Virtual",
+      publishedAt: "Published at",
+      aboutCreator: "About the Host",
+      photos: "Photos",
+      contactFetchError: "Failed to load contact details. Please try again.",
+      contactUnavailable: "No contact details available",
+      hide: "Hide",
+      loginToSeeContact: "Log in to see contact details.",
+      loginToContact: "Log in to contact",
+      deleteConfirmTitle: "Delete advertisement",
+      deleteConfirmBody:
+        "Are you sure you want to delete this advertisement? This action cannot be undone.",
+      deleteFailed: "Failed to delete advertisement. Please try again.",
     },
 
     // Profile
@@ -220,6 +235,7 @@ const en = {
     myAds: {
       title: "My Advertisements",
       subtitle: "Manage and track your advertisements",
+      createAd: "Create Ad",
       noAds: "You have no advertisements yet",
       noAdsHint: "Create your first advertisement",
       status: "Status",

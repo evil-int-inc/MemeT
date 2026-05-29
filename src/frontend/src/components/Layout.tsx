@@ -396,7 +396,7 @@ export default function Layout({ children }: LayoutProps) {
                   )}
                   {completeness && completeness.percent === 100 && (
                     <CheckCircle2
-                      className="w-6 h-6 flex-shrink-0 text-success"
+                      className="w-6 h-6 flex-shrink-0 text-black [[data-theme=black]_&]:text-base-content"
                       aria-label="Profile complete"
                     />
                   )}

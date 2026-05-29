@@ -55,6 +55,48 @@ const inputLabelTextClassName =
   "label-text min-w-0 max-w-full whitespace-normal break-words leading-snug font-medium";
 const inputLabelAltClassName =
   "label-text-alt max-w-full whitespace-normal break-words text-right leading-snug text-base-content/50";
+type DateOfBirthTimestamp =
+  | bigint
+  | number
+  | string
+  | readonly []
+  | readonly [bigint | number | string]
+  | null
+  | undefined;
+
+function normalizeDateOfBirthTimestamp(value: DateOfBirthTimestamp) {
+  const rawValue = Array.isArray(value) ? value[0] : value;
+  if (rawValue == null) return null;
+
+  const timestamp = Number(rawValue);
+  if (!Number.isFinite(timestamp)) return null;
+
+  const now = Date.now();
+  const minDateOfBirth = now - 121 * 365.25 * 24 * 60 * 60 * 1000;
+
+  // Current data is milliseconds; the fallbacks cover older high-precision
+  // timestamps that may already be stored for existing profiles.
+  for (const scale of [1, 1_000, 1_000_000]) {
+    const milliseconds = timestamp / scale;
+    const parsed = new Date(milliseconds).getTime();
+    if (
+      Number.isFinite(parsed) &&
+      milliseconds <= now &&
+      milliseconds >= minDateOfBirth
+    ) {
+      return milliseconds;
+    }
+  }
+
+  return null;
+}
+
+function formatDateInputValue(value: DateOfBirthTimestamp) {
+  const milliseconds = normalizeDateOfBirthTimestamp(value);
+  return milliseconds == null
+    ? ""
+    : new Date(milliseconds).toISOString().split("T")[0];
+}
 
 function buildDefaultValues(profile: UserProfile | null): ProfileFormValues {
   return {
@@ -69,10 +111,7 @@ function buildDefaultValues(profile: UserProfile | null): ProfileFormValues {
     city: profile?.city ?? "",
     language: profile?.language ?? "en",
     hideContactsInAds: profile?.hideContactsInAds ?? false,
-    dateOfBirth:
-      profile?.dateOfBirth != null
-        ? new Date(Number(profile.dateOfBirth)).toISOString().split("T")[0]
-        : "",
+    dateOfBirth: formatDateInputValue(profile?.dateOfBirth),
     photos: profile?.photos ?? [],
   };
 }

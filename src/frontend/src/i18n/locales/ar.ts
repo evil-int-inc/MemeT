@@ -81,6 +81,7 @@ const ar = {
       by: "بواسطة",
       lookingFor: "يبحث عن",
       published: "منشور",
+      publishedAt: "نُشر في",
       visitLink: "زيارة الرابط",
       viewDetails: "عرض التفاصيل",
     },
@@ -98,6 +99,20 @@ const ar = {
       backToFeed: "العودة إلى الخلاصة",
       eventLink: "رابط الفعالية",
       notFound: "الإعلان غير موجود",
+      notPublished: "هذا الإعلان غير منشور",
+      virtual: "افتراضي",
+      publishedAt: "نُشر في",
+      aboutCreator: "عن المضيف",
+      photos: "الصور",
+      contactFetchError: "فشل تحميل بيانات التواصل. يرجى المحاولة مرة أخرى.",
+      contactUnavailable: "لا توجد بيانات تواصل متاحة",
+      hide: "إخفاء",
+      loginToSeeContact: "سجّل الدخول لرؤية بيانات التواصل.",
+      loginToContact: "سجّل الدخول للتواصل",
+      deleteConfirmTitle: "حذف الإعلان",
+      deleteConfirmBody:
+        "هل أنت متأكد من حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.",
+      deleteFailed: "فشل حذف الإعلان. يرجى المحاولة مرة أخرى.",
     },
 
     profile: {
@@ -208,6 +223,7 @@ const ar = {
     myAds: {
       title: "إعلاناتي",
       subtitle: "إدارة ومتابعة إعلاناتك",
+      createAd: "إنشاء إعلان",
       noAds: "ليس لديك إعلانات بعد",
       noAdsHint: "أنشئ إعلانك الأول",
       status: "الحالة",

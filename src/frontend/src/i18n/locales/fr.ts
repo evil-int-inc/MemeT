@@ -81,6 +81,7 @@ const fr = {
       by: "par",
       lookingFor: "Recherche",
       published: "Publié",
+      publishedAt: "publié le",
       visitLink: "Visiter le lien",
       viewDetails: "Voir les détails",
     },
@@ -98,6 +99,21 @@ const fr = {
       backToFeed: "Retour au fil d'actualité",
       eventLink: "Lien de l'événement",
       notFound: "Annonce introuvable",
+      notPublished: "Cette annonce n'est pas publiée",
+      virtual: "Virtuel",
+      publishedAt: "Publié le",
+      aboutCreator: "À propos de l'hôte",
+      photos: "Photos",
+      contactFetchError:
+        "Impossible de charger les coordonnées. Veuillez réessayer.",
+      contactUnavailable: "Aucune coordonnée disponible",
+      hide: "Masquer",
+      loginToSeeContact: "Connectez-vous pour voir les coordonnées.",
+      loginToContact: "Connectez-vous pour contacter",
+      deleteConfirmTitle: "Supprimer l'annonce",
+      deleteConfirmBody:
+        "Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.",
+      deleteFailed: "Échec de la suppression de l'annonce. Veuillez réessayer.",
     },
 
     profile: {
@@ -217,6 +233,7 @@ const fr = {
     myAds: {
       title: "Mes annonces",
       subtitle: "Gérez et suivez vos annonces",
+      createAd: "Créer une annonce",
       noAds: "Vous n'avez pas encore d'annonces",
       noAdsHint: "Créez votre première annonce",
       status: "Statut",

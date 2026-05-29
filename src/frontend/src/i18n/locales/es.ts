@@ -77,6 +77,7 @@ const es = {
       by: "por",
       lookingFor: "Busco",
       published: "Publicado",
+      publishedAt: "publicado el",
       visitLink: "Ver Enlace",
       viewDetails: "Ver Detalles",
     },
@@ -93,6 +94,21 @@ const es = {
       backToFeed: "Volver al Inicio",
       eventLink: "Enlace del Evento",
       notFound: "Anuncio no encontrado",
+      notPublished: "Este anuncio no está publicado",
+      virtual: "Virtual",
+      publishedAt: "Publicado el",
+      aboutCreator: "Sobre el anfitrión",
+      photos: "Fotos",
+      contactFetchError:
+        "No se pudieron cargar los datos de contacto. Inténtalo de nuevo.",
+      contactUnavailable: "No hay datos de contacto disponibles",
+      hide: "Ocultar",
+      loginToSeeContact: "Inicia sesión para ver los datos de contacto.",
+      loginToContact: "Inicia sesión para contactar",
+      deleteConfirmTitle: "Eliminar anuncio",
+      deleteConfirmBody:
+        "¿Seguro que quieres eliminar este anuncio? Esta acción no se puede deshacer.",
+      deleteFailed: "No se pudo eliminar el anuncio. Inténtalo de nuevo.",
     },
     profile: {
       title: "Mi Perfil",
@@ -205,6 +221,7 @@ const es = {
     myAds: {
       title: "Mis Anuncios",
       subtitle: "Gestiona y sigue tus anuncios",
+      createAd: "Crear Anuncio",
       noAds: "No tienes anuncios todavía",
       noAdsHint: "Crea tu primer anuncio",
       status: "Estado",

@@ -355,6 +355,7 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
         {publishedDate && (
           <div className="flex items-center gap-1 text-xs text-base-content/50">
             <Calendar className="w-3 h-3" />
+            <span>{t("adCard.publishedAt")}</span>
             {publishedDate}
           </div>
         )}

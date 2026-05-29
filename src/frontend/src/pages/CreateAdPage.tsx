@@ -46,6 +46,11 @@ interface AdFormValues {
 
 const POLL_INTERVAL_MS = 3000;
 const POLL_MAX_MS = 5 * 60 * 1000; // 5 minutes
+const inputLabelClassName = "label py-2 flex-wrap items-start gap-x-2 gap-y-1";
+const inputLabelTextClassName =
+  "label-text min-w-0 max-w-full whitespace-normal break-words leading-snug font-medium";
+const inputLabelAltClassName =
+  "label-text-alt max-w-full whitespace-normal break-words text-right leading-snug text-base-content/50";
 
 export default function CreateAdPage() {
   const { t } = useTranslation();
@@ -404,13 +409,13 @@ export default function CreateAdPage() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-5"
+        className="space-y-6"
         data-ocid="create-ad.form"
       >
         {/* Event Name */}
-        <div className="form-control">
-          <label className="label" htmlFor="ad-event-name">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <label className={inputLabelClassName} htmlFor="ad-event-name">
+            <span className={inputLabelTextClassName}>
               {t("createAd.eventName")} *
             </span>
           </label>
@@ -435,9 +440,9 @@ export default function CreateAdPage() {
         </div>
 
         {/* Event Type */}
-        <div className="form-control">
-          <label className="label" htmlFor="ad-event-type">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <label className={inputLabelClassName} htmlFor="ad-event-type">
+            <span className={inputLabelTextClassName}>
               {t("createAd.eventType")} *
             </span>
           </label>
@@ -464,9 +469,9 @@ export default function CreateAdPage() {
         </div>
 
         {/* Meet Type */}
-        <div className="form-control">
-          <div className="label">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <div className={inputLabelClassName}>
+            <span className={inputLabelTextClassName}>
               {t("meetType.label")} *
             </span>
           </div>
@@ -499,9 +504,9 @@ export default function CreateAdPage() {
         </div>
 
         {/* City */}
-        <div className="form-control">
-          <label className="label" htmlFor="ad-city">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <label className={inputLabelClassName} htmlFor="ad-city">
+            <span className={inputLabelTextClassName}>
               {t("createAd.city")} *
             </span>
           </label>
@@ -551,9 +556,9 @@ export default function CreateAdPage() {
         </div>
 
         {/* Description */}
-        <div className="form-control">
-          <label className="label" htmlFor="ad-description">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <label className={inputLabelClassName} htmlFor="ad-description">
+            <span className={inputLabelTextClassName}>
               {t("createAd.description")} *
             </span>
           </label>
@@ -578,9 +583,9 @@ export default function CreateAdPage() {
         </div>
 
         {/* Expected Companion Sex */}
-        <div className="form-control">
-          <label className="label" htmlFor="ad-companion-sex">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <label className={inputLabelClassName} htmlFor="ad-companion-sex">
+            <span className={inputLabelTextClassName}>
               {t("createAd.expectedCompanionSex")} *
             </span>
           </label>
@@ -601,9 +606,9 @@ export default function CreateAdPage() {
         </div>
 
         {/* Who Pays For Event */}
-        <div className="form-control">
-          <div className="label">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <div className={inputLabelClassName}>
+            <span className={inputLabelTextClassName}>
               {t("createAd.howPaysForEvent")} *
             </span>
           </div>
@@ -639,12 +644,12 @@ export default function CreateAdPage() {
         </div>
 
         {/* Event Link */}
-        <div className="form-control">
-          <label className="label" htmlFor="ad-event-link">
-            <span className="label-text font-medium">
+        <div className="form-control w-full">
+          <label className={inputLabelClassName} htmlFor="ad-event-link">
+            <span className={inputLabelTextClassName}>
               {t("createAd.eventLink")}
             </span>
-            <span className="label-text-alt text-base-content/50">
+            <span className={inputLabelAltClassName}>
               {t("common.optional")}
             </span>
           </label>
@@ -680,8 +685,8 @@ export default function CreateAdPage() {
 
         {/* Photos */}
         <div className="form-control gap-2">
-          <div className="label">
-            <span className="label-text font-medium">
+          <div className={inputLabelClassName}>
+            <span className={inputLabelTextClassName}>
               {t("createAd.photos")}{" "}
               <span className="badge badge-ghost badge-sm">
                 {t("createAd.photosOptional")}

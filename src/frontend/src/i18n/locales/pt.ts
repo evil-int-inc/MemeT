@@ -81,6 +81,7 @@ const pt = {
       by: "por",
       lookingFor: "Procurando por",
       published: "Publicado",
+      publishedAt: "publicado em",
       visitLink: "Visitar Link",
       viewDetails: "Ver Detalhes",
     },
@@ -98,6 +99,21 @@ const pt = {
       backToFeed: "Voltar ao Feed",
       eventLink: "Link do Evento",
       notFound: "Anúncio não encontrado",
+      notPublished: "Este anúncio não está publicado",
+      virtual: "Virtual",
+      publishedAt: "Publicado em",
+      aboutCreator: "Sobre o anfitrião",
+      photos: "Fotos",
+      contactFetchError:
+        "Falha ao carregar os dados de contato. Por favor, tente novamente.",
+      contactUnavailable: "Nenhum dado de contato disponível",
+      hide: "Ocultar",
+      loginToSeeContact: "Entre para ver os dados de contato.",
+      loginToContact: "Entre para entrar em contato",
+      deleteConfirmTitle: "Excluir anúncio",
+      deleteConfirmBody:
+        "Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.",
+      deleteFailed: "Falha ao excluir anúncio. Por favor, tente novamente.",
     },
 
     profile: {
@@ -213,6 +229,7 @@ const pt = {
     myAds: {
       title: "Meus Anúncios",
       subtitle: "Gerencie e acompanhe seus anúncios",
+      createAd: "Criar Anúncio",
       noAds: "Você não tem anúncios ainda",
       noAdsHint: "Crie seu primeiro anúncio",
       status: "Status",

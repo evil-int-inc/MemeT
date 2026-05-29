@@ -196,7 +196,7 @@ export default function AdDetailPage() {
           data-ocid="ad_detail.back_button"
         >
           <ArrowLeft size={16} />
-          {t("common.backToFeed")}
+          {t("adDetail.backToFeed")}
         </button>
       </div>
     );
@@ -217,7 +217,7 @@ export default function AdDetailPage() {
           data-ocid="ad_detail.back_button"
         >
           <ArrowLeft size={16} />
-          {t("common.backToFeed")}
+          {t("adDetail.backToFeed")}
         </button>
       </div>
     );
@@ -238,7 +238,7 @@ export default function AdDetailPage() {
         data-ocid="ad_detail.back_button"
       >
         <ArrowLeft size={16} />
-        {t("common.backToFeed")}
+        {t("adDetail.backToFeed")}
       </button>
 
       {/* ── ad photos gallery ── */}
@@ -715,6 +715,12 @@ export default function AdDetailPage() {
                         Number(req.createdAt) / 1_000_000,
                       ).toLocaleDateString()
                     : null;
+                  const requesterPrincipal = req.requesterPrincipal.toText();
+                  const viewRequesterProfile = () =>
+                    navigate({
+                      to: "/user/$principal",
+                      params: { principal: requesterPrincipal },
+                    });
 
                   return (
                     <div
@@ -725,14 +731,20 @@ export default function AdDetailPage() {
                       <div className="card-body p-4 gap-3">
                         <div className="flex gap-3 items-start">
                           <div className="avatar flex-shrink-0">
-                            <div className="w-14 h-14 rounded-full bg-base-300 overflow-hidden">
+                            <button
+                              type="button"
+                              className="w-14 h-14 rounded-full bg-base-300 overflow-hidden cursor-pointer border-0 p-0"
+                              onClick={viewRequesterProfile}
+                              aria-label={t("feed.viewUser")}
+                              data-ocid={`ad_detail.interested_user.${idx + 1}.avatar_button`}
+                            >
                               <img
                                 src={reqAvatarUrl}
                                 alt={profile?.fullName ?? ""}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover hover:opacity-80 transition-opacity"
                                 loading="lazy"
                               />
-                            </div>
+                            </button>
                           </div>
                           <div className="flex-1 min-w-0 space-y-1">
                             <p className="font-semibold text-lg break-words">
@@ -809,6 +821,17 @@ export default function AdDetailPage() {
                                 {t("joinRequests.joinedOn")}: {reqDate}
                               </div>
                             )}
+                            <div className="pt-2">
+                              <button
+                                type="button"
+                                className="btn btn-neutral btn-sm gap-2"
+                                onClick={viewRequesterProfile}
+                                data-ocid={`ad_detail.interested_user.${idx + 1}.view_user_button`}
+                              >
+                                <User size={14} />
+                                {t("feed.viewUser")}
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
