@@ -111,6 +111,8 @@ const ru = {
       telegramHint: "напр. @username",
       instagram: "Instagram",
       instagramHint: "напр. @username",
+      email: "Адрес электронной почты",
+      emailRequired: "Требуется действительный адрес электронной почты",
       contactRequired: "Необходимо указать хотя бы один способ связи",
       bio: "О себе",
       bioHint: "Расскажите о себе другим",
@@ -158,6 +160,7 @@ const ru = {
       referralBalanceComingSoon: "Вывод средств скоро появится",
       referralLinkReady:
         "Ваш профиль готов! Скопируйте реферальную ссылку из шапки, чтобы пригласить друзей.",
+      contacts: "Контакты",
     },
 
     createAd: {

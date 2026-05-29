@@ -16,6 +16,7 @@ declare module "@/backend" {
     dateOfBirth?: bigint;
   }
 }
+// email is already present in the generated bindings (UserProfile.email and ProfileInput.email)
 export type {
   UserProfile,
   UserProfilePublic,

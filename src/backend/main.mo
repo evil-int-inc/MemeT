@@ -34,7 +34,9 @@ import ReferralTypes "types/referral";
 
 
 
-actor {
+
+
+actor Backend {
   // Authorization state (first logged-in user becomes admin)
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
@@ -156,12 +158,12 @@ actor {
   let profileLikes = Map.empty<Text, LikeTypes.ProfileLike>();
 
   // Include profile API mixin
-  include ProfileApi(accessControlState, profiles, usernameIndex, dateOfBirths, referralCodeIndex);
+  include ProfileApi(accessControlState, profiles, usernameIndex, dateOfBirths, referralCodeIndex, ads, joinRequests);
 
   // Include advertisement API mixin — passes stripeConfig wrapper so mixin can use Stripe
   include AdvertisementApi(accessControlState, ads, profiles, dateOfBirths, adState, stripeConfig, transform, referralLedger);
   // Include join-request API mixin
-  include JoinRequestApi(accessControlState, joinRequests, ads, profiles);
+  include JoinRequestApi(accessControlState, joinRequests, ads, profiles, Principal.fromActor(Backend));
   // Include favourites API mixin (exposes addToFavourites, removeFromFavourites, getMyFavourites, isFavourited, getFavouriteCount)
   include FavouritesApi(accessControlState, favourites, ads, profiles);
   // Include likes API mixin (exposes addAdLike, removeAdLike, getMyAdLikes, getAdLikeCount, isAdLikedByMe, addProfileLike, removeProfileLike, getProfileLikeCount, isProfileLikedByMe, getMyProfileLikes)

@@ -23,9 +23,10 @@ export function calcProfileCompleteness(
     return {
       percent: 0,
       filled: 0,
-      total: 6,
+      total: 7,
       missingKeys: [
         "profile.fullName",
+        "profile.email",
         "profile.contactRequired",
         "profile.bio",
         "profile.sex",
@@ -41,6 +42,7 @@ export function calcProfileCompleteness(
 
   const fields: Field[] = [
     { key: "profile.fullName", filled: !!profile.fullName?.trim() },
+    { key: "profile.email", filled: !!profile.email?.trim() },
     {
       key: "profile.contactRequired",
       filled: !!(

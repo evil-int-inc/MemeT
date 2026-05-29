@@ -382,6 +382,7 @@ export interface ProfileInput {
     instagram?: string;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     phoneNumber?: string;
     telegram?: string;
@@ -400,6 +401,7 @@ export interface UserProfile {
     createdAt: bigint;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     updatedAt: bigint;
     referredBy?: Principal;
@@ -515,6 +517,7 @@ export interface backendInterface {
         err: string;
     }>;
     hasJoinRequest(adId: string): Promise<Result_5>;
+    hasJoinRequestRelationship(viewerPrincipal: Principal, targetPrincipal: Principal): Promise<boolean>;
     isAdLikedByMe(adId: string): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     isFavourited(adId: string): Promise<boolean>;
@@ -1086,6 +1089,20 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.hasJoinRequest(arg0);
             return from_candid_Result_5_n106(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async hasJoinRequestRelationship(arg0: Principal, arg1: Principal): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.hasJoinRequestRelationship(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.hasJoinRequestRelationship(arg0, arg1);
+            return result;
         }
     }
     async isAdLikedByMe(arg0: string): Promise<boolean> {
@@ -1790,6 +1807,7 @@ async function from_candid_record_n97(_uploadFile: (file: ExternalBlob) => Promi
     createdAt: bigint;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     updatedAt: bigint;
     referredBy: [] | [Principal];
@@ -1810,6 +1828,7 @@ async function from_candid_record_n97(_uploadFile: (file: ExternalBlob) => Promi
     createdAt: bigint;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     updatedAt: bigint;
     referredBy?: Principal;
@@ -1831,6 +1850,7 @@ async function from_candid_record_n97(_uploadFile: (file: ExternalBlob) => Promi
         createdAt: value.createdAt,
         hideContactsInAds: value.hideContactsInAds,
         fullName: value.fullName,
+        email: value.email,
         language: value.language,
         updatedAt: value.updatedAt,
         referredBy: record_opt_to_undefined(from_candid_opt_n98(_uploadFile, _downloadFile, value.referredBy)),
@@ -2313,6 +2333,7 @@ async function to_candid_record_n113(_uploadFile: (file: ExternalBlob) => Promis
     instagram?: string;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     phoneNumber?: string;
     telegram?: string;
@@ -2326,6 +2347,7 @@ async function to_candid_record_n113(_uploadFile: (file: ExternalBlob) => Promis
     instagram: [] | [string];
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     phoneNumber: [] | [string];
     telegram: [] | [string];
@@ -2340,6 +2362,7 @@ async function to_candid_record_n113(_uploadFile: (file: ExternalBlob) => Promis
         instagram: value.instagram ? candid_some(value.instagram) : candid_none(),
         hideContactsInAds: value.hideContactsInAds,
         fullName: value.fullName,
+        email: value.email,
         language: value.language,
         phoneNumber: value.phoneNumber ? candid_some(value.phoneNumber) : candid_none(),
         telegram: value.telegram ? candid_some(value.telegram) : candid_none(),

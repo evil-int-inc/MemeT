@@ -87,6 +87,7 @@ module {
     let profile : Types.UserProfile = {
       principal = caller;
       fullName = input.fullName;
+      email = input.email;
       username = input.username;
       phoneNumber = input.phoneNumber;
       telegram = input.telegram;
@@ -191,6 +192,9 @@ module {
     };
     if (input.bio.size() == 0) {
       return ?("bio is required");
+    };
+    if (input.email.size() == 0 or not input.email.contains(#text "@")) {
+      return ?("Invalid email address");
     };
     // At least one contact method must be provided
     let hasPhone = switch (input.phoneNumber) {

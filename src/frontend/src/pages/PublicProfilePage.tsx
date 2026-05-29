@@ -29,7 +29,7 @@ export default function PublicProfilePage() {
     enabled: !!principal,
   });
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, identity } = useAuth();
   const queryClient = useQueryClient();
 
   const profilePrincipal = profile?.principal;
@@ -48,6 +48,32 @@ export default function PublicProfilePage() {
     queryFn: () => backend.getProfileLikeCount(profilePrincipal!),
     enabled: !!profilePrincipal,
   });
+  const { data: hasJoinRelationship } = useQuery({
+    queryKey: [
+      "hasJoinRequestRelationship",
+      identity?.getPrincipal().toText() ?? "",
+      profilePrincipal?.toText() ?? "",
+    ],
+    queryFn: () =>
+      backend.hasJoinRequestRelationship(
+        identity!.getPrincipal(),
+        profilePrincipal!,
+      ),
+    enabled: isAuthenticated && !!identity && !!profilePrincipal,
+  });
+
+  const showContactsDueToJoinRequest = hasJoinRelationship === true;
+
+  const { data: contactProfile } = useQuery({
+    queryKey: [
+      "publicProfileWithContact",
+      principal,
+      showContactsDueToJoinRequest,
+    ],
+    queryFn: () => backend.getPublicProfileWithContact(principal),
+    enabled: showContactsDueToJoinRequest,
+  });
+
   const profileLikeMutation = useMutation({
     mutationFn: async () => {
       if (!profilePrincipal) return;
@@ -228,6 +254,29 @@ export default function PublicProfilePage() {
               </div>
             </div>
           </div>
+
+          {/* Contacts section — visible when viewer has a join request relationship */}
+          {showContactsDueToJoinRequest && contactProfile && (
+            <div
+              className="pt-2 space-y-1"
+              data-ocid="public_profile.contacts_section"
+            >
+              <h3 className="text-sm font-semibold text-base-content/70">
+                {t("profile.contacts")}
+              </h3>
+              <div className="flex flex-col gap-1 text-sm">
+                {contactProfile.phoneNumber && (
+                  <span>📞 {contactProfile.phoneNumber}</span>
+                )}
+                {contactProfile.telegram && (
+                  <span>✈️ {contactProfile.telegram}</span>
+                )}
+                {contactProfile.instagram && (
+                  <span>📸 {contactProfile.instagram}</span>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Photo thumbnails */}
           {profile.photos && profile.photos.length > 0 && (

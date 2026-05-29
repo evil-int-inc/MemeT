@@ -111,6 +111,8 @@ const fr = {
       telegramHint: "ex. @nomutilisateur",
       instagram: "Instagram",
       instagramHint: "ex. @nomutilisateur",
+      email: "Adresse e-mail",
+      emailRequired: "Une adresse e-mail valide est requise",
       contactRequired: "Au moins une méthode de contact est requise",
       bio: "À propos de moi",
       bioHint: "Parlez de vous aux autres",
@@ -158,6 +160,7 @@ const fr = {
       referralBalanceComingSoon: "Retrait bientôt disponible",
       referralLinkReady:
         "Votre profil est prêt ! Copiez votre lien de parrainage depuis l'en-tête pour inviter des amis.",
+      contacts: "Contacts",
     },
 
     createAd: {

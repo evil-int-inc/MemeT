@@ -1,5 +1,5 @@
-import { u as useTranslation, b as useNavigate, i as useParams, c as useBackend, e as useQuery, a as useAuth, d as useQueryClient, f as useMutation, j as jsxRuntimeExports, g as getProfileAvatarUrl, H as Heart, p as MapPin, G as Globe } from "./index-CynHsLMD.js";
-import { A as ArrowLeft } from "./arrow-left-BIMr-dTV.js";
+import { u as useTranslation, b as useNavigate, i as useParams, c as useBackend, e as useQuery, a as useAuth, d as useQueryClient, f as useMutation, j as jsxRuntimeExports, g as getProfileAvatarUrl, H as Heart, p as MapPin, G as Globe } from "./index-DIVa5zae.js";
+import { A as ArrowLeft } from "./arrow-left-BR1vnHPH.js";
 function calcAge(dob) {
   if (dob == null) return null;
   return Math.floor(
@@ -20,7 +20,7 @@ function PublicProfilePage() {
     queryFn: () => backend.getPublicProfile(principal),
     enabled: !!principal
   });
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, identity } = useAuth();
   const queryClient = useQueryClient();
   const profilePrincipal = profile == null ? void 0 : profile.principal;
   const { data: isProfileLiked } = useQuery({
@@ -36,6 +36,28 @@ function PublicProfilePage() {
     queryKey: ["profileLikeCount", (profilePrincipal == null ? void 0 : profilePrincipal.toText()) ?? ""],
     queryFn: () => backend.getProfileLikeCount(profilePrincipal),
     enabled: !!profilePrincipal
+  });
+  const { data: hasJoinRelationship } = useQuery({
+    queryKey: [
+      "hasJoinRequestRelationship",
+      (identity == null ? void 0 : identity.getPrincipal().toText()) ?? "",
+      (profilePrincipal == null ? void 0 : profilePrincipal.toText()) ?? ""
+    ],
+    queryFn: () => backend.hasJoinRequestRelationship(
+      identity.getPrincipal(),
+      profilePrincipal
+    ),
+    enabled: isAuthenticated && !!identity && !!profilePrincipal
+  });
+  const showContactsDueToJoinRequest = hasJoinRelationship === true;
+  const { data: contactProfile } = useQuery({
+    queryKey: [
+      "publicProfileWithContact",
+      principal,
+      showContactsDueToJoinRequest
+    ],
+    queryFn: () => backend.getPublicProfileWithContact(principal),
+    enabled: showContactsDueToJoinRequest
   });
   const profileLikeMutation = useMutation({
     mutationFn: async () => {
@@ -181,6 +203,30 @@ function PublicProfilePage() {
               ] })
             ] })
           ] }),
+          showContactsDueToJoinRequest && contactProfile && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              className: "pt-2 space-y-1",
+              "data-ocid": "public_profile.contacts_section",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-sm font-semibold text-base-content/70", children: t("profile.contacts") }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-1 text-sm", children: [
+                  contactProfile.phoneNumber && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                    "📞 ",
+                    contactProfile.phoneNumber
+                  ] }),
+                  contactProfile.telegram && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                    "✈️ ",
+                    contactProfile.telegram
+                  ] }),
+                  contactProfile.instagram && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                    "📸 ",
+                    contactProfile.instagram
+                  ] })
+                ] })
+              ]
+            }
+          ),
           profile.photos && profile.photos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap gap-2", children: profile.photos.map((photo, idx) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             "div",
             {

@@ -8,6 +8,8 @@ import JoinRequestTypes "../types/join-request";
 import AdTypes "../types/advertisement";
 import ProfileTypes "../types/profile";
 import Common "../types/common";
+import EmailClient "mo:caffeineai-email/emailClient";
+import Text "mo:core/Text";
 
 // Public API mixin for the join-request domain
 mixin (
@@ -15,6 +17,7 @@ mixin (
   joinRequests : Map.Map<Text, JoinRequestTypes.JoinRequest>,
   ads : Map.Map<Text, AdTypes.Advertisement>,
   profiles : Map.Map<Principal, ProfileTypes.UserProfile>,
+  canisterId : Principal,
 ) {
   // Sends a join request from the caller for the given ad.
   public shared ({ caller }) func sendJoinRequest(
@@ -26,6 +29,57 @@ mixin (
     switch (JoinRequestLib.sendJoinRequest(joinRequests, caller, adId, ads)) {
       case (#err(e)) { #err(e) };
       case (#ok(req)) {
+        // Fire-and-forget email to the ad owner — failure never blocks the join request
+        ignore async {
+          try {
+            // Look up the ad to get its title/description and owner principal
+            switch (ads.get(adId)) {
+              case (null) {};
+              case (?ad) {
+                // Look up the owner's profile to get their email
+                switch (profiles.get(ad.creatorPrincipal)) {
+                  case (null) {};
+                  case (?ownerProfile) {
+                    // Build a short ad label: use eventName if non-empty, else first 50 chars of description
+                    let adLabel : Text = if (ad.eventName != "") {
+                      ad.eventName;
+                    } else {
+                      let desc = ad.description;
+                      if (desc.size() > 50) {
+                        var n = 0;
+                        Text.fromIter(
+                          desc.chars().filter(
+                            func(_c) {
+                              n += 1;
+                              n <= 50;
+                            }
+                          )
+                        );
+                      } else { desc };
+                    };
+                    let appDomain : Text = "https://" # canisterId.toText() # ".icp0.io";
+                    let adUrl : Text = appDomain # "/ads/" # adId;
+                    let requesterUrl : Text = appDomain # "/users/" # req.requesterPrincipal.toText();
+                    let logoSrc : Text = appDomain # "/assets/evertwo-logo-dark-2-019e6f67-08ad-70b8-a1d8-a2f12a753cd2.png";
+                    let htmlBody : Text =
+                      "<div style='font-family:sans-serif;max-width:600px;margin:0 auto'>" #
+                      "<img src='" # logoSrc # "' style='width:200px;display:block;margin:0 auto 24px' alt='EverTwo' />" #
+                      "<p style='font-size:16px'>A user has requested to join your ad: <strong>" # adLabel # "</strong></p>" #
+                      "<p><a href='" # adUrl # "' style='margin-right:16px'>View Ad</a>" #
+                      "<a href='" # requesterUrl # "'>View Profile</a></p>" #
+                      "</div>";
+                    ignore await EmailClient.sendServiceEmail(
+                      "evertwo",
+                      [ownerProfile.email],
+                      "Someone wants to join your ad",
+                      htmlBody,
+                    );
+                  };
+                };
+              };
+            };
+          } catch (_) {};
+        };
         #ok({
           id = req.id;
           adId = req.adId;

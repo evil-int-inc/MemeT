@@ -14,6 +14,7 @@ module {
   public type UserProfile = {
     principal : Principal;
     fullName : Text;
+    email : Text;
     username : ?Text;
     phoneNumber : ?Text;
     telegram : ?Text;
@@ -55,6 +56,7 @@ module {
   // Input type for creating/updating a profile
   public type ProfileInput = {
     fullName : Text;
+    email : Text;
     username : ?Text;
     phoneNumber : ?Text;
     telegram : ?Text;

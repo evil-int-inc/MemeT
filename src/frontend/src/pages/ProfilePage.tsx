@@ -36,6 +36,7 @@ import { toast } from "sonner";
 
 interface ProfileFormValues {
   fullName: string;
+  email: string;
   username: string;
   phoneNumber?: string;
   telegram?: string;
@@ -58,6 +59,7 @@ const inputLabelAltClassName =
 function buildDefaultValues(profile: UserProfile | null): ProfileFormValues {
   return {
     fullName: profile?.fullName ?? "",
+    email: profile?.email ?? "",
     username: profile?.username ?? "",
     phoneNumber: profile?.phoneNumber ?? "",
     telegram: profile?.telegram ?? "",
@@ -154,6 +156,7 @@ export default function ProfilePage() {
       if (!backend.isReady) throw new Error("Not authenticated");
       const input: Parameters<typeof backend.upsertProfile>[0] = {
         fullName: values.fullName,
+        email: values.email,
         username: values.username.trim() || undefined,
         phoneNumber: values.phoneNumber || undefined,
         telegram: values.telegram || undefined,
@@ -426,6 +429,42 @@ export default function ProfilePage() {
                 role="alert"
               >
                 {errors.fullName.message}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* ── Email ─────────────────────────────────────── */}
+        <div className="form-control w-full">
+          <label htmlFor="email" className={inputLabelClassName}>
+            <span className={inputLabelTextClassName}>
+              {t("profile.email")} *
+            </span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            className={`input input-bordered w-full px-4 py-3 ${
+              errors.email ? "input-error" : ""
+            }`}
+            placeholder="you@example.com"
+            data-ocid="profile.email.input"
+            {...register("email", {
+              required: t("profile.emailRequired"),
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: t("profile.emailRequired"),
+              },
+            })}
+          />
+          {errors.email && (
+            <div className="label">
+              <span
+                className="label-text-alt text-error"
+                data-ocid="profile.email.field_error"
+                role="alert"
+              >
+                {errors.email.message}
               </span>
             </div>
           )}

@@ -1,27 +1,21 @@
 {
-  "overview": "Couple Cups is a social event advertisement platform on the Internet Computer. Users browse and post paid event invitations — cinema, restaurants, gaming, walks, and more — and connect with someone to share the experience. Features include Internet Identity login, Stripe payments, ICP blob storage for photos, 8-language support, and a fully responsive DaisyUI interface.",
+  "overview": "EverTwo is a social ad platform where users post paid activity invitations and connect with companions for events like dining, cinema, and gaming.",
   "features": [
-    "Public feed with filterable event advertisements",
-    "Internet Identity authentication",
-    "Profile management with photo upload (ICP blob storage)",
-    "Advertisement creation with Stripe payment checkout ($1 USD)",
-    "Link preview for event URLs",
-    "8-language i18n with auto browser detection",
-    "Auto light/dark theme per system preference",
-    "City and language detection utilities",
-    "My Advertisements dashboard with payment retry",
-    "Responsive DaisyUI design with Lucide icons"
+    "Create and publish activity ads with Stripe payment or promo code",
+    "Browse and filter ads by meet type, city, age, and more",
+    "Send join requests to ad owners with email notifications",
+    "User profiles with photo gallery, contact info, and privacy controls",
+    "Favourites, likes, and referral system with earnings tracking",
+    "Multilingual support across 8 languages"
   ],
-  "category": "social",
+  "category": "social-platform",
   "tags": [
     "social",
     "events",
-    "dating",
+    "ads",
     "icp",
-    "stripe",
-    "i18n",
-    "daisyui",
-    "internet-identity"
+    "multilingual",
+    "email-notifications"
   ],
-  "last_updated": "2026-05-15T19:00:42.317Z"
+  "last_updated": "2026-05-29T10:41:34.616Z"
 }

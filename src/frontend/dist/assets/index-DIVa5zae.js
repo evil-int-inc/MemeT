@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeedPage-Bv0hl3Y2.js","assets/refresh-cw-Ut7SIZ8I.js","assets/wallet-DC73PwK7.js","assets/calendar-BXuPvEg3.js","assets/AdDetailPage-C4McLRNv.js","assets/arrow-left-BIMr-dTV.js","assets/square-pen-DpQb_EiL.js","assets/trash-2-CHBP5txA.js","assets/external-link-CkQmmyqI.js","assets/eye-DNMIyMs5.js","assets/ProfilePage-B-HNi0sf.js","assets/index.esm-BVsp9CEc.js","assets/CreateAdPage-BdLDLe57.js","assets/stripe-Bi5LGuYs.js","assets/credit-card-CZ8JiEyu.js","assets/MyAdsPage-D0t0m9So.js","assets/PaymentSuccessPage-DcJGQvl2.js","assets/PaymentCancelPage-kgY83i8m.js","assets/PublicProfilePage-BYpnS_ZR.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeedPage-D25pkMWJ.js","assets/refresh-cw-B2LREdO3.js","assets/wallet-DfQSVpJo.js","assets/calendar-BmoZdvme.js","assets/AdDetailPage-CUw8AR8Z.js","assets/arrow-left-BR1vnHPH.js","assets/square-pen-ir2c17BZ.js","assets/trash-2-DEzwOCDV.js","assets/external-link-D-mCv_h4.js","assets/eye-X1zMR1m7.js","assets/ProfilePage-hJWrrh0L.js","assets/index.esm-BomqQK5Y.js","assets/CreateAdPage-Ddz5Lf8b.js","assets/stripe-aZ9tlvL8.js","assets/credit-card-B2ExgMfk.js","assets/MyAdsPage-Cd9Shtcd.js","assets/PaymentSuccessPage-C0KXKleS.js","assets/PaymentCancelPage-Bb-3_Ue1.js","assets/PublicProfilePage-DwlUI0S6.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -27921,6 +27921,7 @@ const UserProfile = Record({
   "createdAt": Int,
   "hideContactsInAds": Bool,
   "fullName": Text,
+  "email": Text,
   "language": Text,
   "updatedAt": Int,
   "referredBy": Opt(Principal2),
@@ -27984,6 +27985,7 @@ const ProfileInput = Record({
   "instagram": Opt(Text),
   "hideContactsInAds": Bool,
   "fullName": Text,
+  "email": Text,
   "language": Text,
   "phoneNumber": Opt(Text),
   "telegram": Opt(Text),
@@ -28073,6 +28075,11 @@ Service({
     []
   ),
   "hasJoinRequest": Func([Text], [Result_5], ["query"]),
+  "hasJoinRequestRelationship": Func(
+    [Principal2, Principal2],
+    [Bool],
+    ["query"]
+  ),
   "isAdLikedByMe": Func([Text], [Bool], ["query"]),
   "isCallerAdmin": Func([], [Bool], ["query"]),
   "isFavourited": Func([Text], [Bool], ["query"]),
@@ -28345,6 +28352,7 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "createdAt": IDL2.Int,
     "hideContactsInAds": IDL2.Bool,
     "fullName": IDL2.Text,
+    "email": IDL2.Text,
     "language": IDL2.Text,
     "updatedAt": IDL2.Int,
     "referredBy": IDL2.Opt(IDL2.Principal),
@@ -28402,6 +28410,7 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "instagram": IDL2.Opt(IDL2.Text),
     "hideContactsInAds": IDL2.Bool,
     "fullName": IDL2.Text,
+    "email": IDL2.Text,
     "language": IDL2.Text,
     "phoneNumber": IDL2.Opt(IDL2.Text),
     "telegram": IDL2.Opt(IDL2.Text),
@@ -28495,6 +28504,11 @@ const idlFactory = ({ IDL: IDL2 }) => {
       []
     ),
     "hasJoinRequest": IDL2.Func([IDL2.Text], [Result_52], ["query"]),
+    "hasJoinRequestRelationship": IDL2.Func(
+      [IDL2.Principal, IDL2.Principal],
+      [IDL2.Bool],
+      ["query"]
+    ),
     "isAdLikedByMe": IDL2.Func([IDL2.Text], [IDL2.Bool], ["query"]),
     "isCallerAdmin": IDL2.Func([], [IDL2.Bool], ["query"]),
     "isFavourited": IDL2.Func([IDL2.Text], [IDL2.Bool], ["query"]),
@@ -29160,6 +29174,20 @@ class Backend {
       return from_candid_Result_5_n106(this._uploadFile, this._downloadFile, result);
     }
   }
+  async hasJoinRequestRelationship(arg0, arg1) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.hasJoinRequestRelationship(arg0, arg1);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.hasJoinRequestRelationship(arg0, arg1);
+      return result;
+    }
+  }
   async isAdLikedByMe(arg0) {
     if (this.processError) {
       try {
@@ -29673,6 +29701,7 @@ async function from_candid_record_n97(_uploadFile, _downloadFile, value) {
     createdAt: value.createdAt,
     hideContactsInAds: value.hideContactsInAds,
     fullName: value.fullName,
+    email: value.email,
     language: value.language,
     updatedAt: value.updatedAt,
     referredBy: record_opt_to_undefined(from_candid_opt_n98(_uploadFile, _downloadFile, value.referredBy)),
@@ -29908,6 +29937,7 @@ async function to_candid_record_n113(_uploadFile, _downloadFile, value) {
     instagram: value.instagram ? candid_some(value.instagram) : candid_none(),
     hideContactsInAds: value.hideContactsInAds,
     fullName: value.fullName,
+    email: value.email,
     language: value.language,
     phoneNumber: value.phoneNumber ? candid_some(value.phoneNumber) : candid_none(),
     telegram: value.telegram ? candid_some(value.telegram) : candid_none(),
@@ -30359,6 +30389,14 @@ function useBackend() {
     const result = await a2.getMyReferrals();
     return extractResult(result);
   }, []);
+  const hasJoinRequestRelationship = reactExports.useCallback(
+    async (viewerPrincipal, targetPrincipal) => {
+      const a2 = actorRef.current;
+      if (!a2) return false;
+      return a2.hasJoinRequestRelationship(viewerPrincipal, targetPrincipal);
+    },
+    []
+  );
   const publishByPromoCode = reactExports.useCallback(async (adId, code) => {
     const a2 = actorRef.current;
     if (!a2) throw new Error("Not authenticated");
@@ -30405,6 +30443,7 @@ function useBackend() {
     getReferralCode,
     setReferredBy,
     getMyReferrals,
+    hasJoinRequestRelationship,
     publishByPromoCode
   };
 }
@@ -30423,14 +30462,15 @@ function getProfileAvatarUrl(profile) {
   return ((_b3 = (_a3 = profile == null ? void 0 : profile.photos) == null ? void 0 : _a3[0]) == null ? void 0 : _b3.blob.getDirectURL()) ?? getDefaultAvatarUrl(profile == null ? void 0 : profile.defaultAvatar);
 }
 function calcProfileCompleteness(profile) {
-  var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2;
+  var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2;
   if (!profile) {
     return {
       percent: 0,
       filled: 0,
-      total: 6,
+      total: 7,
       missingKeys: [
         "profile.fullName",
+        "profile.email",
         "profile.contactRequired",
         "profile.bio",
         "profile.sex",
@@ -30441,14 +30481,15 @@ function calcProfileCompleteness(profile) {
   }
   const fields = [
     { key: "profile.fullName", filled: !!((_a3 = profile.fullName) == null ? void 0 : _a3.trim()) },
+    { key: "profile.email", filled: !!((_b3 = profile.email) == null ? void 0 : _b3.trim()) },
     {
       key: "profile.contactRequired",
-      filled: !!(((_c2 = (_b3 = profile.phoneNumber) == null ? void 0 : _b3[0]) == null ? void 0 : _c2.trim()) || ((_e2 = (_d2 = profile.telegram) == null ? void 0 : _d2[0]) == null ? void 0 : _e2.trim()) || ((_g2 = (_f2 = profile.instagram) == null ? void 0 : _f2[0]) == null ? void 0 : _g2.trim()))
+      filled: !!(((_d2 = (_c2 = profile.phoneNumber) == null ? void 0 : _c2[0]) == null ? void 0 : _d2.trim()) || ((_f2 = (_e2 = profile.telegram) == null ? void 0 : _e2[0]) == null ? void 0 : _f2.trim()) || ((_h2 = (_g2 = profile.instagram) == null ? void 0 : _g2[0]) == null ? void 0 : _h2.trim()))
     },
-    { key: "profile.bio", filled: !!((_h2 = profile.bio) == null ? void 0 : _h2.trim()) },
+    { key: "profile.bio", filled: !!((_i2 = profile.bio) == null ? void 0 : _i2.trim()) },
     { key: "profile.sex", filled: !!profile.sex },
-    { key: "profile.language", filled: !!((_i2 = profile.language) == null ? void 0 : _i2.trim()) },
-    ...[{ key: "profile.city", filled: !!((_j2 = profile.city) == null ? void 0 : _j2.trim()) }]
+    { key: "profile.language", filled: !!((_j2 = profile.language) == null ? void 0 : _j2.trim()) },
+    ...[{ key: "profile.city", filled: !!((_k2 = profile.city) == null ? void 0 : _k2.trim()) }]
   ];
   const filled = fields.filter((f) => f.filled).length;
   const total = fields.length;
@@ -39332,7 +39373,7 @@ function Layout({ children }) {
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "bg-base-100 min-h-full w-64 flex flex-col border-r border-base-300", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-4 border-b border-base-300 h-16", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center h-full", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "img",
               {
@@ -40123,6 +40164,8 @@ const ar = {
       telegramHint: "مثال @اسم_المستخدم",
       instagram: "Instagram",
       instagramHint: "مثال @اسم_المستخدم",
+      email: "عنوان البريد الإلكتروني",
+      emailRequired: "عنوان بريد إلكتروني صالح مطلوب",
       contactRequired: "مطلوب وسيلة اتصال واحدة على الأقل",
       bio: "نبذة عني",
       bioHint: "أخبر الآخرين عن نفسك",
@@ -40162,7 +40205,8 @@ const ar = {
       yourReferralLink: "رابط الإحالة الخاص بك",
       referralBalanceInfo: "يذهب 33% من كل إنفاق الإحالة إلى رصيدك.",
       referralBalanceComingSoon: "السحب قريباً",
-      referralLinkReady: "ملفك الشخصي جاهز! انسخ رابط الإحالة من الرأس لدعوة الأصدقاء."
+      referralLinkReady: "ملفك الشخصي جاهز! انسخ رابط الإحالة من الرأس لدعوة الأصدقاء.",
+      contacts: "جهات الاتصال"
     },
     createAd: {
       title: "إنشاء إعلان",
@@ -40525,6 +40569,8 @@ const en = {
       telegramHint: "e.g. @username",
       instagram: "Instagram",
       instagramHint: "e.g. @username",
+      email: "Email Address",
+      emailRequired: "A valid email address is required",
       contactRequired: "At least one contact method is required",
       bio: "About Me",
       bioHint: "Tell others about yourself",
@@ -40564,7 +40610,8 @@ const en = {
       yourReferralLink: "Your referral link",
       referralBalanceInfo: "33% of all referral spending goes to your balance.",
       referralBalanceComingSoon: "Withdrawal coming soon",
-      referralLinkReady: "Your profile is ready! Copy your referral link from the header to invite friends."
+      referralLinkReady: "Your profile is ready! Copy your referral link from the header to invite friends.",
+      contacts: "Contacts"
     },
     // Create Ad
     createAd: {
@@ -40946,6 +40993,8 @@ const es = {
       telegramHint: "p.ej. @usuario",
       instagram: "Instagram",
       instagramHint: "p.ej. @usuario",
+      email: "Correo Electrónico",
+      emailRequired: "Se requiere una dirección de correo electrónico válida",
       contactRequired: "Se requiere al menos un método de contacto",
       bio: "Sobre Mí",
       bioHint: "Cuéntanos sobre ti",
@@ -40985,7 +41034,8 @@ const es = {
       yourReferralLink: "Tu enlace de referido",
       referralBalanceInfo: "El 33% de todo el gasto por referidos va a tu saldo.",
       referralBalanceComingSoon: "Retiro disponible próximamente",
-      referralLinkReady: "¡Tu perfil está listo! Copia tu enlace de referido desde el encabezado para invitar amigos."
+      referralLinkReady: "¡Tu perfil está listo! Copia tu enlace de referido desde el encabezado para invitar amigos.",
+      contacts: "Contactos"
     },
     createAd: {
       title: "Crear Anuncio",
@@ -41340,6 +41390,8 @@ const fr = {
       telegramHint: "ex. @nomutilisateur",
       instagram: "Instagram",
       instagramHint: "ex. @nomutilisateur",
+      email: "Adresse e-mail",
+      emailRequired: "Une adresse e-mail valide est requise",
       contactRequired: "Au moins une méthode de contact est requise",
       bio: "À propos de moi",
       bioHint: "Parlez de vous aux autres",
@@ -41379,7 +41431,8 @@ const fr = {
       yourReferralLink: "Votre lien de parrainage",
       referralBalanceInfo: "33 % de toutes les dépenses de parrainage sont ajoutées à votre solde.",
       referralBalanceComingSoon: "Retrait bientôt disponible",
-      referralLinkReady: "Votre profil est prêt ! Copiez votre lien de parrainage depuis l'en-tête pour inviter des amis."
+      referralLinkReady: "Votre profil est prêt ! Copiez votre lien de parrainage depuis l'en-tête pour inviter des amis.",
+      contacts: "Contacts"
     },
     createAd: {
       title: "Créer une annonce",
@@ -41734,6 +41787,8 @@ const hi = {
       telegramHint: "जैसे @username",
       instagram: "Instagram",
       instagramHint: "जैसे @username",
+      email: "ईमेल पता",
+      emailRequired: "एक वैध ईमेल पता आवश्यक है",
       contactRequired: "कम से कम एक संपर्क विधि आवश्यक है",
       bio: "मेरे बारे में",
       bioHint: "अपने बारे में दूसरों को बताएं",
@@ -41773,7 +41828,8 @@ const hi = {
       yourReferralLink: "आपका रेफरल लिंक",
       referralBalanceInfo: "सभी रेफरल खर्च का 33% आपके बैलेंस में जाता है।",
       referralBalanceComingSoon: "निकासी जल्द आ रही है",
-      referralLinkReady: "आपकी प्रोफ़ाइल तैयार है! दोस्तों को आमंत्रित करने के लिए हेडर से अपना रेफरल लिंक कॉपी करें।"
+      referralLinkReady: "आपकी प्रोफ़ाइल तैयार है! दोस्तों को आमंत्रित करने के लिए हेडर से अपना रेफरल लिंक कॉपी करें।",
+      contacts: "संपर्क"
     },
     createAd: {
       title: "विज्ञापन बनाएं",
@@ -42128,6 +42184,8 @@ const pt = {
       telegramHint: "ex. @usuario",
       instagram: "Instagram",
       instagramHint: "ex. @usuario",
+      email: "Endereço de E-mail",
+      emailRequired: "Um endereço de e-mail válido é obrigatório",
       contactRequired: "Pelo menos um método de contato é obrigatório",
       bio: "Sobre Mim",
       bioHint: "Conte aos outros sobre você",
@@ -42167,7 +42225,8 @@ const pt = {
       yourReferralLink: "Seu link de indicação",
       referralBalanceInfo: "33% de todos os gastos de indicação vão para o seu saldo.",
       referralBalanceComingSoon: "Saque disponível em breve",
-      referralLinkReady: "Seu perfil está pronto! Copie seu link de indicação do cabeçalho para convidar amigos."
+      referralLinkReady: "Seu perfil está pronto! Copie seu link de indicação do cabeçalho para convidar amigos.",
+      contacts: "Contatos"
     },
     createAd: {
       title: "Criar Anúncio",
@@ -42522,6 +42581,8 @@ const ru = {
       telegramHint: "напр. @username",
       instagram: "Instagram",
       instagramHint: "напр. @username",
+      email: "Адрес электронной почты",
+      emailRequired: "Требуется действительный адрес электронной почты",
       contactRequired: "Необходимо указать хотя бы один способ связи",
       bio: "О себе",
       bioHint: "Расскажите о себе другим",
@@ -42561,7 +42622,8 @@ const ru = {
       yourReferralLink: "Ваша реферальная ссылка",
       referralBalanceInfo: "33% всех реферальных расходов поступает на ваш баланс.",
       referralBalanceComingSoon: "Вывод средств скоро появится",
-      referralLinkReady: "Ваш профиль готов! Скопируйте реферальную ссылку из шапки, чтобы пригласить друзей."
+      referralLinkReady: "Ваш профиль готов! Скопируйте реферальную ссылку из шапки, чтобы пригласить друзей.",
+      contacts: "Контакты"
     },
     createAd: {
       title: "Создать объявление",
@@ -42916,6 +42978,8 @@ const zh = {
       telegramHint: "例如 @用户名",
       instagram: "Instagram",
       instagramHint: "例如 @用户名",
+      email: "电子邮件地址",
+      emailRequired: "请输入有效的电子邮件地址",
       contactRequired: "至少需要一种联系方式",
       bio: "自我介绍",
       bioHint: "向他人介绍自己",
@@ -42955,7 +43019,8 @@ const zh = {
       yourReferralLink: "您的推荐链接",
       referralBalanceInfo: "所有推荐消费的 33% 会进入您的余额。",
       referralBalanceComingSoon: "提现功能即将推出",
-      referralLinkReady: "您的资料已准备好！从顶部复制您的推荐链接以邀请朋友。"
+      referralLinkReady: "您的资料已准备好！从顶部复制您的推荐链接以邀请朋友。",
+      contacts: "联系方式"
     },
     createAd: {
       title: "创建广告",
@@ -43337,24 +43402,24 @@ function MyFavouritesPage() {
     }) })
   ] });
 }
-const MyLikesPage = React$4.lazy(() => __vitePreload(() => import("./MyLikesPage-DiqPh-fb.js"), true ? [] : void 0));
-const MyReferralsPage = React$4.lazy(() => __vitePreload(() => import("./MyReferralsPage-B3SOdBYW.js"), true ? [] : void 0));
+const MyLikesPage = React$4.lazy(() => __vitePreload(() => import("./MyLikesPage-CJHlQeK6.js"), true ? [] : void 0));
+const MyReferralsPage = React$4.lazy(() => __vitePreload(() => import("./MyReferralsPage-BwZuI7Hm.js"), true ? [] : void 0));
 const ReferralLandingPage = React$4.lazy(
-  () => __vitePreload(() => import("./ReferralLandingPage-BjhPzyBF.js"), true ? [] : void 0)
+  () => __vitePreload(() => import("./ReferralLandingPage-p9MEcLkf.js"), true ? [] : void 0)
 );
-const FeedPage = React$4.lazy(() => __vitePreload(() => import("./FeedPage-Bv0hl3Y2.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
-const AdDetailPage = React$4.lazy(() => __vitePreload(() => import("./AdDetailPage-C4McLRNv.js"), true ? __vite__mapDeps([4,5,6,7,2,3,8,9]) : void 0));
-const ProfilePage = React$4.lazy(() => __vitePreload(() => import("./ProfilePage-B-HNi0sf.js"), true ? __vite__mapDeps([10,11,7]) : void 0));
-const CreateAdPage = React$4.lazy(() => __vitePreload(() => import("./CreateAdPage-BdLDLe57.js"), true ? __vite__mapDeps([12,13,11,6,14,8]) : void 0));
-const MyAdsPage = React$4.lazy(() => __vitePreload(() => import("./MyAdsPage-D0t0m9So.js"), true ? __vite__mapDeps([15,8,1,2,6,7,14,9]) : void 0));
+const FeedPage = React$4.lazy(() => __vitePreload(() => import("./FeedPage-D25pkMWJ.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
+const AdDetailPage = React$4.lazy(() => __vitePreload(() => import("./AdDetailPage-CUw8AR8Z.js"), true ? __vite__mapDeps([4,5,6,7,2,3,8,9]) : void 0));
+const ProfilePage = React$4.lazy(() => __vitePreload(() => import("./ProfilePage-hJWrrh0L.js"), true ? __vite__mapDeps([10,11,7]) : void 0));
+const CreateAdPage = React$4.lazy(() => __vitePreload(() => import("./CreateAdPage-Ddz5Lf8b.js"), true ? __vite__mapDeps([12,13,11,6,14,8]) : void 0));
+const MyAdsPage = React$4.lazy(() => __vitePreload(() => import("./MyAdsPage-Cd9Shtcd.js"), true ? __vite__mapDeps([15,8,1,2,6,7,14,9]) : void 0));
 const PaymentSuccessPage = React$4.lazy(
-  () => __vitePreload(() => import("./PaymentSuccessPage-DcJGQvl2.js"), true ? __vite__mapDeps([16,9]) : void 0)
+  () => __vitePreload(() => import("./PaymentSuccessPage-C0KXKleS.js"), true ? __vite__mapDeps([16,9]) : void 0)
 );
-const PaymentCancelPage = React$4.lazy(() => __vitePreload(() => import("./PaymentCancelPage-kgY83i8m.js"), true ? __vite__mapDeps([17,13,8,1]) : void 0));
+const PaymentCancelPage = React$4.lazy(() => __vitePreload(() => import("./PaymentCancelPage-Bb-3_Ue1.js"), true ? __vite__mapDeps([17,13,8,1]) : void 0));
 const MyJoinRequestsPage = React$4.lazy(
-  () => __vitePreload(() => import("./MyJoinRequestsPage-C5acq-G6.js"), true ? [] : void 0)
+  () => __vitePreload(() => import("./MyJoinRequestsPage-DhktBf2p.js"), true ? [] : void 0)
 );
-const PublicProfilePage = React$4.lazy(() => __vitePreload(() => import("./PublicProfilePage-BYpnS_ZR.js"), true ? __vite__mapDeps([18,5]) : void 0));
+const PublicProfilePage = React$4.lazy(() => __vitePreload(() => import("./PublicProfilePage-DwlUI0S6.js"), true ? __vite__mapDeps([18,5]) : void 0));
 const PageFallback = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center min-h-[50vh]", children: /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSpinner, { size: "lg" }) });
 const rootRoute = createRootRoute({
   component: () => /* @__PURE__ */ jsxRuntimeExports.jsx(Layout, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Suspense, { fallback: PageFallback, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RouterOutlet, {}) }) })

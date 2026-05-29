@@ -53,6 +53,7 @@ type UserProfile =
    city: opt text;
    createdAt: int;
    defaultAvatar: text;
+   email: text;
    fullName: text;
    hideContactsInAds: bool;
    instagram: opt text;
@@ -196,6 +197,7 @@ type ProfileInput =
    bio: text;
    city: opt text;
    dateOfBirth: opt int;
+   email: text;
    fullName: text;
    hideContactsInAds: bool;
    instagram: opt text;
@@ -434,6 +436,8 @@ service : {
       ok: text;
     });
   hasJoinRequest: (adId: text) -> (Result_5) query;
+  hasJoinRequestRelationship: (viewerPrincipal: principal, targetPrincipal:
+   principal) -> (bool) query;
   isAdLikedByMe: (adId: text) -> (bool) query;
   isCallerAdmin: () -> (bool) query;
   isFavourited: (adId: text) -> (bool) query;

@@ -1,6 +1,6 @@
-import { o as createLucideIcon, u as useTranslation, r as reactExports, N as NOMINATIM_URL, D as DEFAULT_LOCALE, z as SUPPORTED_LOCALE_CODES, a as useAuth, c as useBackend, d as useQueryClient, e as useQuery, A as getDefaultAvatarId, f as useMutation, j as jsxRuntimeExports, L as LoadingSpinner, y as User, B as LogIn, C as calcProfileCompleteness, F as Share2, I as CircleCheck, S as SEX_OPTIONS, p as MapPin, t as SUPPORTED_LOCALES, G as Globe, J as MAX_PHOTO_SIZE_MB, K as MAX_PROFILE_PHOTOS, O as getDefaultAvatarUrl, R as Plus, h as ue, T as ExternalBlob, V as Sex } from "./index-CynHsLMD.js";
-import { u as useForm, C as Controller, a as Camera, v as validatePhotoCount, b as validateImage } from "./index.esm-BVsp9CEc.js";
-import { T as Trash2 } from "./trash-2-CHBP5txA.js";
+import { o as createLucideIcon, u as useTranslation, r as reactExports, N as NOMINATIM_URL, D as DEFAULT_LOCALE, z as SUPPORTED_LOCALE_CODES, a as useAuth, c as useBackend, d as useQueryClient, e as useQuery, A as getDefaultAvatarId, f as useMutation, j as jsxRuntimeExports, L as LoadingSpinner, y as User, B as LogIn, C as calcProfileCompleteness, F as Share2, I as CircleCheck, S as SEX_OPTIONS, p as MapPin, t as SUPPORTED_LOCALES, G as Globe, J as MAX_PHOTO_SIZE_MB, K as MAX_PROFILE_PHOTOS, O as getDefaultAvatarUrl, R as Plus, h as ue, T as ExternalBlob, V as Sex } from "./index-DIVa5zae.js";
+import { u as useForm, C as Controller, a as Camera, v as validatePhotoCount, b as validateImage } from "./index.esm-BomqQK5Y.js";
+import { T as Trash2 } from "./trash-2-DEzwOCDV.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -122,6 +122,7 @@ const inputLabelAltClassName = "label-text-alt max-w-full whitespace-normal brea
 function buildDefaultValues(profile) {
   return {
     fullName: (profile == null ? void 0 : profile.fullName) ?? "",
+    email: (profile == null ? void 0 : profile.email) ?? "",
     username: (profile == null ? void 0 : profile.username) ?? "",
     phoneNumber: (profile == null ? void 0 : profile.phoneNumber) ?? "",
     telegram: (profile == null ? void 0 : profile.telegram) ?? "",
@@ -201,6 +202,7 @@ function ProfilePage() {
       if (!backend.isReady) throw new Error("Not authenticated");
       const input = {
         fullName: values.fullName,
+        email: values.email,
         username: values.username.trim() || void 0,
         phoneNumber: values.phoneNumber || void 0,
         telegram: values.telegram || void 0,
@@ -447,6 +449,38 @@ function ProfilePage() {
                 "data-ocid": "profile.fullName.field_error",
                 role: "alert",
                 children: errors.fullName.message
+              }
+            ) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "form-control w-full", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "email", className: inputLabelClassName, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: inputLabelTextClassName, children: [
+              t("profile.email"),
+              " *"
+            ] }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                id: "email",
+                type: "email",
+                className: `input input-bordered w-full px-4 py-3 ${errors.email ? "input-error" : ""}`,
+                placeholder: "you@example.com",
+                "data-ocid": "profile.email.input",
+                ...register("email", {
+                  required: t("profile.emailRequired"),
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: t("profile.emailRequired")
+                  }
+                })
+              }
+            ),
+            errors.email && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "label", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: "label-text-alt text-error",
+                "data-ocid": "profile.email.field_error",
+                role: "alert",
+                children: errors.email.message
               }
             ) })
           ] }),

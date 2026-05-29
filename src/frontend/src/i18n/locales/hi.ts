@@ -105,6 +105,8 @@ const hi = {
       telegramHint: "जैसे @username",
       instagram: "Instagram",
       instagramHint: "जैसे @username",
+      email: "ईमेल पता",
+      emailRequired: "एक वैध ईमेल पता आवश्यक है",
       contactRequired: "कम से कम एक संपर्क विधि आवश्यक है",
       bio: "मेरे बारे में",
       bioHint: "अपने बारे में दूसरों को बताएं",
@@ -147,6 +149,7 @@ const hi = {
       referralBalanceComingSoon: "निकासी जल्द आ रही है",
       referralLinkReady:
         "आपकी प्रोफ़ाइल तैयार है! दोस्तों को आमंत्रित करने के लिए हेडर से अपना रेफरल लिंक कॉपी करें।",
+      contacts: "संपर्क",
     },
     createAd: {
       title: "विज्ञापन बनाएं",

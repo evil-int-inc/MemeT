@@ -111,6 +111,8 @@ const ar = {
       telegramHint: "مثال @اسم_المستخدم",
       instagram: "Instagram",
       instagramHint: "مثال @اسم_المستخدم",
+      email: "عنوان البريد الإلكتروني",
+      emailRequired: "عنوان بريد إلكتروني صالح مطلوب",
       contactRequired: "مطلوب وسيلة اتصال واحدة على الأقل",
       bio: "نبذة عني",
       bioHint: "أخبر الآخرين عن نفسك",
@@ -153,6 +155,7 @@ const ar = {
       referralBalanceComingSoon: "السحب قريباً",
       referralLinkReady:
         "ملفك الشخصي جاهز! انسخ رابط الإحالة من الرأس لدعوة الأصدقاء.",
+      contacts: "جهات الاتصال",
     },
 
     createAd: {

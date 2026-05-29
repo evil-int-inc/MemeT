@@ -164,6 +164,7 @@ export interface ProfileInput {
   'instagram' : [] | [string],
   'hideContactsInAds' : boolean,
   'fullName' : string,
+  'email' : string,
   'language' : string,
   'phoneNumber' : [] | [string],
   'telegram' : [] | [string],
@@ -253,6 +254,7 @@ export interface UserProfile {
   'createdAt' : bigint,
   'hideContactsInAds' : boolean,
   'fullName' : string,
+  'email' : string,
   'language' : string,
   'updatedAt' : bigint,
   'referredBy' : [] | [Principal],
@@ -359,6 +361,7 @@ export interface _SERVICE {
       { 'err' : string }
   >,
   'hasJoinRequest' : ActorMethod<[string], Result_5>,
+  'hasJoinRequestRelationship' : ActorMethod<[Principal, Principal], boolean>,
   'isAdLikedByMe' : ActorMethod<[string], boolean>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'isFavourited' : ActorMethod<[string], boolean>,

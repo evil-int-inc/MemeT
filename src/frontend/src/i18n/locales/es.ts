@@ -105,6 +105,8 @@ const es = {
       telegramHint: "p.ej. @usuario",
       instagram: "Instagram",
       instagramHint: "p.ej. @usuario",
+      email: "Correo Electrónico",
+      emailRequired: "Se requiere una dirección de correo electrónico válida",
       contactRequired: "Se requiere al menos un método de contacto",
       bio: "Sobre Mí",
       bioHint: "Cuéntanos sobre ti",
@@ -150,6 +152,7 @@ const es = {
       referralBalanceComingSoon: "Retiro disponible próximamente",
       referralLinkReady:
         "¡Tu perfil está listo! Copia tu enlace de referido desde el encabezado para invitar amigos.",
+      contacts: "Contactos",
     },
     createAd: {
       title: "Crear Anuncio",

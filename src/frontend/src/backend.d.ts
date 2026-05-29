@@ -296,6 +296,7 @@ export interface ProfileInput {
     instagram?: string;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     phoneNumber?: string;
     telegram?: string;
@@ -314,6 +315,7 @@ export interface UserProfile {
     createdAt: bigint;
     hideContactsInAds: boolean;
     fullName: string;
+    email: string;
     language: string;
     updatedAt: bigint;
     referredBy?: Principal;
@@ -422,6 +424,7 @@ export interface backendInterface {
         err: string;
     }>;
     hasJoinRequest(adId: string): Promise<Result_5>;
+    hasJoinRequestRelationship(viewerPrincipal: Principal, targetPrincipal: Principal): Promise<boolean>;
     isAdLikedByMe(adId: string): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     isFavourited(adId: string): Promise<boolean>;

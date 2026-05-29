@@ -24,8 +24,9 @@ args = [ "--default-persistent-actors", "--actor-idl=src/backend/system-idl", "-
 version = "1.8.2"
 
 [dependencies]
-core = "2.2.0"
+core = "2.5.0"
 caffeineai-authorization = "0.1.1"
 caffeineai-object-storage = "0.1.2"
 caffeineai-stripe = "0.1.1"
 caffeineai-http-outcalls = "0.1.1"
+caffeineai-email = "0.1.1"

@@ -111,6 +111,8 @@ const pt = {
       telegramHint: "ex. @usuario",
       instagram: "Instagram",
       instagramHint: "ex. @usuario",
+      email: "Endereço de E-mail",
+      emailRequired: "Um endereço de e-mail válido é obrigatório",
       contactRequired: "Pelo menos um método de contato é obrigatório",
       bio: "Sobre Mim",
       bioHint: "Conte aos outros sobre você",
@@ -156,6 +158,7 @@ const pt = {
       referralBalanceComingSoon: "Saque disponível em breve",
       referralLinkReady:
         "Seu perfil está pronto! Copie seu link de indicação do cabeçalho para convidar amigos.",
+      contacts: "Contatos",
     },
 
     createAd: {

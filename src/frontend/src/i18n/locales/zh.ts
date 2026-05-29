@@ -105,6 +105,8 @@ const zh = {
       telegramHint: "例如 @用户名",
       instagram: "Instagram",
       instagramHint: "例如 @用户名",
+      email: "电子邮件地址",
+      emailRequired: "请输入有效的电子邮件地址",
       contactRequired: "至少需要一种联系方式",
       bio: "自我介绍",
       bioHint: "向他人介绍自己",
@@ -145,6 +147,7 @@ const zh = {
       referralBalanceInfo: "所有推荐消费的 33% 会进入您的余额。",
       referralBalanceComingSoon: "提现功能即将推出",
       referralLinkReady: "您的资料已准备好！从顶部复制您的推荐链接以邀请朋友。",
+      contacts: "联系方式",
     },
     createAd: {
       title: "创建广告",

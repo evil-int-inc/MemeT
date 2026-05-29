@@ -375,6 +375,15 @@ export function useBackend() {
     return extractResult(result);
   }, []);
 
+  const hasJoinRequestRelationship = useCallback(
+    async (viewerPrincipal: Principal, targetPrincipal: Principal): Promise<boolean> => {
+      const a = actorRef.current;
+      if (!a) return false;
+      return a.hasJoinRequestRelationship(viewerPrincipal, targetPrincipal);
+    },
+    [],
+  );
+
   const publishByPromoCode = useCallback(async (adId: string, code: string) => {
     const a = actorRef.current;
     if (!a) throw new Error('Not authenticated');
@@ -422,6 +431,7 @@ export function useBackend() {
     getReferralCode,
     setReferredBy,
     getMyReferrals,
+    hasJoinRequestRelationship,
     publishByPromoCode,
   };
 }

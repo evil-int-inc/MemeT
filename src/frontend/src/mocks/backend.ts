@@ -219,4 +219,5 @@ export const mockBackend: backendInterface = {
   setReferredBy: async (_code: string): Promise<Result_3> => ({ __kind__: "err", err: "Mock: referral not available" }),
   getMyReferrals: async (): Promise<Result_7> => ({ __kind__: "ok", ok: [] }),
   publishByPromoCode: async (_adId: string, _code: string): Promise<Result_3> => ({ __kind__: "err", err: "Mock: promo code not available" }),
+  hasJoinRequestRelationship: async (_viewerPrincipal: Principal, _targetPrincipal: Principal): Promise<boolean> => false,
 };

@@ -118,6 +118,8 @@ const en = {
       telegramHint: "e.g. @username",
       instagram: "Instagram",
       instagramHint: "e.g. @username",
+      email: "Email Address",
+      emailRequired: "A valid email address is required",
       contactRequired: "At least one contact method is required",
       bio: "About Me",
       bioHint: "Tell others about yourself",
@@ -161,6 +163,7 @@ const en = {
       referralBalanceComingSoon: "Withdrawal coming soon",
       referralLinkReady:
         "Your profile is ready! Copy your referral link from the header to invite friends.",
+      contacts: "Contacts",
     },
 
     // Create Ad
