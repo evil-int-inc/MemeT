@@ -57,10 +57,10 @@ mixin (
                         );
                       } else { desc };
                     };
-                    let appDomain : Text = "https://" # canisterId.toText() # ".icp0.io";
+                    let appDomain : Text = "https://evertwo.app";
                     let adUrl : Text = appDomain # "/ads/" # adId;
                     let requesterUrl : Text = appDomain # "/users/" # req.requesterPrincipal.toText();
-                    let logoSrc : Text = appDomain # "/assets/evertwo-logo-dark-2-019e6f67-08ad-70b8-a1d8-a2f12a753cd2.png";
+                    let logoSrc : Text = appDomain # "/assets/evertwo-logo-light-2-019e6f67-0ad7-75ef-8326-d99b8ab241c6.png";
                     let htmlBody : Text =
                       "<div style='font-family:sans-serif;max-width:600px;margin:0 auto'>" #
                       "<img src='" # logoSrc # "' style='width:200px;display:block;margin:0 auto 24px' alt='EverTwo' />" #
@@ -148,6 +148,42 @@ mixin (
     };
   };
 
+  // Returns all join requesters for an ad WITH full contact info (phone/telegram/instagram).
+  // Owner-only: the caller must be the ad creator.
+  // Returns full UserProfile (including contacts) regardless of hideContactsInAds setting.
+  public query ({ caller }) func getJoinRequestsForAdWithContacts(
+    adId : Text
+  ) : async Common.Result<[{ request : JoinRequestTypes.JoinRequestPublic; profile : ?ProfileTypes.UserProfile }], Text> {
+    switch (ads.get(adId)) {
+      case (null) { #err("Ad not found") };
+      case (?ad) {
+        if (ad.creatorPrincipal != caller) {
+          return #err("Unauthorized");
+        };
+        switch (JoinRequestLib.getJoinRequestsForAd(joinRequests, caller, adId, ads)) {
+          case (#err(e)) { #err(e) };
+          case (#ok(requests)) {
+            let result = List.empty<{ request : JoinRequestTypes.JoinRequestPublic; profile : ?ProfileTypes.UserProfile }>();
+            for (req in requests.vals()) {
+              let maybeProfile : ?ProfileTypes.UserProfile = profiles.get(req.requesterPrincipal);
+              result.add({
+                request = {
+                  id = req.id;
+                  adId = req.adId;
+                  requesterPrincipal = req.requesterPrincipal;
+                  createdAt = req.createdAt;
+                  status = req.status;
+                };
+                profile = maybeProfile;
+              });
+            };
+            #ok(result.toArray());
+          };
+        };
+      };
+    };
+  };
+
   // Returns all ads the caller has sent a join request for (active requests only),
   // paired with the ad's public data.
   public query ({ caller }) func getMyJoinRequests() : async Common.Result<[{ request : JoinRequestTypes.JoinRequestPublic; ad : ?AdTypes.AdvertisementPublic }], Text> {
@@ -197,6 +233,7 @@ mixin (
             paymentProvider = ad.paymentProvider;
             paymentReference = ad.paymentReference;
             paid = ad.paid;
+            address = ad.address;
             createdAt = ad.createdAt;
             updatedAt = ad.updatedAt;
             publishedAt = ad.publishedAt;

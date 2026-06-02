@@ -259,6 +259,7 @@ module {
       paymentProvider = null;
       paymentReference = null;
       paid = 0.0;
+      address = input.address;
       createdAt = now;
       updatedAt = now;
       publishedAt = null;
@@ -305,6 +306,7 @@ module {
           howPaysForEvent = input.howPaysForEvent;
           eventLink = input.eventLink;
           photos = input.photos;
+          address = input.address;
           updatedAt = now;
         };
         ads.add(id, updated);
@@ -476,6 +478,7 @@ module {
       paymentProvider = ad.paymentProvider;
       paymentReference = ad.paymentReference;
       paid = ad.paid;
+      address = ad.address;
       createdAt = ad.createdAt;
       updatedAt = ad.updatedAt;
       publishedAt = ad.publishedAt;

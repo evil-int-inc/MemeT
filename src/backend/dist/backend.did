@@ -156,12 +156,12 @@ type Result_2 =
    err: text;
    ok: Advertisement;
  };
-type Result_12 = 
+type Result_13 = 
  variant {
    err: text;
    ok: FavouritePublic;
  };
-type Result_11 = 
+type Result_12 = 
  variant {
    err: text;
    ok:
@@ -169,6 +169,14 @@ type Result_11 =
           profile: opt UserProfilePublic;
           request: JoinRequestPublic;
         };
+ };
+type Result_11 = 
+ variant {
+   err: text;
+   ok: vec record {
+             profile: opt UserProfile;
+             request: JoinRequestPublic;
+           };
  };
 type Result_10 = 
  variant {
@@ -305,6 +313,7 @@ type BlobMetadata =
  };
 type AdvertisementPublic = 
  record {
+   address: opt text;
    city: opt text;
    createdAt: int;
    creatorPrincipal: principal;
@@ -330,6 +339,7 @@ type AdvertisementPublic =
  };
 type Advertisement = 
  record {
+   address: opt text;
    city: opt text;
    createdAt: int;
    creatorPrincipal: principal;
@@ -374,6 +384,7 @@ type AdLike =
  };
 type AdInput = 
  record {
+   address: opt text;
    city: opt text;
    description: text;
    eventLink: opt text;
@@ -398,7 +409,7 @@ service : {
   _initializeAccessControl: () -> ();
   addAdLike: (adId: text) -> (Result_3);
   addProfileLike: (profilePrincipal: principal) -> (Result_3);
-  addToFavourites: (adId: text) -> (Result_12);
+  addToFavourites: (adId: text) -> (Result_13);
   assignCallerUserRole: (user: principal, role: UserRole) -> ();
   cancelJoinRequest: (requestId: text) -> (Result_3);
   confirmPayment: (adId: text, sessionId: text) -> (Result_2);
@@ -416,7 +427,8 @@ service : {
   getFavouriteCount: (adId: text) -> (nat) query;
   getFeed: (filter: FeedFilter, offset: nat, limit: nat) ->
    (vec AdvertisementPublic) query;
-  getJoinRequestsForAd: (adId: text) -> (Result_11) query;
+  getJoinRequestsForAd: (adId: text) -> (Result_12) query;
+  getJoinRequestsForAdWithContacts: (adId: text) -> (Result_11) query;
   getMyAdLikes: () -> (Result_10) query;
   getMyAds: () -> (vec Advertisement) query;
   getMyFavourites: () -> (Result_9) query;

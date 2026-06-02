@@ -32,6 +32,13 @@ export interface TransformationOutput {
     body: Uint8Array;
     headers: Array<http_header>;
 }
+export type Result_13 = {
+    __kind__: "ok";
+    ok: FavouritePublic;
+} | {
+    __kind__: "err";
+    err: string;
+};
 export interface AdvertisementPublic {
     id: string;
     status: AdStatus;
@@ -46,6 +53,7 @@ export interface AdvertisementPublic {
     description: string;
     updatedAt: bigint;
     creatorPrincipal: Principal;
+    address?: string;
     howPaysForEvent: HowPaysForEvent;
     paymentReference?: string;
     linkPreview?: LinkPreview;
@@ -77,6 +85,7 @@ export interface Advertisement {
     description: string;
     updatedAt: bigint;
     creatorPrincipal: Principal;
+    address?: string;
     howPaysForEvent: HowPaysForEvent;
     paymentReference?: string;
     linkPreview?: LinkPreview;
@@ -104,7 +113,7 @@ export type Result_11 = {
     __kind__: "ok";
     ok: Array<{
         request: JoinRequestPublic;
-        profile?: UserProfilePublic;
+        profile?: UserProfile;
     }>;
 } | {
     __kind__: "err";
@@ -170,6 +179,7 @@ export interface AdInput {
     meetType: MeetType;
     city?: string;
     description: string;
+    address?: string;
     howPaysForEvent: HowPaysForEvent;
     photos: Array<BlobMetadata>;
     eventLink?: string;
@@ -193,7 +203,10 @@ export type Result_6 = {
 };
 export type Result_12 = {
     __kind__: "ok";
-    ok: FavouritePublic;
+    ok: Array<{
+        request: JoinRequestPublic;
+        profile?: UserProfilePublic;
+    }>;
 } | {
     __kind__: "err";
     err: string;
@@ -388,7 +401,7 @@ export enum UserRole {
 export interface backendInterface {
     addAdLike(adId: string): Promise<Result_3>;
     addProfileLike(profilePrincipal: Principal): Promise<Result_3>;
-    addToFavourites(adId: string): Promise<Result_12>;
+    addToFavourites(adId: string): Promise<Result_13>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     cancelJoinRequest(requestId: string): Promise<Result_3>;
     confirmPayment(adId: string, sessionId: string): Promise<Result_2>;
@@ -402,7 +415,8 @@ export interface backendInterface {
     getCallerUserRole(): Promise<UserRole>;
     getFavouriteCount(adId: string): Promise<bigint>;
     getFeed(filter: FeedFilter, offset: bigint, limit: bigint): Promise<Array<AdvertisementPublic>>;
-    getJoinRequestsForAd(adId: string): Promise<Result_11>;
+    getJoinRequestsForAd(adId: string): Promise<Result_12>;
+    getJoinRequestsForAdWithContacts(adId: string): Promise<Result_11>;
     getMyAdLikes(): Promise<Result_10>;
     getMyAds(): Promise<Array<Advertisement>>;
     getMyFavourites(): Promise<Result_9>;

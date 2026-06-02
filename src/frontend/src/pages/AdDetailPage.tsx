@@ -105,8 +105,8 @@ export default function AdDetailPage() {
 
   // ── join requests (owner only) ──
   const { data: joinRequests, isLoading: joinRequestsLoading } = useQuery({
-    queryKey: ["joinRequestsForAd", id],
-    queryFn: () => backend.getJoinRequestsForAd(id),
+    queryKey: ["joinRequestsForAdWithContacts", id],
+    queryFn: () => backend.getJoinRequestsForAdWithContacts(id),
     enabled:
       isAuthenticated && !!ad && principal === ad.creatorPrincipal.toText(),
   });
@@ -326,17 +326,27 @@ export default function AdDetailPage() {
               <EventTypeIcon eventType={ad.eventType} className="w-3.5 h-3.5" />
               {t(`eventType.${enumLabel(ad.eventType)}`)}
             </span>
-            {ad.isVirtual ? (
+            {ad.meetType === "online" ? (
               <span className="badge badge-accent badge-lg gap-1">
                 <Globe size={12} />
-                {t("adDetail.virtual")}
+                {t("meetType.online")}
               </span>
-            ) : ad.city ? (
-              <span className="badge badge-secondary badge-lg gap-1">
-                <MapPin size={12} />
-                {ad.city}
-              </span>
-            ) : null}
+            ) : (
+              <>
+                {ad.city && (
+                  <span className="badge badge-secondary badge-lg gap-1">
+                    <MapPin size={12} />
+                    {ad.city}
+                  </span>
+                )}
+                {ad.address && (
+                  <span className="badge badge-secondary badge-lg gap-1">
+                    <MapPin size={12} />
+                    {ad.address}
+                  </span>
+                )}
+              </>
+            )}
             <span className="badge badge-outline badge-lg gap-1">
               <Users size={12} />
               {t(`companionSex.${enumLabel(ad.expectedCompanionSex)}`)}
@@ -774,44 +784,22 @@ export default function AdDetailPage() {
                               )}
                             </div>
                             <div className="space-y-0.5 text-sm text-base-content/70">
-                              {(
-                                profile as unknown as { phoneNumber?: [string] }
-                              )?.phoneNumber?.[0] && (
+                              {profile?.phoneNumber && (
                                 <div className="flex items-center gap-1">
                                   <Phone size={12} />
-                                  {
-                                    (
-                                      profile as unknown as {
-                                        phoneNumber?: [string];
-                                      }
-                                    ).phoneNumber![0]
-                                  }
+                                  {profile.phoneNumber}
                                 </div>
                               )}
-                              {(profile as unknown as { telegram?: [string] })
-                                ?.telegram?.[0] && (
+                              {profile?.telegram && (
                                 <div className="flex items-center gap-1">
                                   <Send size={12} />
-                                  {
-                                    (
-                                      profile as unknown as {
-                                        telegram?: [string];
-                                      }
-                                    ).telegram![0]
-                                  }
+                                  {profile.telegram}
                                 </div>
                               )}
-                              {(profile as unknown as { instagram?: [string] })
-                                ?.instagram?.[0] && (
+                              {profile?.instagram && (
                                 <div className="flex items-center gap-1">
                                   <AtSign size={12} />
-                                  {
-                                    (
-                                      profile as unknown as {
-                                        instagram?: [string];
-                                      }
-                                    ).instagram![0]
-                                  }
+                                  {profile.instagram}
                                 </div>
                               )}
                             </div>

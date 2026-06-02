@@ -375,6 +375,20 @@ export function useBackend() {
     return extractResult(result);
   }, []);
 
+  const getJoinRequestsForAdWithContacts = useCallback(
+    async (adId: string): Promise<Array<{ request: JoinRequestPublic; profile: UserProfile | null }>> => {
+      const a = actorRef.current;
+      if (!a) throw new Error("Not authenticated");
+      const result = await a.getJoinRequestsForAdWithContacts(adId);
+      const data = extractResult(result);
+      return data.map((item) => ({
+        request: item.request,
+        profile: item.profile ?? null,
+      }));
+    },
+    [],
+  );
+
   const hasJoinRequestRelationship = useCallback(
     async (viewerPrincipal: Principal, targetPrincipal: Principal): Promise<boolean> => {
       const a = actorRef.current;
@@ -432,6 +446,7 @@ export function useBackend() {
     setReferredBy,
     getMyReferrals,
     hasJoinRequestRelationship,
+    getJoinRequestsForAdWithContacts,
     publishByPromoCode,
   };
 }

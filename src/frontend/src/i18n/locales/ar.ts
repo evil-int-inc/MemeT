@@ -113,6 +113,7 @@ const ar = {
       deleteConfirmBody:
         "هل أنت متأكد من حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.",
       deleteFailed: "فشل حذف الإعلان. يرجى المحاولة مرة أخرى.",
+      address: "العنوان",
     },
 
     profile: {
@@ -218,6 +219,8 @@ const ar = {
       photoDeleteAlt: "حذف الصورة",
       promoCodePlaceholder: "أدخل رمز الخصم",
       saveByPromoCode: "حفظ ونشر برمز الخصم",
+      address: "العنوان (اختياري)",
+      addressPlaceholder: "أدخل عنوان اللقاء",
     },
 
     myAds: {

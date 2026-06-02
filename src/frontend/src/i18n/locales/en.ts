@@ -119,6 +119,7 @@ const en = {
       deleteConfirmBody:
         "Are you sure you want to delete this advertisement? This action cannot be undone.",
       deleteFailed: "Failed to delete advertisement. Please try again.",
+      address: "Address",
     },
 
     // Profile
@@ -229,6 +230,8 @@ const en = {
       photoDeleteAlt: "Delete photo",
       promoCodePlaceholder: "Enter promo code",
       saveByPromoCode: "Save & Publish by Promo Code",
+      address: "Address (optional)",
+      addressPlaceholder: "Enter meeting address",
     },
 
     // My Ads

@@ -5,6 +5,7 @@ type AdStatus__342136045 =
   {#deleted; #draft; #pending_payment; #published; #rejected};
 type Advertisement__1003727115 =
   {
+    address : ?Text;
     city : ?Text;
     createdAt : Int;
     creatorPrincipal : Principal;

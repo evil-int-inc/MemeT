@@ -26,7 +26,7 @@ export const FavouritePublic = IDL.Record({
   'createdAt' : IDL.Int,
   'userPrincipal' : IDL.Principal,
 });
-export const Result_12 = IDL.Variant({
+export const Result_13 = IDL.Variant({
   'ok' : FavouritePublic,
   'err' : IDL.Text,
 });
@@ -104,6 +104,7 @@ export const Advertisement = IDL.Record({
   'description' : IDL.Text,
   'updatedAt' : IDL.Int,
   'creatorPrincipal' : IDL.Principal,
+  'address' : IDL.Opt(IDL.Text),
   'howPaysForEvent' : HowPaysForEvent,
   'paymentReference' : IDL.Opt(IDL.Text),
   'linkPreview' : IDL.Opt(LinkPreview),
@@ -120,6 +121,7 @@ export const AdInput = IDL.Record({
   'meetType' : MeetType,
   'city' : IDL.Opt(IDL.Text),
   'description' : IDL.Text,
+  'address' : IDL.Opt(IDL.Text),
   'howPaysForEvent' : HowPaysForEvent,
   'photos' : IDL.Vec(BlobMetadata),
   'eventLink' : IDL.Opt(IDL.Text),
@@ -169,6 +171,7 @@ export const AdvertisementPublic = IDL.Record({
   'description' : IDL.Text,
   'updatedAt' : IDL.Int,
   'creatorPrincipal' : IDL.Principal,
+  'address' : IDL.Opt(IDL.Text),
   'howPaysForEvent' : HowPaysForEvent,
   'paymentReference' : IDL.Opt(IDL.Text),
   'linkPreview' : IDL.Opt(LinkPreview),
@@ -210,11 +213,42 @@ export const JoinRequestPublic = IDL.Record({
   'createdAt' : IDL.Int,
   'requesterPrincipal' : IDL.Principal,
 });
-export const Result_11 = IDL.Variant({
+export const Result_12 = IDL.Variant({
   'ok' : IDL.Vec(
     IDL.Record({
       'request' : JoinRequestPublic,
       'profile' : IDL.Opt(UserProfilePublic),
+    })
+  ),
+  'err' : IDL.Text,
+});
+export const UserProfile = IDL.Record({
+  'age' : IDL.Opt(IDL.Nat),
+  'bio' : IDL.Text,
+  'sex' : Sex,
+  'principal' : IDL.Principal,
+  'referralCode' : IDL.Opt(IDL.Text),
+  'username' : IDL.Opt(IDL.Text),
+  'balance' : IDL.Float64,
+  'city' : IDL.Opt(IDL.Text),
+  'instagram' : IDL.Opt(IDL.Text),
+  'createdAt' : IDL.Int,
+  'hideContactsInAds' : IDL.Bool,
+  'fullName' : IDL.Text,
+  'email' : IDL.Text,
+  'language' : IDL.Text,
+  'updatedAt' : IDL.Int,
+  'referredBy' : IDL.Opt(IDL.Principal),
+  'phoneNumber' : IDL.Opt(IDL.Text),
+  'telegram' : IDL.Opt(IDL.Text),
+  'photos' : IDL.Vec(BlobMetadata),
+  'defaultAvatar' : IDL.Text,
+});
+export const Result_11 = IDL.Variant({
+  'ok' : IDL.Vec(
+    IDL.Record({
+      'request' : JoinRequestPublic,
+      'profile' : IDL.Opt(UserProfile),
     })
   ),
   'err' : IDL.Text,
@@ -249,28 +283,6 @@ export const Result_8 = IDL.Variant({
     })
   ),
   'err' : IDL.Text,
-});
-export const UserProfile = IDL.Record({
-  'age' : IDL.Opt(IDL.Nat),
-  'bio' : IDL.Text,
-  'sex' : Sex,
-  'principal' : IDL.Principal,
-  'referralCode' : IDL.Opt(IDL.Text),
-  'username' : IDL.Opt(IDL.Text),
-  'balance' : IDL.Float64,
-  'city' : IDL.Opt(IDL.Text),
-  'instagram' : IDL.Opt(IDL.Text),
-  'createdAt' : IDL.Int,
-  'hideContactsInAds' : IDL.Bool,
-  'fullName' : IDL.Text,
-  'email' : IDL.Text,
-  'language' : IDL.Text,
-  'updatedAt' : IDL.Int,
-  'referredBy' : IDL.Opt(IDL.Principal),
-  'phoneNumber' : IDL.Opt(IDL.Text),
-  'telegram' : IDL.Opt(IDL.Text),
-  'photos' : IDL.Vec(BlobMetadata),
-  'defaultAvatar' : IDL.Text,
 });
 export const ReferralEntry = IDL.Record({
   'referredPrincipal' : IDL.Principal,
@@ -364,7 +376,7 @@ export const idlService = IDL.Service({
   '_initializeAccessControl' : IDL.Func([], [], []),
   'addAdLike' : IDL.Func([IDL.Text], [Result_3], []),
   'addProfileLike' : IDL.Func([IDL.Principal], [Result_3], []),
-  'addToFavourites' : IDL.Func([IDL.Text], [Result_12], []),
+  'addToFavourites' : IDL.Func([IDL.Text], [Result_13], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'cancelJoinRequest' : IDL.Func([IDL.Text], [Result_3], []),
   'confirmPayment' : IDL.Func([IDL.Text, IDL.Text], [Result_2], []),
@@ -394,7 +406,12 @@ export const idlService = IDL.Service({
       [IDL.Vec(AdvertisementPublic)],
       ['query'],
     ),
-  'getJoinRequestsForAd' : IDL.Func([IDL.Text], [Result_11], ['query']),
+  'getJoinRequestsForAd' : IDL.Func([IDL.Text], [Result_12], ['query']),
+  'getJoinRequestsForAdWithContacts' : IDL.Func(
+      [IDL.Text],
+      [Result_11],
+      ['query'],
+    ),
   'getMyAdLikes' : IDL.Func([], [Result_10], ['query']),
   'getMyAds' : IDL.Func([], [IDL.Vec(Advertisement)], ['query']),
   'getMyFavourites' : IDL.Func([], [Result_9], ['query']),
@@ -467,7 +484,7 @@ export const idlFactory = ({ IDL }) => {
     'createdAt' : IDL.Int,
     'userPrincipal' : IDL.Principal,
   });
-  const Result_12 = IDL.Variant({ 'ok' : FavouritePublic, 'err' : IDL.Text });
+  const Result_13 = IDL.Variant({ 'ok' : FavouritePublic, 'err' : IDL.Text });
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
@@ -539,6 +556,7 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'updatedAt' : IDL.Int,
     'creatorPrincipal' : IDL.Principal,
+    'address' : IDL.Opt(IDL.Text),
     'howPaysForEvent' : HowPaysForEvent,
     'paymentReference' : IDL.Opt(IDL.Text),
     'linkPreview' : IDL.Opt(LinkPreview),
@@ -555,6 +573,7 @@ export const idlFactory = ({ IDL }) => {
     'meetType' : MeetType,
     'city' : IDL.Opt(IDL.Text),
     'description' : IDL.Text,
+    'address' : IDL.Opt(IDL.Text),
     'howPaysForEvent' : HowPaysForEvent,
     'photos' : IDL.Vec(BlobMetadata),
     'eventLink' : IDL.Opt(IDL.Text),
@@ -604,6 +623,7 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'updatedAt' : IDL.Int,
     'creatorPrincipal' : IDL.Principal,
+    'address' : IDL.Opt(IDL.Text),
     'howPaysForEvent' : HowPaysForEvent,
     'paymentReference' : IDL.Opt(IDL.Text),
     'linkPreview' : IDL.Opt(LinkPreview),
@@ -645,11 +665,42 @@ export const idlFactory = ({ IDL }) => {
     'createdAt' : IDL.Int,
     'requesterPrincipal' : IDL.Principal,
   });
-  const Result_11 = IDL.Variant({
+  const Result_12 = IDL.Variant({
     'ok' : IDL.Vec(
       IDL.Record({
         'request' : JoinRequestPublic,
         'profile' : IDL.Opt(UserProfilePublic),
+      })
+    ),
+    'err' : IDL.Text,
+  });
+  const UserProfile = IDL.Record({
+    'age' : IDL.Opt(IDL.Nat),
+    'bio' : IDL.Text,
+    'sex' : Sex,
+    'principal' : IDL.Principal,
+    'referralCode' : IDL.Opt(IDL.Text),
+    'username' : IDL.Opt(IDL.Text),
+    'balance' : IDL.Float64,
+    'city' : IDL.Opt(IDL.Text),
+    'instagram' : IDL.Opt(IDL.Text),
+    'createdAt' : IDL.Int,
+    'hideContactsInAds' : IDL.Bool,
+    'fullName' : IDL.Text,
+    'email' : IDL.Text,
+    'language' : IDL.Text,
+    'updatedAt' : IDL.Int,
+    'referredBy' : IDL.Opt(IDL.Principal),
+    'phoneNumber' : IDL.Opt(IDL.Text),
+    'telegram' : IDL.Opt(IDL.Text),
+    'photos' : IDL.Vec(BlobMetadata),
+    'defaultAvatar' : IDL.Text,
+  });
+  const Result_11 = IDL.Variant({
+    'ok' : IDL.Vec(
+      IDL.Record({
+        'request' : JoinRequestPublic,
+        'profile' : IDL.Opt(UserProfile),
       })
     ),
     'err' : IDL.Text,
@@ -684,28 +735,6 @@ export const idlFactory = ({ IDL }) => {
       })
     ),
     'err' : IDL.Text,
-  });
-  const UserProfile = IDL.Record({
-    'age' : IDL.Opt(IDL.Nat),
-    'bio' : IDL.Text,
-    'sex' : Sex,
-    'principal' : IDL.Principal,
-    'referralCode' : IDL.Opt(IDL.Text),
-    'username' : IDL.Opt(IDL.Text),
-    'balance' : IDL.Float64,
-    'city' : IDL.Opt(IDL.Text),
-    'instagram' : IDL.Opt(IDL.Text),
-    'createdAt' : IDL.Int,
-    'hideContactsInAds' : IDL.Bool,
-    'fullName' : IDL.Text,
-    'email' : IDL.Text,
-    'language' : IDL.Text,
-    'updatedAt' : IDL.Int,
-    'referredBy' : IDL.Opt(IDL.Principal),
-    'phoneNumber' : IDL.Opt(IDL.Text),
-    'telegram' : IDL.Opt(IDL.Text),
-    'photos' : IDL.Vec(BlobMetadata),
-    'defaultAvatar' : IDL.Text,
   });
   const ReferralEntry = IDL.Record({
     'referredPrincipal' : IDL.Principal,
@@ -793,7 +822,7 @@ export const idlFactory = ({ IDL }) => {
     '_initializeAccessControl' : IDL.Func([], [], []),
     'addAdLike' : IDL.Func([IDL.Text], [Result_3], []),
     'addProfileLike' : IDL.Func([IDL.Principal], [Result_3], []),
-    'addToFavourites' : IDL.Func([IDL.Text], [Result_12], []),
+    'addToFavourites' : IDL.Func([IDL.Text], [Result_13], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'cancelJoinRequest' : IDL.Func([IDL.Text], [Result_3], []),
     'confirmPayment' : IDL.Func([IDL.Text, IDL.Text], [Result_2], []),
@@ -827,7 +856,12 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(AdvertisementPublic)],
         ['query'],
       ),
-    'getJoinRequestsForAd' : IDL.Func([IDL.Text], [Result_11], ['query']),
+    'getJoinRequestsForAd' : IDL.Func([IDL.Text], [Result_12], ['query']),
+    'getJoinRequestsForAdWithContacts' : IDL.Func(
+        [IDL.Text],
+        [Result_11],
+        ['query'],
+      ),
     'getMyAdLikes' : IDL.Func([], [Result_10], ['query']),
     'getMyAds' : IDL.Func([], [IDL.Vec(Advertisement)], ['query']),
     'getMyFavourites' : IDL.Func([], [Result_9], ['query']),

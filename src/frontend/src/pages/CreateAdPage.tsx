@@ -37,6 +37,7 @@ interface AdFormValues {
   eventType: EventType;
   meetType: "inPerson" | "online";
   city: string;
+  address: string;
   description: string;
   expectedCompanionSex: ExpectedCompanionSex;
   eventLink: string;
@@ -123,6 +124,7 @@ export default function CreateAdPage() {
       eventType: "restaurant" as EventType,
       meetType: "inPerson" as const,
       city: "",
+      address: "",
       description: "",
       expectedCompanionSex: "both" as ExpectedCompanionSex,
       eventLink: "",
@@ -133,6 +135,7 @@ export default function CreateAdPage() {
 
   const photos = watch("photos") ?? [];
   const selectedEventType = watch("eventType");
+  const meetType = watch("meetType");
 
   // Populate form in edit mode
   useEffect(() => {
@@ -142,6 +145,7 @@ export default function CreateAdPage() {
         eventType: editAd.eventType,
         meetType: editAd.meetType === MeetType.online ? "online" : "inPerson",
         city: editAd.city ?? "",
+        address: editAd.address?.[0] ?? "",
         description: editAd.description,
         expectedCompanionSex: editAd.expectedCompanionSex,
         eventLink: editAd.eventLink ?? "",
@@ -213,6 +217,10 @@ export default function CreateAdPage() {
           data.meetType === "online" ? MeetType.online : MeetType.inPerson,
         isVirtual: data.meetType === "online",
         city: data.city || undefined,
+        address:
+          data.meetType === "online" || !data.address
+            ? undefined
+            : data.address,
         description: data.description,
         expectedCompanionSex: data.expectedCompanionSex,
         eventLink: data.eventLink || undefined,
@@ -230,6 +238,10 @@ export default function CreateAdPage() {
           data.meetType === "online" ? MeetType.online : MeetType.inPerson,
         isVirtual: data.meetType === "online",
         city: data.city || undefined,
+        address:
+          data.meetType === "online" || !data.address
+            ? undefined
+            : data.address,
         description: data.description,
         expectedCompanionSex: data.expectedCompanionSex,
         eventLink: data.eventLink || undefined,
@@ -554,6 +566,28 @@ export default function CreateAdPage() {
             </p>
           )}
         </div>
+
+        {/* Address — only for in-person */}
+        {meetType === "inPerson" && (
+          <div className="form-control w-full">
+            <label className={inputLabelClassName} htmlFor="ad-address">
+              <span className={inputLabelTextClassName}>
+                {t("createAd.address")}
+              </span>
+              <span className={inputLabelAltClassName}>
+                {t("common.optional")}
+              </span>
+            </label>
+            <input
+              id="ad-address"
+              type="text"
+              placeholder={t("createAd.addressPlaceholder")}
+              className="input input-bordered w-full"
+              data-ocid="create-ad.address_input"
+              {...register("address")}
+            />
+          </div>
+        )}
 
         {/* Description */}
         <div className="form-control w-full">

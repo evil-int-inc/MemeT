@@ -62,6 +62,7 @@ module {
     paymentProvider : ?Text;
     paymentReference : ?Text;
     paid : Float;
+    address : ?Text;
     createdAt : Int;
     updatedAt : Int;
     publishedAt : ?Int;
@@ -87,6 +88,7 @@ module {
     paymentProvider : ?Text;
     paymentReference : ?Text;
     paid : Float;
+    address : ?Text;
     createdAt : Int;
     updatedAt : Int;
     publishedAt : ?Int;
@@ -107,6 +109,7 @@ module {
     howPaysForEvent : HowPaysForEvent;
     eventLink : ?Text;
     photos : [ProfileTypes.BlobMetadata];
+    address : ?Text;
   };
 
   public type SortBy = { #newest; #oldest; #city; #eventType };

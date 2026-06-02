@@ -16,6 +16,7 @@ export interface AdInput {
   'meetType' : MeetType,
   'city' : [] | [string],
   'description' : string,
+  'address' : [] | [string],
   'howPaysForEvent' : HowPaysForEvent,
   'photos' : Array<BlobMetadata>,
   'eventLink' : [] | [string],
@@ -51,6 +52,7 @@ export interface Advertisement {
   'description' : string,
   'updatedAt' : bigint,
   'creatorPrincipal' : Principal,
+  'address' : [] | [string],
   'howPaysForEvent' : HowPaysForEvent,
   'paymentReference' : [] | [string],
   'linkPreview' : [] | [LinkPreview],
@@ -74,6 +76,7 @@ export interface AdvertisementPublic {
   'description' : string,
   'updatedAt' : bigint,
   'creatorPrincipal' : Principal,
+  'address' : [] | [string],
   'howPaysForEvent' : HowPaysForEvent,
   'paymentReference' : [] | [string],
   'linkPreview' : [] | [LinkPreview],
@@ -184,11 +187,17 @@ export type Result_10 = { 'ok' : Array<AdLikeWithAd> } |
   { 'err' : string };
 export type Result_11 = {
     'ok' : Array<
+      { 'request' : JoinRequestPublic, 'profile' : [] | [UserProfile] }
+    >
+  } |
+  { 'err' : string };
+export type Result_12 = {
+    'ok' : Array<
       { 'request' : JoinRequestPublic, 'profile' : [] | [UserProfilePublic] }
     >
   } |
   { 'err' : string };
-export type Result_12 = { 'ok' : FavouritePublic } |
+export type Result_13 = { 'ok' : FavouritePublic } |
   { 'err' : string };
 export type Result_2 = { 'ok' : Advertisement } |
   { 'err' : string };
@@ -321,7 +330,7 @@ export interface _SERVICE {
   '_initializeAccessControl' : ActorMethod<[], undefined>,
   'addAdLike' : ActorMethod<[string], Result_3>,
   'addProfileLike' : ActorMethod<[Principal], Result_3>,
-  'addToFavourites' : ActorMethod<[string], Result_12>,
+  'addToFavourites' : ActorMethod<[string], Result_13>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'cancelJoinRequest' : ActorMethod<[string], Result_3>,
   'confirmPayment' : ActorMethod<[string, string], Result_2>,
@@ -341,7 +350,8 @@ export interface _SERVICE {
     [FeedFilter, bigint, bigint],
     Array<AdvertisementPublic>
   >,
-  'getJoinRequestsForAd' : ActorMethod<[string], Result_11>,
+  'getJoinRequestsForAd' : ActorMethod<[string], Result_12>,
+  'getJoinRequestsForAdWithContacts' : ActorMethod<[string], Result_11>,
   'getMyAdLikes' : ActorMethod<[], Result_10>,
   'getMyAds' : ActorMethod<[], Array<Advertisement>>,
   'getMyFavourites' : ActorMethod<[], Result_9>,

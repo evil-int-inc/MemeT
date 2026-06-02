@@ -109,6 +109,7 @@ const es = {
       deleteConfirmBody:
         "¿Seguro que quieres eliminar este anuncio? Esta acción no se puede deshacer.",
       deleteFailed: "No se pudo eliminar el anuncio. Inténtalo de nuevo.",
+      address: "Dirección",
     },
     profile: {
       title: "Mi Perfil",
@@ -217,6 +218,8 @@ const es = {
       photoDeleteAlt: "Eliminar foto",
       promoCodePlaceholder: "Ingresa el código promocional",
       saveByPromoCode: "Guardar y publicar con código promocional",
+      address: "Dirección (opcional)",
+      addressPlaceholder: "Ingresa la dirección de encuentro",
     },
     myAds: {
       title: "Mis Anuncios",

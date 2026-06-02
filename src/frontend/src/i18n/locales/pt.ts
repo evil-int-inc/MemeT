@@ -114,6 +114,7 @@ const pt = {
       deleteConfirmBody:
         "Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.",
       deleteFailed: "Falha ao excluir anúncio. Por favor, tente novamente.",
+      address: "Endereço",
     },
 
     profile: {
@@ -224,6 +225,8 @@ const pt = {
       photoDeleteAlt: "Excluir foto",
       promoCodePlaceholder: "Digite o código promocional",
       saveByPromoCode: "Salvar e publicar com código promocional",
+      address: "Endereço (opcional)",
+      addressPlaceholder: "Insira o endereço do encontro",
     },
 
     myAds: {

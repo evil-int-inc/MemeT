@@ -108,6 +108,7 @@ const hi = {
       deleteConfirmBody:
         "क्या आप वाकई इस विज्ञापन को हटाना चाहते हैं? यह कार्रवाई पूर्ववत नहीं की जा सकती।",
       deleteFailed: "विज्ञापन हटाने में विफल। कृपया पुनः प्रयास करें।",
+      address: "पता",
     },
     profile: {
       title: "मेरा प्रोफाइल",
@@ -211,6 +212,8 @@ const hi = {
       photoDeleteAlt: "फ़ोटो हटाएं",
       promoCodePlaceholder: "प्रोमो कोड दर्ज करें",
       saveByPromoCode: "प्रोमो कोड द्वारा सहेजें और प्रकाशित करें",
+      address: "पता (वैकल्पिक)",
+      addressPlaceholder: "मिलने का पता दर्ज करें",
     },
     myAds: {
       title: "मेरे विज्ञापन",

@@ -107,6 +107,7 @@ const zh = {
       deleteConfirmTitle: "删除广告",
       deleteConfirmBody: "确定要删除此广告吗？此操作无法撤销。",
       deleteFailed: "删除广告失败。请重试。",
+      address: "地址",
     },
     profile: {
       title: "我的资料",
@@ -207,6 +208,8 @@ const zh = {
       photoDeleteAlt: "删除照片",
       promoCodePlaceholder: "输入促销码",
       saveByPromoCode: "使用促销码保存并发布",
+      address: "地址（可选）",
+      addressPlaceholder: "输入见面地址",
     },
     myAds: {
       title: "我的广告",

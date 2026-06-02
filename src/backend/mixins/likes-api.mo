@@ -54,6 +54,7 @@ mixin (
       paymentProvider = ad.paymentProvider;
       paymentReference = ad.paymentReference;
       paid = ad.paid;
+      address = ad.address;
       createdAt = ad.createdAt;
       updatedAt = ad.updatedAt;
       publishedAt = ad.publishedAt;

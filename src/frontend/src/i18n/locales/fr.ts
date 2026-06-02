@@ -114,6 +114,7 @@ const fr = {
       deleteConfirmBody:
         "Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.",
       deleteFailed: "Échec de la suppression de l'annonce. Veuillez réessayer.",
+      address: "Adresse",
     },
 
     profile: {
@@ -228,6 +229,8 @@ const fr = {
       photoDeleteAlt: "Supprimer la photo",
       promoCodePlaceholder: "Entrer le code promo",
       saveByPromoCode: "Enregistrer et publier avec un code promo",
+      address: "Adresse (facultatif)",
+      addressPlaceholder: "Saisissez l'adresse de rendez-vous",
     },
 
     myAds: {
