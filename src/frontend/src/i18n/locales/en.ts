@@ -127,7 +127,6 @@ const en = {
       deleteConfirmBody:
         "Are you sure you want to delete this advertisement? This action cannot be undone.",
       deleteFailed: "Failed to delete advertisement. Please try again.",
-      address: "Address",
     },
 
     // Profile

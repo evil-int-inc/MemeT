@@ -114,7 +114,6 @@ const zh = {
       deleteConfirmTitle: "删除广告",
       deleteConfirmBody: "确定要删除此广告吗？此操作无法撤销。",
       deleteFailed: "删除广告失败。请重试。",
-      address: "地址",
     },
     profile: {
       title: "我的资料",

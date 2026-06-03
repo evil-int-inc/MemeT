@@ -122,7 +122,6 @@ const fr = {
       deleteConfirmBody:
         "Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.",
       deleteFailed: "Échec de la suppression de l'annonce. Veuillez réessayer.",
-      address: "Adresse",
     },
 
     profile: {

@@ -122,7 +122,6 @@ const pt = {
       deleteConfirmBody:
         "Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.",
       deleteFailed: "Falha ao excluir anúncio. Por favor, tente novamente.",
-      address: "Endereço",
     },
 
     profile: {

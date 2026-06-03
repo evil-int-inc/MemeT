@@ -116,7 +116,6 @@ const es = {
       deleteConfirmBody:
         "¿Seguro que quieres eliminar este anuncio? Esta acción no se puede deshacer.",
       deleteFailed: "No se pudo eliminar el anuncio. Inténtalo de nuevo.",
-      address: "Dirección",
     },
     profile: {
       title: "Mi Perfil",
