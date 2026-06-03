@@ -19,6 +19,8 @@ export default function SupportPage() {
 
       <a
         href={OPENCHAT_COMMUNITY_URL}
+        target="_blank"
+        rel="noreferrer"
         className="btn btn-neutral gap-2"
         data-ocid="support.open_openchat_button"
       >
