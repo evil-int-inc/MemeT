@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { Toaster } from "@/components/ui/sonner";
 import {
   Outlet,
   RouterProvider,
@@ -32,6 +33,7 @@ const MyJoinRequestsPage = React.lazy(
   () => import("@/pages/MyJoinRequestsPage"),
 );
 const PublicProfilePage = React.lazy(() => import("@/pages/PublicProfilePage"));
+const SupportPage = React.lazy(() => import("@/pages/SupportPage"));
 
 const PageFallback = (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -167,6 +169,16 @@ const publicProfileRoute = createRoute({
   ),
 });
 
+const supportRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/support",
+  component: () => (
+    <Suspense fallback={PageFallback}>
+      <SupportPage />
+    </Suspense>
+  ),
+});
+
 // Build route tree
 const myLikesRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -212,6 +224,7 @@ const routeTree = rootRoute.addChildren([
   myFavouritesRoute,
   myLikesRoute,
   publicProfileRoute,
+  supportRoute,
   paymentSuccessRoute,
   paymentCancelRoute,
   myReferralsRoute,
@@ -232,5 +245,10 @@ declare module "@tanstack/react-router" {
 }
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" richColors closeButton />
+    </>
+  );
 }

@@ -11,8 +11,13 @@ const hi = {
       myFavourites: "मेरे पसंदीदा",
       myLikes: "मेरी पसंद",
       myReferrals: "मेरे रेफरल",
+      support: "सहायता",
       login: "लॉग इन",
       logout: "लॉग आउट",
+    },
+    support: {
+      title: "सहायता",
+      openCommunity: "OpenChat सहायता चैनल खोलें",
     },
     auth: {
       loginRequired: "कृपया जारी रखने के लिए लॉग इन करें",
@@ -97,6 +102,8 @@ const hi = {
       notPublished: "यह विज्ञापन प्रकाशित नहीं है",
       virtual: "वर्चुअल",
       publishedAt: "प्रकाशित",
+      location: "स्थान",
+      address: "पता",
       aboutCreator: "होस्ट के बारे में",
       photos: "फ़ोटो",
       contactFetchError: "संपर्क विवरण लोड नहीं हो सके। कृपया पुनः प्रयास करें।",

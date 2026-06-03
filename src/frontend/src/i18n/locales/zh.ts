@@ -11,8 +11,13 @@ const zh = {
       myFavourites: "我的收藏",
       myLikes: "我的点赞",
       myReferrals: "我的推荐",
+      support: "支持",
       login: "登录",
       logout: "登出",
+    },
+    support: {
+      title: "支持",
+      openCommunity: "打开 OpenChat 支持频道",
     },
     auth: {
       loginRequired: "请登录后继续",
@@ -97,6 +102,8 @@ const zh = {
       notPublished: "此广告尚未发布",
       virtual: "虚拟",
       publishedAt: "发布于",
+      location: "位置",
+      address: "地址",
       aboutCreator: "关于主办方",
       photos: "照片",
       contactFetchError: "无法加载联系方式。请重试。",

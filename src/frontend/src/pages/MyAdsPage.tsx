@@ -55,9 +55,13 @@ function StatusBadge({ status }: { status: AdStatus }) {
     deleted: "badge-neutral",
   };
   const cls = map[status] ?? "badge-ghost";
+  const statusLabel = t(`adStatus.${status}`);
   return (
-    <span className={`badge ${cls} badge-sm font-medium`}>
-      {t(`adStatus.${status}`)}
+    <span
+      className={`badge ${cls} badge-sm font-medium`}
+      title={`${t("myAds.status")}: ${statusLabel}`}
+    >
+      {statusLabel}
     </span>
   );
 }
@@ -71,9 +75,13 @@ function PaymentBadge({ paymentStatus }: { paymentStatus: PaymentStatus }) {
     failed: "badge-error",
   };
   const cls = map[paymentStatus] ?? "badge-ghost";
+  const paymentLabel = t(`paymentStatus.${paymentStatus}`);
   return (
-    <span className={`badge ${cls} badge-sm`}>
-      {t(`paymentStatus.${paymentStatus}`)}
+    <span
+      className={`badge ${cls} badge-sm`}
+      title={`${t("myAds.paymentStatus")}: ${paymentLabel}`}
+    >
+      {paymentLabel}
     </span>
   );
 }
@@ -179,6 +187,11 @@ function AdCard({
     statusKind === AdStatus.pending_payment ||
     paymentKind === PaymentStatus.failed;
   const isDeleted = statusKind === AdStatus.deleted;
+  const eventTypeLabel = t(`eventType.${ad.eventType}`);
+  const locationLabel = ad.isVirtual
+    ? t("common.virtual")
+    : (ad.city ?? t("common.noCity"));
+  const howPaysLabel = t(`createAd.howPays.${ad.howPaysForEvent}`);
 
   return (
     <div
@@ -197,18 +210,29 @@ function AdCard({
         </div>
 
         <div className="flex gap-2 flex-wrap">
-          <span className="badge badge-outline badge-sm gap-1">
+          <span
+            className="badge badge-outline badge-sm gap-1"
+            title={`${t("createAd.eventType")}: ${eventTypeLabel}`}
+          >
             <EventTypeIcon eventType={ad.eventType} className="w-3 h-3" />
-            {t(`eventType.${ad.eventType}`)}
+            {eventTypeLabel}
           </span>
-          <span className="badge badge-outline badge-sm">
-            {ad.isVirtual
-              ? t("common.virtual")
-              : (ad.city ?? t("common.noCity"))}
+          <span
+            className="badge badge-outline badge-sm"
+            title={
+              ad.isVirtual
+                ? `${t("meetType.label")}: ${t("meetType.online")}`
+                : `${t("createAd.city")}: ${locationLabel}`
+            }
+          >
+            {locationLabel}
           </span>
-          <span className="badge badge-outline badge-sm gap-1">
+          <span
+            className="badge badge-outline badge-sm gap-1"
+            title={`${t("createAd.howPaysForEvent")}: ${howPaysLabel}`}
+          >
             <Wallet className="w-3 h-3" />
-            {t(`createAd.howPays.${ad.howPaysForEvent}`)}
+            {howPaysLabel}
           </span>
         </div>
 

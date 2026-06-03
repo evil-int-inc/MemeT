@@ -12,8 +12,14 @@ const pt = {
       myFavourites: "Meus Favoritos",
       myLikes: "Meus Curtidos",
       myReferrals: "Minhas Indicações",
+      support: "Suporte",
       login: "Entrar",
       logout: "Sair",
+    },
+
+    support: {
+      title: "Suporte",
+      openCommunity: "Abrir canal de suporte no OpenChat",
     },
 
     auth: {
@@ -102,6 +108,8 @@ const pt = {
       notPublished: "Este anúncio não está publicado",
       virtual: "Virtual",
       publishedAt: "Publicado em",
+      location: "Localização",
+      address: "Endereço",
       aboutCreator: "Sobre o anfitrião",
       photos: "Fotos",
       contactFetchError:

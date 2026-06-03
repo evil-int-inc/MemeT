@@ -1,4 +1,4 @@
-import { APP_NAME, SUPPORTED_LOCALES } from "@/constants";
+import { SUPPORTED_LOCALES } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
 import { useBackend } from "@/services/backend";
@@ -13,6 +13,7 @@ import {
   Globe,
   Heart,
   Home,
+  LifeBuoy,
   List,
   LogIn,
   LogOut,
@@ -119,7 +120,7 @@ export default function Layout({ children }: LayoutProps) {
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
         <nav className="navbar bg-base-100 border-b border-base-300 sticky top-0 z-30 shadow-sm px-4">
-          {/* Left: hamburger (mobile) + logo */}
+          {/* Left: hamburger (mobile) + identity */}
           <div className="flex-1 flex items-center gap-3">
             <label
               htmlFor="sidebar-drawer"
@@ -129,15 +130,6 @@ export default function Layout({ children }: LayoutProps) {
             >
               <Menu className="w-5 h-5" />
             </label>
-            {!isAuthenticated && (
-              <a
-                href="/"
-                className="flex items-center gap-2 text-xl font-bold text-primary hover:opacity-80 transition-opacity"
-                data-ocid="layout.home_link"
-              >
-                <span>{APP_NAME}</span>
-              </a>
-            )}
             {/* User avatar + name (authenticated only) */}
             {isAuthenticated && profile && (
               <div
@@ -532,6 +524,17 @@ export default function Layout({ children }: LayoutProps) {
                       <LogIn className="w-3.5 h-3.5" />
                     </span>
                   )}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => handleNavClick("/support")}
+                  className="flex items-center gap-3"
+                  data-ocid="layout.nav_support"
+                >
+                  <LifeBuoy className="w-5 h-5" />
+                  {t("nav.support")}
                 </button>
               </li>
             </ul>

@@ -227,6 +227,8 @@ export default function AdDetailPage() {
   const creator = ad.creatorProfile;
   const creatorPhotos = creator?.photos ?? [];
   const avatarUrl = getProfileAvatarUrl(creator);
+  const city = ad.city?.trim();
+  const address = ad.address?.trim();
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
@@ -364,6 +366,41 @@ export default function AdDetailPage() {
               {t("adDetail.publishedAt")}: {formatDate(ad.publishedAt)}
             </div>
           )}
+        </div>
+      </div>
+
+      {/* ── location ── */}
+      <div
+        className="card bg-base-100 shadow-sm"
+        data-ocid="ad_detail.location_card"
+      >
+        <div className="card-body gap-3">
+          <h2 className="card-title text-lg">
+            <MapPin size={16} />
+            {t("adDetail.location")}
+          </h2>
+          <div className="space-y-2 text-sm">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="font-medium">{t("meetType.label")}:</span>
+              <span>
+                {ad.meetType === "online"
+                  ? t("meetType.online")
+                  : t("meetType.inPerson")}
+              </span>
+            </div>
+            {city && (
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="font-medium">{t("createAd.city")}:</span>
+                <span>{city}</span>
+              </div>
+            )}
+            {address && (
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="font-medium">{t("adDetail.address")}:</span>
+                <span>{address}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

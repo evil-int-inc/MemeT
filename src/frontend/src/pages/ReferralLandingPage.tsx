@@ -1,10 +1,11 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { APP_NAME } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
-const PENDING_REFERRAL_KEY = "pendingReferralCode";
+const PENDING_REFERRAL_KEY = `${APP_NAME}_pendingReferralCode`;
 
 export default function ReferralLandingPage() {
   const params = useParams({ from: "/referral/$code" });

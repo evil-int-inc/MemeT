@@ -12,8 +12,14 @@ const ru = {
       myFavourites: "Избранное",
       myLikes: "Мои лайки",
       myReferrals: "Мои рефералы",
+      support: "Поддержка",
       login: "Войти",
       logout: "Выйти",
+    },
+
+    support: {
+      title: "Поддержка",
+      openCommunity: "Открыть канал поддержки OpenChat",
     },
 
     auth: {
@@ -102,6 +108,8 @@ const ru = {
       notPublished: "Это объявление не опубликовано",
       virtual: "Онлайн",
       publishedAt: "Опубликовано",
+      location: "Место",
+      address: "Адрес",
       aboutCreator: "Об организаторе",
       photos: "Фотографии",
       contactFetchError:

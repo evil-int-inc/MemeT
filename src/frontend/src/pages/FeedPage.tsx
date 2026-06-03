@@ -7,6 +7,7 @@ import {
 } from "@/backend";
 import type { AdvertisementPublic, FeedFilter } from "@/backend";
 import {
+  APP_NAME,
   EVENT_TYPES,
   EXPECTED_COMPANION_SEX_OPTIONS,
   MAX_FEED_PAGE_SIZE,
@@ -45,8 +46,8 @@ import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const LS_FILTERS_KEY = "memet-feed-filters";
-const LS_SAVE_ENABLED_KEY = "memet-save-filters-enabled";
+const LS_FILTERS_KEY = `${APP_NAME}_feed-filters`;
+const LS_SAVE_ENABLED_KEY = `${APP_NAME}_save-filters-enabled`;
 const FIRST_PAGE_SCROLL_THRESHOLD = 240;
 const SCROLL_TOP_VISIBILITY_THRESHOLD = 480;
 const FEED_REFRESH_INTERVAL_MS = 60_000;
@@ -128,6 +129,17 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
   const publishedDate = ad.publishedAt
     ? new Date(Number(ad.publishedAt) / 1_000_000).toLocaleDateString()
     : null;
+  const creatorSexLabel = profile?.sex ? t(`sex.${profile.sex}`) : null;
+  const creatorAge =
+    profile?.dateOfBirth != null
+      ? Math.floor(
+          (Date.now() - Number(profile.dateOfBirth)) /
+            (365.25 * 24 * 60 * 60 * 1000),
+        )
+      : null;
+  const eventTypeLabel = t(`eventType.${ad.eventType}`);
+  const companionSexLabel = t(`companionSex.${ad.expectedCompanionSex}`);
+  const howPaysLabel = t(`createAd.howPays.${ad.howPaysForEvent}`);
 
   const isOwner = isAuthenticated && principal === ad.creatorPrincipal.toText();
 
@@ -270,17 +282,20 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
               {profile?.fullName ?? t("common.unknown")}
             </p>
             <div className="flex flex-wrap gap-1 mt-0.5">
-              {profile?.sex && (
-                <span className="badge badge-ghost badge-xs">
-                  {t(`sex.${profile.sex}`)}
+              {creatorSexLabel && (
+                <span
+                  className="badge badge-ghost badge-xs"
+                  title={`${t("profile.sex")}: ${creatorSexLabel}`}
+                >
+                  {creatorSexLabel}
                 </span>
               )}
-              {profile?.dateOfBirth != null && (
-                <span className="badge badge-ghost badge-xs">
-                  {Math.floor(
-                    (Date.now() - Number(profile.dateOfBirth)) /
-                      (365.25 * 24 * 60 * 60 * 1000),
-                  )}
+              {creatorAge != null && (
+                <span
+                  className="badge badge-ghost badge-xs"
+                  title={`${t("profile.age")}: ${creatorAge} ${t("common.yearsOld")}`}
+                >
+                  {creatorAge}
                 </span>
               )}
             </div>
@@ -288,28 +303,43 @@ function AdCard({ ad }: { ad: AdvertisementPublic }) {
         </div>
         <h3 className="font-bold text-base leading-tight">{ad.eventName}</h3>
         <div className="flex flex-wrap gap-1">
-          <span className="badge badge-primary badge-sm">
+          <span
+            className="badge badge-primary badge-sm"
+            title={`${t("createAd.eventType")}: ${eventTypeLabel}`}
+          >
             <EventTypeIcon eventType={ad.eventType} className="w-3 h-3 mr-1" />
-            {t(`eventType.${ad.eventType}`)}
+            {eventTypeLabel}
           </span>
           {ad.isVirtual ? (
-            <span className="badge badge-secondary badge-sm">
+            <span
+              className="badge badge-secondary badge-sm"
+              title={`${t("meetType.label")}: ${t("meetType.online")}`}
+            >
               <Globe className="w-3 h-3 mr-1" />
               {t("common.virtualEvent")}
             </span>
           ) : ad.city ? (
-            <span className="badge badge-outline badge-sm">
+            <span
+              className="badge badge-outline badge-sm"
+              title={`${t("createAd.city")}: ${ad.city}`}
+            >
               <MapPin className="w-3 h-3 mr-1" />
               {ad.city}
             </span>
           ) : null}
-          <span className="badge badge-accent badge-sm">
+          <span
+            className="badge badge-accent badge-sm"
+            title={`${t("createAd.expectedCompanionSex")}: ${companionSexLabel}`}
+          >
             <Users className="w-3 h-3 mr-1" />
-            {t(`companionSex.${ad.expectedCompanionSex}`)}
+            {companionSexLabel}
           </span>
-          <span className="badge badge-outline badge-sm gap-1">
+          <span
+            className="badge badge-outline badge-sm gap-1"
+            title={`${t("createAd.howPaysForEvent")}: ${howPaysLabel}`}
+          >
             <Wallet className="w-3 h-3" />
-            {t(`createAd.howPays.${ad.howPaysForEvent}`)}
+            {howPaysLabel}
           </span>
         </div>
         {adPhotos.length > 0 && (

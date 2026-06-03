@@ -1,4 +1,4 @@
-import { DEFAULT_LOCALE, SUPPORTED_LOCALE_CODES } from "@/constants";
+import { APP_NAME, DEFAULT_LOCALE, SUPPORTED_LOCALE_CODES } from "@/constants";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
@@ -12,6 +12,8 @@ import pt from "./locales/pt";
 import ru from "./locales/ru";
 import zh from "./locales/zh";
 
+const LANGUAGE_STORAGE_KEY = `${APP_NAME}_i18nextLng`;
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -23,7 +25,7 @@ i18n
     detection: {
       order: ["localStorage", "navigator", "htmlTag"],
       caches: ["localStorage"],
-      lookupLocalStorage: "i18nextLng",
+      lookupLocalStorage: LANGUAGE_STORAGE_KEY,
     },
   });
 

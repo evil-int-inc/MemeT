@@ -14,8 +14,14 @@ const en = {
       myFavourites: "My Favourites",
       myLikes: "My Likes",
       myReferrals: "My Referrals",
+      support: "Support",
       login: "Login",
       logout: "Logout",
+    },
+
+    support: {
+      title: "Support",
+      openCommunity: "Open OpenChat support channel",
     },
 
     // Auth
@@ -108,6 +114,8 @@ const en = {
       notPublished: "This advertisement is not published",
       virtual: "Virtual",
       publishedAt: "Published at",
+      location: "Location",
+      address: "Address",
       aboutCreator: "About the Host",
       photos: "Photos",
       contactFetchError: "Failed to load contact details. Please try again.",

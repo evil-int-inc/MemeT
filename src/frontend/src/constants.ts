@@ -1,6 +1,6 @@
 // Application constants — change these values to rebrand or reconfigure the app
 
-export const APP_NAME = "Memet";
+export const APP_NAME = "EverTwo";
 
 // Stripe payment price in USD
 export const AD_PUBLISH_PRICE_USD = 4.99;
@@ -32,7 +32,7 @@ export const SUPPORTED_LOCALE_CODES = SUPPORTED_LOCALES.map((l) => l.code);
 export const DEFAULT_LOCALE = "en";
 
 // Theme
-export const THEME_STORAGE_KEY = "memet-theme";
+export const THEME_STORAGE_KEY = `${APP_NAME}_theme`;
 
 // Event types — objects with { value } for use in <option> loops
 export const EVENT_TYPES = [

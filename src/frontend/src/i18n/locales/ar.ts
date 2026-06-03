@@ -12,8 +12,14 @@ const ar = {
       myFavourites: "مفضلتي",
       myLikes: "إعجاباتي",
       myReferrals: "إحالاتي",
+      support: "الدعم",
       login: "تسجيل الدخول",
       logout: "تسجيل الخروج",
+    },
+
+    support: {
+      title: "الدعم",
+      openCommunity: "فتح قناة دعم OpenChat",
     },
 
     auth: {
@@ -102,6 +108,8 @@ const ar = {
       notPublished: "هذا الإعلان غير منشور",
       virtual: "افتراضي",
       publishedAt: "نُشر في",
+      location: "الموقع",
+      address: "العنوان",
       aboutCreator: "عن المضيف",
       photos: "الصور",
       contactFetchError: "فشل تحميل بيانات التواصل. يرجى المحاولة مرة أخرى.",
