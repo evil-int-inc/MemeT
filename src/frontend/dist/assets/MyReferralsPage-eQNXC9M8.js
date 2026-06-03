@@ -1,4 +1,4 @@
-import { u as useTranslation, a as useAuth, c as useBackend, e as useQuery, j as jsxRuntimeExports, L as LoadingSpinner, U as Users } from "./index-BwyFodb0.js";
+import { u as useTranslation, a as useAuth, c as useBackend, e as useQuery, j as jsxRuntimeExports, L as LoadingSpinner, U as Users } from "./index-Dw-TU7ma.js";
 function formatCurrency(amount) {
   return `$${amount.toFixed(2)}`;
 }

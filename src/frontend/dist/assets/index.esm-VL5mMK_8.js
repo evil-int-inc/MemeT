@@ -1,4 +1,4 @@
-import { o as createLucideIcon, K as MAX_PROFILE_PHOTOS, J as MAX_PHOTO_SIZE_MB, $ as React } from "./index-BwyFodb0.js";
+import { o as createLucideIcon, O as MAX_PROFILE_PHOTOS, K as MAX_PHOTO_SIZE_MB, a0 as React } from "./index-Dw-TU7ma.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *

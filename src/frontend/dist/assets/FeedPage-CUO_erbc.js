@@ -1,7 +1,7 @@
-import { Q as QueryObserver, k as infiniteQueryBehavior, l as hasPreviousPage, m as hasNextPage, n as useBaseQuery, o as createLucideIcon, u as useTranslation, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, e as useQuery, M as MAX_FEED_PAGE_SIZE, j as jsxRuntimeExports, p as MapPin, X, E as EventTypeIcon, q as EVENT_TYPES, S as SEX_OPTIONS, s as EXPECTED_COMPANION_SEX_OPTIONS, t as SUPPORTED_LOCALES, v as SortBy, w as MeetType, b as useNavigate, g as getProfileAvatarUrl, f as useMutation, G as Globe, U as Users, x as Star, H as Heart } from "./index-BwyFodb0.js";
-import { R as RefreshCw } from "./refresh-cw-Dh9r_Tiw.js";
-import { W as Wallet } from "./wallet-BBio_BS8.js";
-import { C as Calendar } from "./calendar-DBxWDTa-.js";
+import { Q as QueryObserver, k as infiniteQueryBehavior, l as hasPreviousPage, m as hasNextPage, n as useBaseQuery, o as createLucideIcon, u as useTranslation, a as useAuth, c as useBackend, d as useQueryClient, r as reactExports, A as APP_NAME, e as useQuery, M as MAX_FEED_PAGE_SIZE, j as jsxRuntimeExports, p as MapPin, X, E as EventTypeIcon, q as EVENT_TYPES, S as SEX_OPTIONS, s as EXPECTED_COMPANION_SEX_OPTIONS, t as SUPPORTED_LOCALES, v as SortBy, w as MeetType, b as useNavigate, g as getProfileAvatarUrl, f as useMutation, G as Globe, U as Users, x as Star, H as Heart } from "./index-Dw-TU7ma.js";
+import { R as RefreshCw } from "./refresh-cw-vss_y20-.js";
+import { W as Wallet } from "./wallet-DQ0xT4tp.js";
+import { C as Calendar } from "./calendar-ChtU-sxm.js";
 var InfiniteQueryObserver = class extends QueryObserver {
   constructor(client, options) {
     super(client, options);
@@ -123,8 +123,8 @@ const __iconNode = [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
 const Search = createLucideIcon("search", __iconNode);
-const LS_FILTERS_KEY = "memet-feed-filters";
-const LS_SAVE_ENABLED_KEY = "memet-save-filters-enabled";
+const LS_FILTERS_KEY = `${APP_NAME}_feed-filters`;
+const LS_SAVE_ENABLED_KEY = `${APP_NAME}_save-filters-enabled`;
 const FIRST_PAGE_SCROLL_THRESHOLD = 240;
 const SCROLL_TOP_VISIBILITY_THRESHOLD = 480;
 const FEED_REFRESH_INTERVAL_MS = 6e4;
@@ -184,6 +184,13 @@ function AdCard({ ad }) {
   const adPhotos = ad.photos ?? [];
   const truncate = (str, max) => str.length > max ? `${str.slice(0, max)}…` : str;
   const publishedDate = ad.publishedAt ? new Date(Number(ad.publishedAt) / 1e6).toLocaleDateString() : null;
+  const creatorSexLabel = (profile == null ? void 0 : profile.sex) ? t(`sex.${profile.sex}`) : null;
+  const creatorAge = (profile == null ? void 0 : profile.dateOfBirth) != null ? Math.floor(
+    (Date.now() - Number(profile.dateOfBirth)) / (365.25 * 24 * 60 * 60 * 1e3)
+  ) : null;
+  const eventTypeLabel = t(`eventType.${ad.eventType}`);
+  const companionSexLabel = t(`companionSex.${ad.expectedCompanionSex}`);
+  const howPaysLabel = t(`createAd.howPays.${ad.howPaysForEvent}`);
   const isOwner = isAuthenticated && principal === ad.creatorPrincipal.toText();
   const [isFav, setIsFav] = reactExports.useState(false);
   const { data: isFavouritedData } = useQuery({
@@ -306,34 +313,81 @@ function AdCard({ ad }) {
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-sm truncate", children: (profile == null ? void 0 : profile.fullName) ?? t("common.unknown") }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-1 mt-0.5", children: [
-              (profile == null ? void 0 : profile.sex) && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-ghost badge-xs", children: t(`sex.${profile.sex}`) }),
-              (profile == null ? void 0 : profile.dateOfBirth) != null && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-ghost badge-xs", children: Math.floor(
-                (Date.now() - Number(profile.dateOfBirth)) / (365.25 * 24 * 60 * 60 * 1e3)
-              ) })
+              creatorSexLabel && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "span",
+                {
+                  className: "badge badge-ghost badge-xs",
+                  title: `${t("profile.sex")}: ${creatorSexLabel}`,
+                  children: creatorSexLabel
+                }
+              ),
+              creatorAge != null && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "span",
+                {
+                  className: "badge badge-ghost badge-xs",
+                  title: `${t("profile.age")}: ${creatorAge} ${t("common.yearsOld")}`,
+                  children: creatorAge
+                }
+              )
             ] })
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-base leading-tight", children: ad.eventName }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-1", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-primary badge-sm", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3 h-3 mr-1" }),
-            t(`eventType.${ad.eventType}`)
-          ] }),
-          ad.isVirtual ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-secondary badge-sm", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, { className: "w-3 h-3 mr-1" }),
-            t("common.virtualEvent")
-          ] }) : ad.city ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-outline badge-sm", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "w-3 h-3 mr-1" }),
-            ad.city
-          ] }) : null,
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-accent badge-sm", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-3 h-3 mr-1" }),
-            t(`companionSex.${ad.expectedCompanionSex}`)
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-outline badge-sm gap-1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "w-3 h-3" }),
-            t(`createAd.howPays.${ad.howPaysForEvent}`)
-          ] })
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-primary badge-sm",
+              title: `${t("createAd.eventType")}: ${eventTypeLabel}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3 h-3 mr-1" }),
+                eventTypeLabel
+              ]
+            }
+          ),
+          ad.isVirtual ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-secondary badge-sm",
+              title: `${t("meetType.label")}: ${t("meetType.online")}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, { className: "w-3 h-3 mr-1" }),
+                t("common.virtualEvent")
+              ]
+            }
+          ) : ad.city ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-outline badge-sm",
+              title: `${t("createAd.city")}: ${ad.city}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "w-3 h-3 mr-1" }),
+                ad.city
+              ]
+            }
+          ) : null,
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-accent badge-sm",
+              title: `${t("createAd.expectedCompanionSex")}: ${companionSexLabel}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-3 h-3 mr-1" }),
+                companionSexLabel
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-outline badge-sm gap-1",
+              title: `${t("createAd.howPaysForEvent")}: ${howPaysLabel}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "w-3 h-3" }),
+                howPaysLabel
+              ]
+            }
+          )
         ] }),
         adPhotos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap gap-2", children: adPhotos.map((photo, idx) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",

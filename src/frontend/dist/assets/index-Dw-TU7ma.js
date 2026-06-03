@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeedPage-DqnfAbA3.js","assets/refresh-cw-Dh9r_Tiw.js","assets/wallet-BBio_BS8.js","assets/calendar-DBxWDTa-.js","assets/AdDetailPage-r_zgZe_t.js","assets/arrow-left-VuIHxIgj.js","assets/square-pen-B11vPOGV.js","assets/trash-2-y2XawwWx.js","assets/external-link-kJKd-n4p.js","assets/eye-Cwq2Xt0z.js","assets/ProfilePage-t41dUlN6.js","assets/index.esm-DTOh75UA.js","assets/CreateAdPage-BrDSPb6r.js","assets/stripe-ZR5elu4m.js","assets/credit-card-Bdzmn-5h.js","assets/MyAdsPage-BlvFTVKN.js","assets/PaymentSuccessPage-C3ox2aNp.js","assets/PaymentCancelPage-CpAgT4PY.js","assets/PublicProfilePage-COMWLnH6.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeedPage-CUO_erbc.js","assets/refresh-cw-vss_y20-.js","assets/wallet-DQ0xT4tp.js","assets/calendar-ChtU-sxm.js","assets/AdDetailPage-BBdiX4ex.js","assets/arrow-left-CFvIavVV.js","assets/square-pen-On1MlLRp.js","assets/trash-2--qCftX8Q.js","assets/external-link-BzQYtRft.js","assets/eye-BKw6TpT0.js","assets/ProfilePage-BmbtPrFX.js","assets/index.esm-VL5mMK_8.js","assets/CreateAdPage-ChpZABuN.js","assets/stripe-z9RJe8ZU.js","assets/credit-card-DDqZFmZw.js","assets/MyAdsPage-Bieeg1X_.js","assets/PaymentSuccessPage-BtyQkzS6.js","assets/PaymentCancelPage-CRGmqYE8.js","assets/PublicProfilePage-COnxfZm_.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -15743,7 +15743,7 @@ function mergeLoginOptions(loginOptions, otherLoginOptions) {
   };
 }
 const ONE_HOUR_IN_NANOSECONDS = BigInt(36e11);
-const DEFAULT_IDENTITY_PROVIDER = "https://id.ai";
+const DEFAULT_IDENTITY_PROVIDER = "https://id.ai/authorize";
 const InternetIdentityReactContext = reactExports.createContext(void 0);
 async function createAuthClient(createOptions) {
   const config = await loadConfig();
@@ -27501,7 +27501,7 @@ const __vitePreload = function preload2(baseModule, deps, importerUrl) {
     return baseModule().catch(handlePreloadError);
   });
 };
-const APP_NAME = "Memet";
+const APP_NAME = "EverTwo";
 const AD_PUBLISH_PRICE_USD = 4.99;
 const MAX_PROFILE_PHOTOS = 7;
 const MAX_PHOTO_SIZE_MB = 5;
@@ -27517,7 +27517,7 @@ const SUPPORTED_LOCALES = [
 ];
 const SUPPORTED_LOCALE_CODES = SUPPORTED_LOCALES.map((l) => l.code);
 const DEFAULT_LOCALE = "en";
-const THEME_STORAGE_KEY = "memet-theme";
+const THEME_STORAGE_KEY = `${APP_NAME}_theme`;
 const EVENT_TYPES = [
   { value: "restaurant" },
   { value: "cinema" },
@@ -35913,7 +35913,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$t = [
+const __iconNode$u = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -35923,25 +35923,36 @@ const __iconNode$t = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$t);
+const BookOpen = createLucideIcon("book-open", __iconNode$u);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$s = [
+const __iconNode$t = [
   ["path", { d: "m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z", key: "1fy3hk" }]
 ];
-const Bookmark = createLucideIcon("bookmark", __iconNode$s);
+const Bookmark = createLucideIcon("bookmark", __iconNode$t);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$r = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$r);
+const __iconNode$s = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$s);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$r = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const CircleCheck = createLucideIcon("circle-check", __iconNode$r);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -35949,17 +35960,6 @@ const Check = createLucideIcon("check", __iconNode$r);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$q = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
-];
-const CircleCheck = createLucideIcon("circle-check", __iconNode$q);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$p = [
   ["path", { d: "M10 2v2", key: "7u0qdc" }],
   ["path", { d: "M14 2v2", key: "6buw04" }],
   [
@@ -35971,14 +35971,14 @@ const __iconNode$p = [
   ],
   ["path", { d: "M6 2v2", key: "colzsn" }]
 ];
-const Coffee = createLucideIcon("coffee", __iconNode$p);
+const Coffee = createLucideIcon("coffee", __iconNode$q);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$o = [
+const __iconNode$p = [
   [
     "path",
     {
@@ -35997,14 +35997,14 @@ const __iconNode$o = [
   ],
   ["path", { d: "m9.6 14.4 4.8-4.8", key: "6umqxw" }]
 ];
-const Dumbbell = createLucideIcon("dumbbell", __iconNode$o);
+const Dumbbell = createLucideIcon("dumbbell", __iconNode$p);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$n = [
+const __iconNode$o = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M7 3v18", key: "bbkbws" }],
   ["path", { d: "M3 7.5h4", key: "zfgn84" }],
@@ -36014,14 +36014,14 @@ const __iconNode$n = [
   ["path", { d: "M17 7.5h4", key: "myr1c1" }],
   ["path", { d: "M17 16.5h4", key: "go4c1d" }]
 ];
-const Film = createLucideIcon("film", __iconNode$n);
+const Film = createLucideIcon("film", __iconNode$o);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$m = [
+const __iconNode$n = [
   [
     "path",
     {
@@ -36039,14 +36039,14 @@ const __iconNode$m = [
   ["path", { d: "M16 17h4", key: "1dejxt" }],
   ["path", { d: "M4 13h4", key: "1bwh8b" }]
 ];
-const Footprints = createLucideIcon("footprints", __iconNode$m);
+const Footprints = createLucideIcon("footprints", __iconNode$n);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$l = [
+const __iconNode$m = [
   ["line", { x1: "6", x2: "10", y1: "11", y2: "11", key: "1gktln" }],
   ["line", { x1: "8", x2: "8", y1: "9", y2: "13", key: "qnk9ow" }],
   ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12", key: "krot7o" }],
@@ -36059,7 +36059,19 @@ const __iconNode$l = [
     }
   ]
 ];
-const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$l);
+const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$m);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$l = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
+  ["path", { d: "M2 12h20", key: "9i4pu4" }]
+];
+const Globe = createLucideIcon("globe", __iconNode$l);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -36067,18 +36079,6 @@ const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$l);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$k = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
-  ["path", { d: "M2 12h20", key: "9i4pu4" }]
-];
-const Globe = createLucideIcon("globe", __iconNode$k);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$j = [
   [
     "path",
     {
@@ -36087,14 +36087,14 @@ const __iconNode$j = [
     }
   ]
 ];
-const Heart = createLucideIcon("heart", __iconNode$j);
+const Heart = createLucideIcon("heart", __iconNode$k);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$i = [
+const __iconNode$j = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -36104,7 +36104,22 @@ const __iconNode$i = [
     }
   ]
 ];
-const House = createLucideIcon("house", __iconNode$i);
+const House = createLucideIcon("house", __iconNode$j);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$i = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m4.93 4.93 4.24 4.24", key: "1ymg45" }],
+  ["path", { d: "m14.83 9.17 4.24-4.24", key: "1cb5xl" }],
+  ["path", { d: "m14.83 14.83 4.24 4.24", key: "q42g0n" }],
+  ["path", { d: "m9.17 14.83-4.24 4.24", key: "bqpfvv" }],
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }]
+];
+const LifeBuoy = createLucideIcon("life-buoy", __iconNode$i);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -39109,7 +39124,7 @@ function Te(n, e) {
     }) : g2(S2);
   }), t;
 }
-reactExports.forwardRef(function(e, t) {
+var $e = reactExports.forwardRef(function(e, t) {
   let { invert: a2, position: u = "bottom-right", hotkey: f = ["altKey", "KeyT"], expand: w2, closeButton: S2, className: g2, offset: i, mobileOffset: D, theme: T2 = "light", richColors: F2, duration: et2, style: ut2, visibleToasts: ft2 = pe, toastOptions: l, dir: ot2 = _t(), gap: at = be, loadingIcon: X2, icons: st2, containerAriaLabel: pt2 = "Notifications", pauseWhenPageIsHidden: rt } = e, [B2, s2] = React$4.useState([]), P2 = React$4.useMemo(() => Array.from(new Set([u].concat(B2.filter((d2) => d2.position).map((d2) => d2.position)))), [B2, u]), [nt2, it2] = React$4.useState([]), [Y2, C2] = React$4.useState(false), [lt, J2] = React$4.useState(false), [W2, H2] = React$4.useState(T2 !== "system" ? T2 : typeof window != "undefined" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"), A2 = React$4.useRef(null), mt = f.join("+").replace(/Key/g, "").replace(/Digit/g, ""), L2 = React$4.useRef(null), z2 = React$4.useRef(false), ct2 = React$4.useCallback((d2) => {
     s2((h2) => {
       var y2;
@@ -39180,6 +39195,7 @@ reactExports.forwardRef(function(e, t) {
 });
 const index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
+  Toaster: $e,
   toast: ue
 }, Symbol.toStringTag, { value: "Module" }));
 function Layout({ children }) {
@@ -39256,15 +39272,6 @@ function Layout({ children }) {
               "aria-label": "Open sidebar",
               "data-ocid": "layout.sidebar_toggle",
               children: /* @__PURE__ */ jsxRuntimeExports.jsx(Menu, { className: "w-5 h-5" })
-            }
-          ),
-          !isAuthenticated && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "a",
-            {
-              href: "/",
-              className: "flex items-center gap-2 text-xl font-bold text-primary hover:opacity-80 transition-opacity",
-              "data-ocid": "layout.home_link",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: APP_NAME })
             }
           ),
           isAuthenticated && profile && /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -39656,6 +39663,19 @@ function Layout({ children }) {
                 !isAuthenticated && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "ml-auto opacity-40", children: /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-3.5 h-3.5" }) })
               ]
             }
+          ) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              onClick: () => handleNavClick("/support"),
+              className: "flex items-center gap-3",
+              "data-ocid": "layout.nav_support",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(LifeBuoy, { className: "w-5 h-5" }),
+                t("nav.support")
+              ]
+            }
           ) })
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4 border-t border-base-300", children: isAuthenticated ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -39726,6 +39746,20 @@ function ProtectedRoute({ children }) {
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children });
 }
+const Toaster = ({ ...props }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    $e,
+    {
+      className: "toaster group",
+      style: {
+        "--normal-bg": "var(--color-base-100)",
+        "--normal-text": "var(--color-base-content)",
+        "--normal-border": "var(--color-base-300)"
+      },
+      ...props
+    }
+  );
+};
 const {
   slice,
   forEach
@@ -40157,8 +40191,13 @@ const ar = {
       myFavourites: "مفضلتي",
       myLikes: "إعجاباتي",
       myReferrals: "إحالاتي",
+      support: "الدعم",
       login: "تسجيل الدخول",
       logout: "تسجيل الخروج"
+    },
+    support: {
+      title: "الدعم",
+      openCommunity: "فتح قناة دعم OpenChat"
     },
     auth: {
       loginRequired: "يرجى تسجيل الدخول للمتابعة",
@@ -40242,6 +40281,8 @@ const ar = {
       notPublished: "هذا الإعلان غير منشور",
       virtual: "افتراضي",
       publishedAt: "نُشر في",
+      location: "الموقع",
+      address: "العنوان",
       aboutCreator: "عن المضيف",
       photos: "الصور",
       contactFetchError: "فشل تحميل بيانات التواصل. يرجى المحاولة مرة أخرى.",
@@ -40251,8 +40292,7 @@ const ar = {
       loginToContact: "سجّل الدخول للتواصل",
       deleteConfirmTitle: "حذف الإعلان",
       deleteConfirmBody: "هل أنت متأكد من حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.",
-      deleteFailed: "فشل حذف الإعلان. يرجى المحاولة مرة أخرى.",
-      address: "العنوان"
+      deleteFailed: "فشل حذف الإعلان. يرجى المحاولة مرة أخرى."
     },
     profile: {
       title: "ملفي الشخصي",
@@ -40574,8 +40614,13 @@ const en = {
       myFavourites: "My Favourites",
       myLikes: "My Likes",
       myReferrals: "My Referrals",
+      support: "Support",
       login: "Login",
       logout: "Logout"
+    },
+    support: {
+      title: "Support",
+      openCommunity: "Open OpenChat support channel"
     },
     // Auth
     auth: {
@@ -40664,6 +40709,8 @@ const en = {
       notPublished: "This advertisement is not published",
       virtual: "Virtual",
       publishedAt: "Published at",
+      location: "Location",
+      address: "Address",
       aboutCreator: "About the Host",
       photos: "Photos",
       contactFetchError: "Failed to load contact details. Please try again.",
@@ -40673,8 +40720,7 @@ const en = {
       loginToContact: "Log in to contact",
       deleteConfirmTitle: "Delete advertisement",
       deleteConfirmBody: "Are you sure you want to delete this advertisement? This action cannot be undone.",
-      deleteFailed: "Failed to delete advertisement. Please try again.",
-      address: "Address"
+      deleteFailed: "Failed to delete advertisement. Please try again."
     },
     // Profile
     profile: {
@@ -41022,8 +41068,13 @@ const es = {
       myFavourites: "Mis Favoritos",
       myLikes: "Mis Me Gusta",
       myReferrals: "Mis Referidos",
+      support: "Soporte",
       login: "Iniciar Sesión",
       logout: "Cerrar Sesión"
+    },
+    support: {
+      title: "Soporte",
+      openCommunity: "Abrir canal de soporte de OpenChat"
     },
     auth: {
       loginRequired: "Por favor inicia sesión para continuar",
@@ -41107,6 +41158,8 @@ const es = {
       notPublished: "Este anuncio no está publicado",
       virtual: "Virtual",
       publishedAt: "Publicado el",
+      location: "Ubicación",
+      address: "Dirección",
       aboutCreator: "Sobre el anfitrión",
       photos: "Fotos",
       contactFetchError: "No se pudieron cargar los datos de contacto. Inténtalo de nuevo.",
@@ -41116,8 +41169,7 @@ const es = {
       loginToContact: "Inicia sesión para contactar",
       deleteConfirmTitle: "Eliminar anuncio",
       deleteConfirmBody: "¿Seguro que quieres eliminar este anuncio? Esta acción no se puede deshacer.",
-      deleteFailed: "No se pudo eliminar el anuncio. Inténtalo de nuevo.",
-      address: "Dirección"
+      deleteFailed: "No se pudo eliminar el anuncio. Inténtalo de nuevo."
     },
     profile: {
       title: "Mi Perfil",
@@ -41437,8 +41489,13 @@ const fr = {
       myFavourites: "Mes Favoris",
       myLikes: "Mes J'aime",
       myReferrals: "Mes Parrainages",
+      support: "Support",
       login: "Connexion",
       logout: "Déconnexion"
+    },
+    support: {
+      title: "Support",
+      openCommunity: "Ouvrir le canal de support OpenChat"
     },
     auth: {
       loginRequired: "Veuillez vous connecter pour continuer",
@@ -41522,6 +41579,8 @@ const fr = {
       notPublished: "Cette annonce n'est pas publiée",
       virtual: "Virtuel",
       publishedAt: "Publié le",
+      location: "Lieu",
+      address: "Adresse",
       aboutCreator: "À propos de l'hôte",
       photos: "Photos",
       contactFetchError: "Impossible de charger les coordonnées. Veuillez réessayer.",
@@ -41531,8 +41590,7 @@ const fr = {
       loginToContact: "Connectez-vous pour contacter",
       deleteConfirmTitle: "Supprimer l'annonce",
       deleteConfirmBody: "Êtes-vous sûr de vouloir supprimer cette annonce ? Cette action est irréversible.",
-      deleteFailed: "Échec de la suppression de l'annonce. Veuillez réessayer.",
-      address: "Adresse"
+      deleteFailed: "Échec de la suppression de l'annonce. Veuillez réessayer."
     },
     profile: {
       title: "Mon Profil",
@@ -41852,8 +41910,13 @@ const hi = {
       myFavourites: "मेरे पसंदीदा",
       myLikes: "मेरी पसंद",
       myReferrals: "मेरे रेफरल",
+      support: "सहायता",
       login: "लॉग इन",
       logout: "लॉग आउट"
+    },
+    support: {
+      title: "सहायता",
+      openCommunity: "OpenChat सहायता चैनल खोलें"
     },
     auth: {
       loginRequired: "कृपया जारी रखने के लिए लॉग इन करें",
@@ -41937,6 +42000,8 @@ const hi = {
       notPublished: "यह विज्ञापन प्रकाशित नहीं है",
       virtual: "वर्चुअल",
       publishedAt: "प्रकाशित",
+      location: "स्थान",
+      address: "पता",
       aboutCreator: "होस्ट के बारे में",
       photos: "फ़ोटो",
       contactFetchError: "संपर्क विवरण लोड नहीं हो सके। कृपया पुनः प्रयास करें।",
@@ -41946,8 +42011,7 @@ const hi = {
       loginToContact: "संपर्क करने के लिए लॉग इन करें",
       deleteConfirmTitle: "विज्ञापन हटाएं",
       deleteConfirmBody: "क्या आप वाकई इस विज्ञापन को हटाना चाहते हैं? यह कार्रवाई पूर्ववत नहीं की जा सकती।",
-      deleteFailed: "विज्ञापन हटाने में विफल। कृपया पुनः प्रयास करें।",
-      address: "पता"
+      deleteFailed: "विज्ञापन हटाने में विफल। कृपया पुनः प्रयास करें।"
     },
     profile: {
       title: "मेरा प्रोफाइल",
@@ -42267,8 +42331,13 @@ const pt = {
       myFavourites: "Meus Favoritos",
       myLikes: "Meus Curtidos",
       myReferrals: "Minhas Indicações",
+      support: "Suporte",
       login: "Entrar",
       logout: "Sair"
+    },
+    support: {
+      title: "Suporte",
+      openCommunity: "Abrir canal de suporte no OpenChat"
     },
     auth: {
       loginRequired: "Por favor, faça login para continuar",
@@ -42352,6 +42421,8 @@ const pt = {
       notPublished: "Este anúncio não está publicado",
       virtual: "Virtual",
       publishedAt: "Publicado em",
+      location: "Localização",
+      address: "Endereço",
       aboutCreator: "Sobre o anfitrião",
       photos: "Fotos",
       contactFetchError: "Falha ao carregar os dados de contato. Por favor, tente novamente.",
@@ -42361,8 +42432,7 @@ const pt = {
       loginToContact: "Entre para entrar em contato",
       deleteConfirmTitle: "Excluir anúncio",
       deleteConfirmBody: "Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.",
-      deleteFailed: "Falha ao excluir anúncio. Por favor, tente novamente.",
-      address: "Endereço"
+      deleteFailed: "Falha ao excluir anúncio. Por favor, tente novamente."
     },
     profile: {
       title: "Meu Perfil",
@@ -42682,8 +42752,13 @@ const ru = {
       myFavourites: "Избранное",
       myLikes: "Мои лайки",
       myReferrals: "Мои рефералы",
+      support: "Поддержка",
       login: "Войти",
       logout: "Выйти"
+    },
+    support: {
+      title: "Поддержка",
+      openCommunity: "Открыть канал поддержки OpenChat"
     },
     auth: {
       loginRequired: "Пожалуйста, войдите для продолжения",
@@ -42767,6 +42842,8 @@ const ru = {
       notPublished: "Это объявление не опубликовано",
       virtual: "Онлайн",
       publishedAt: "Опубликовано",
+      location: "Место",
+      address: "Адрес",
       aboutCreator: "Об организаторе",
       photos: "Фотографии",
       contactFetchError: "Не удалось загрузить контактные данные. Пожалуйста, попробуйте снова.",
@@ -42776,8 +42853,7 @@ const ru = {
       loginToContact: "Войдите, чтобы связаться",
       deleteConfirmTitle: "Удалить объявление",
       deleteConfirmBody: "Вы уверены, что хотите удалить это объявление? Это действие нельзя отменить.",
-      deleteFailed: "Не удалось удалить объявление. Пожалуйста, попробуйте снова.",
-      address: "Адрес"
+      deleteFailed: "Не удалось удалить объявление. Пожалуйста, попробуйте снова."
     },
     profile: {
       title: "Мой профиль",
@@ -43097,8 +43173,13 @@ const zh = {
       myFavourites: "我的收藏",
       myLikes: "我的点赞",
       myReferrals: "我的推荐",
+      support: "支持",
       login: "登录",
       logout: "登出"
+    },
+    support: {
+      title: "支持",
+      openCommunity: "打开 OpenChat 支持频道"
     },
     auth: {
       loginRequired: "请登录后继续",
@@ -43182,6 +43263,8 @@ const zh = {
       notPublished: "此广告尚未发布",
       virtual: "虚拟",
       publishedAt: "发布于",
+      location: "位置",
+      address: "地址",
       aboutCreator: "关于主办方",
       photos: "照片",
       contactFetchError: "无法加载联系方式。请重试。",
@@ -43191,8 +43274,7 @@ const zh = {
       loginToContact: "登录后联系",
       deleteConfirmTitle: "删除广告",
       deleteConfirmBody: "确定要删除此广告吗？此操作无法撤销。",
-      deleteFailed: "删除广告失败。请重试。",
-      address: "地址"
+      deleteFailed: "删除广告失败。请重试。"
     },
     profile: {
       title: "我的资料",
@@ -43499,6 +43581,7 @@ const zh = {
     }
   }
 };
+const LANGUAGE_STORAGE_KEY = `${APP_NAME}_i18nextLng`;
 instance.use(Browser).use(initReactI18next).init({
   resources: { en, es, zh, hi, ar, pt, fr, ru },
   fallbackLng: DEFAULT_LOCALE,
@@ -43507,7 +43590,7 @@ instance.use(Browser).use(initReactI18next).init({
   detection: {
     order: ["localStorage", "navigator", "htmlTag"],
     caches: ["localStorage"],
-    lookupLocalStorage: "i18nextLng"
+    lookupLocalStorage: LANGUAGE_STORAGE_KEY
   }
 });
 const EVENT_TYPE_ICONS = {
@@ -43632,24 +43715,25 @@ function MyFavouritesPage() {
     }) })
   ] });
 }
-const MyLikesPage = React$4.lazy(() => __vitePreload(() => import("./MyLikesPage-DAICZRof.js"), true ? [] : void 0));
-const MyReferralsPage = React$4.lazy(() => __vitePreload(() => import("./MyReferralsPage-Bb1DNo1Q.js"), true ? [] : void 0));
+const MyLikesPage = React$4.lazy(() => __vitePreload(() => import("./MyLikesPage-B2lWGyKc.js"), true ? [] : void 0));
+const MyReferralsPage = React$4.lazy(() => __vitePreload(() => import("./MyReferralsPage-eQNXC9M8.js"), true ? [] : void 0));
 const ReferralLandingPage = React$4.lazy(
-  () => __vitePreload(() => import("./ReferralLandingPage-dFk4_ySR.js"), true ? [] : void 0)
+  () => __vitePreload(() => import("./ReferralLandingPage-sghuQ5ix.js"), true ? [] : void 0)
 );
-const FeedPage = React$4.lazy(() => __vitePreload(() => import("./FeedPage-DqnfAbA3.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
-const AdDetailPage = React$4.lazy(() => __vitePreload(() => import("./AdDetailPage-r_zgZe_t.js"), true ? __vite__mapDeps([4,5,6,7,2,3,8,9]) : void 0));
-const ProfilePage = React$4.lazy(() => __vitePreload(() => import("./ProfilePage-t41dUlN6.js"), true ? __vite__mapDeps([10,11,7]) : void 0));
-const CreateAdPage = React$4.lazy(() => __vitePreload(() => import("./CreateAdPage-BrDSPb6r.js"), true ? __vite__mapDeps([12,13,11,6,14,8]) : void 0));
-const MyAdsPage = React$4.lazy(() => __vitePreload(() => import("./MyAdsPage-BlvFTVKN.js"), true ? __vite__mapDeps([15,8,1,2,6,7,14,9]) : void 0));
+const FeedPage = React$4.lazy(() => __vitePreload(() => import("./FeedPage-CUO_erbc.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
+const AdDetailPage = React$4.lazy(() => __vitePreload(() => import("./AdDetailPage-BBdiX4ex.js"), true ? __vite__mapDeps([4,5,6,7,2,3,8,9]) : void 0));
+const ProfilePage = React$4.lazy(() => __vitePreload(() => import("./ProfilePage-BmbtPrFX.js"), true ? __vite__mapDeps([10,11,7]) : void 0));
+const CreateAdPage = React$4.lazy(() => __vitePreload(() => import("./CreateAdPage-ChpZABuN.js"), true ? __vite__mapDeps([12,13,11,6,14,8]) : void 0));
+const MyAdsPage = React$4.lazy(() => __vitePreload(() => import("./MyAdsPage-Bieeg1X_.js"), true ? __vite__mapDeps([15,8,1,2,6,7,14,9]) : void 0));
 const PaymentSuccessPage = React$4.lazy(
-  () => __vitePreload(() => import("./PaymentSuccessPage-C3ox2aNp.js"), true ? __vite__mapDeps([16,9]) : void 0)
+  () => __vitePreload(() => import("./PaymentSuccessPage-BtyQkzS6.js"), true ? __vite__mapDeps([16,9]) : void 0)
 );
-const PaymentCancelPage = React$4.lazy(() => __vitePreload(() => import("./PaymentCancelPage-CpAgT4PY.js"), true ? __vite__mapDeps([17,13,8,1]) : void 0));
+const PaymentCancelPage = React$4.lazy(() => __vitePreload(() => import("./PaymentCancelPage-CRGmqYE8.js"), true ? __vite__mapDeps([17,13,8,1]) : void 0));
 const MyJoinRequestsPage = React$4.lazy(
-  () => __vitePreload(() => import("./MyJoinRequestsPage-Blot2Epx.js"), true ? [] : void 0)
+  () => __vitePreload(() => import("./MyJoinRequestsPage-NALRoUbI.js"), true ? [] : void 0)
 );
-const PublicProfilePage = React$4.lazy(() => __vitePreload(() => import("./PublicProfilePage-COMWLnH6.js"), true ? __vite__mapDeps([18,5]) : void 0));
+const PublicProfilePage = React$4.lazy(() => __vitePreload(() => import("./PublicProfilePage-COnxfZm_.js"), true ? __vite__mapDeps([18,5]) : void 0));
+const SupportPage = React$4.lazy(() => __vitePreload(() => import("./SupportPage-C-kU-lld.js"), true ? [] : void 0));
 const PageFallback = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center min-h-[50vh]", children: /* @__PURE__ */ jsxRuntimeExports.jsx(LoadingSpinner, { size: "lg" }) });
 const rootRoute = createRootRoute({
   component: () => /* @__PURE__ */ jsxRuntimeExports.jsx(Layout, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Suspense, { fallback: PageFallback, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RouterOutlet, {}) }) })
@@ -43707,6 +43791,11 @@ const publicProfileRoute = createRoute({
   path: "/user/$principal",
   component: () => /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Suspense, { fallback: PageFallback, children: /* @__PURE__ */ jsxRuntimeExports.jsx(PublicProfilePage, {}) })
 });
+const supportRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/support",
+  component: () => /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Suspense, { fallback: PageFallback, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SupportPage, {}) })
+});
 const myLikesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/my-likes",
@@ -43732,6 +43821,7 @@ const routeTree = rootRoute.addChildren([
   myFavouritesRoute,
   myLikesRoute,
   publicProfileRoute,
+  supportRoute,
   paymentSuccessRoute,
   paymentCancelRoute,
   myReferralsRoute,
@@ -43743,7 +43833,10 @@ const router = createRouter({
   history
 });
 function App() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(RouterProvider, { router });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(RouterProvider, { router }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Toaster, { position: "top-right", richColors: true, closeButton: true })
+  ] });
 }
 BigInt.prototype.toJSON = function() {
   return this.toString();
@@ -43780,42 +43873,44 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsx(InternetIdentityProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
 );
 export {
-  React$4 as $,
-  getDefaultAvatarId as A,
-  LogIn as B,
-  calcProfileCompleteness as C,
+  __vitePreload as $,
+  APP_NAME as A,
+  getDefaultAvatarId as B,
+  LogIn as C,
   DEFAULT_LOCALE as D,
   EventTypeIcon as E,
-  Share2 as F,
+  calcProfileCompleteness as F,
   Globe as G,
   Heart as H,
-  CircleCheck as I,
-  MAX_PHOTO_SIZE_MB as J,
-  MAX_PROFILE_PHOTOS as K,
+  Share2 as I,
+  CircleCheck as J,
+  MAX_PHOTO_SIZE_MB as K,
   LoadingSpinner as L,
   MAX_FEED_PAGE_SIZE as M,
   NOMINATIM_URL as N,
-  getDefaultAvatarUrl as O,
+  MAX_PROFILE_PHOTOS as O,
   Principal$1 as P,
   QueryObserver as Q,
-  Plus as R,
+  getDefaultAvatarUrl as R,
   SEX_OPTIONS as S,
-  ExternalBlob2 as T,
+  Plus as T,
   Users as U,
-  Sex as V,
-  HowPaysForEvent as W,
+  ExternalBlob2 as V,
+  Sex as W,
   X,
-  AD_PUBLISH_PRICE_USD as Y,
-  HOW_PAYS_OPTIONS as Z,
-  __vitePreload as _,
+  HowPaysForEvent as Y,
+  AD_PUBLISH_PRICE_USD as Z,
+  HOW_PAYS_OPTIONS as _,
   useAuth as a,
-  AdStatus as a0,
-  PaymentStatus as a1,
-  instance as a2,
-  List as a3,
-  House as a4,
-  Bookmark as a5,
-  index as a6,
+  React$4 as a0,
+  AdStatus as a1,
+  PaymentStatus as a2,
+  instance as a3,
+  List as a4,
+  House as a5,
+  Bookmark as a6,
+  LifeBuoy as a7,
+  index as a8,
   useNavigate as b,
   useBackend as c,
   useQueryClient as d,

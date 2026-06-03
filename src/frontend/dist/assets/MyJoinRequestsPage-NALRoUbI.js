@@ -1,4 +1,4 @@
-import { u as useTranslation, a as useAuth, b as useNavigate, c as useBackend, d as useQueryClient, e as useQuery, f as useMutation, j as jsxRuntimeExports, a5 as Bookmark, E as EventTypeIcon, p as MapPin, y as User, X, h as ue } from "./index-BwyFodb0.js";
+import { u as useTranslation, a as useAuth, b as useNavigate, c as useBackend, d as useQueryClient, e as useQuery, f as useMutation, j as jsxRuntimeExports, a6 as Bookmark, E as EventTypeIcon, p as MapPin, y as User, X, h as ue } from "./index-Dw-TU7ma.js";
 function MyJoinRequestsPage() {
   const { t } = useTranslation();
   const { isAuthenticated } = useAuth();

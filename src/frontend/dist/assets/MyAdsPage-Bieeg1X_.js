@@ -1,11 +1,11 @@
-import { o as createLucideIcon, u as useTranslation, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, a0 as AdStatus, R as Plus, I as CircleCheck, a1 as PaymentStatus, E as EventTypeIcon, a2 as instance } from "./index-BwyFodb0.js";
-import { E as ExternalLink } from "./external-link-kJKd-n4p.js";
-import { R as RefreshCw } from "./refresh-cw-Dh9r_Tiw.js";
-import { W as Wallet } from "./wallet-BBio_BS8.js";
-import { S as SquarePen } from "./square-pen-B11vPOGV.js";
-import { T as Trash2 } from "./trash-2-y2XawwWx.js";
-import { C as CreditCard } from "./credit-card-Bdzmn-5h.js";
-import { E as Eye } from "./eye-Cwq2Xt0z.js";
+import { o as createLucideIcon, u as useTranslation, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, a1 as AdStatus, T as Plus, J as CircleCheck, a2 as PaymentStatus, E as EventTypeIcon, a3 as instance } from "./index-Dw-TU7ma.js";
+import { E as ExternalLink } from "./external-link-BzQYtRft.js";
+import { R as RefreshCw } from "./refresh-cw-vss_y20-.js";
+import { W as Wallet } from "./wallet-DQ0xT4tp.js";
+import { S as SquarePen } from "./square-pen-On1MlLRp.js";
+import { T as Trash2 } from "./trash-2--qCftX8Q.js";
+import { C as CreditCard } from "./credit-card-DDqZFmZw.js";
+import { E as Eye } from "./eye-BKw6TpT0.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -51,7 +51,15 @@ function StatusBadge({ status }) {
     deleted: "badge-neutral"
   };
   const cls = map[status] ?? "badge-ghost";
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${cls} badge-sm font-medium`, children: t(`adStatus.${status}`) });
+  const statusLabel = t(`adStatus.${status}`);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "span",
+    {
+      className: `badge ${cls} badge-sm font-medium`,
+      title: `${t("myAds.status")}: ${statusLabel}`,
+      children: statusLabel
+    }
+  );
 }
 function PaymentBadge({ paymentStatus }) {
   const { t } = useTranslation();
@@ -62,7 +70,15 @@ function PaymentBadge({ paymentStatus }) {
     failed: "badge-error"
   };
   const cls = map[paymentStatus] ?? "badge-ghost";
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `badge ${cls} badge-sm`, children: t(`paymentStatus.${paymentStatus}`) });
+  const paymentLabel = t(`paymentStatus.${paymentStatus}`);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "span",
+    {
+      className: `badge ${cls} badge-sm`,
+      title: `${t("myAds.paymentStatus")}: ${paymentLabel}`,
+      children: paymentLabel
+    }
+  );
 }
 function SkeletonCard() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card bg-base-100 shadow-sm border border-base-200 animate-pulse", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body gap-3", children: [
@@ -142,6 +158,9 @@ function AdCard({
   const paymentKind = ad.paymentStatus;
   const canRetry = statusKind === AdStatus.pending_payment || paymentKind === PaymentStatus.failed;
   const isDeleted = statusKind === AdStatus.deleted;
+  const eventTypeLabel = t(`eventType.${ad.eventType}`);
+  const locationLabel = ad.isVirtual ? t("common.virtual") : ad.city ?? t("common.noCity");
+  const howPaysLabel = t(`createAd.howPays.${ad.howPaysForEvent}`);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
     {
@@ -156,15 +175,36 @@ function AdCard({
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 flex-wrap", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-outline badge-sm gap-1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3 h-3" }),
-            t(`eventType.${ad.eventType}`)
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge badge-outline badge-sm", children: ad.isVirtual ? t("common.virtual") : ad.city ?? t("common.noCity") }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge badge-outline badge-sm gap-1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "w-3 h-3" }),
-            t(`createAd.howPays.${ad.howPaysForEvent}`)
-          ] })
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-outline badge-sm gap-1",
+              title: `${t("createAd.eventType")}: ${eventTypeLabel}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(EventTypeIcon, { eventType: ad.eventType, className: "w-3 h-3" }),
+                eventTypeLabel
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              className: "badge badge-outline badge-sm",
+              title: ad.isVirtual ? `${t("meetType.label")}: ${t("meetType.online")}` : `${t("createAd.city")}: ${locationLabel}`,
+              children: locationLabel
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "span",
+            {
+              className: "badge badge-outline badge-sm gap-1",
+              title: `${t("createAd.howPaysForEvent")}: ${howPaysLabel}`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { className: "w-3 h-3" }),
+                howPaysLabel
+              ]
+            }
+          )
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-base-content/60", children: t("myAds.createdAt", { date: formatDate(ad.createdAt) }) }),
         !isDeleted && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-actions justify-end mt-1 flex-wrap gap-2", children: [

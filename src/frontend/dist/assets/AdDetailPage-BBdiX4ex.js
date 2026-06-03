@@ -1,11 +1,11 @@
-import { o as createLucideIcon, u as useTranslation, i as useParams, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, g as getProfileAvatarUrl, E as EventTypeIcon, G as Globe, p as MapPin, U as Users, y as User, H as Heart } from "./index-BwyFodb0.js";
-import { A as ArrowLeft } from "./arrow-left-VuIHxIgj.js";
-import { S as SquarePen } from "./square-pen-B11vPOGV.js";
-import { T as Trash2 } from "./trash-2-y2XawwWx.js";
-import { W as Wallet } from "./wallet-BBio_BS8.js";
-import { C as Calendar } from "./calendar-DBxWDTa-.js";
-import { E as ExternalLink } from "./external-link-kJKd-n4p.js";
-import { E as Eye } from "./eye-Cwq2Xt0z.js";
+import { o as createLucideIcon, u as useTranslation, i as useParams, b as useNavigate, d as useQueryClient, a as useAuth, c as useBackend, r as reactExports, e as useQuery, f as useMutation, j as jsxRuntimeExports, g as getProfileAvatarUrl, E as EventTypeIcon, G as Globe, p as MapPin, U as Users, y as User, H as Heart } from "./index-Dw-TU7ma.js";
+import { A as ArrowLeft } from "./arrow-left-CFvIavVV.js";
+import { S as SquarePen } from "./square-pen-On1MlLRp.js";
+import { T as Trash2 } from "./trash-2--qCftX8Q.js";
+import { W as Wallet } from "./wallet-DQ0xT4tp.js";
+import { C as Calendar } from "./calendar-ChtU-sxm.js";
+import { E as ExternalLink } from "./external-link-BzQYtRft.js";
+import { E as Eye } from "./eye-BKw6TpT0.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -104,7 +104,7 @@ function AdDetailSkeleton() {
   );
 }
 function AdDetailPage() {
-  var _a, _b;
+  var _a, _b, _c, _d;
   const { t } = useTranslation();
   const { id } = useParams({ strict: false });
   const navigate = useNavigate();
@@ -173,7 +173,7 @@ function AdDetailPage() {
     }
   });
   const handleRevealContact = async () => {
-    var _a2, _b2, _c;
+    var _a2, _b2, _c2;
     if (!isAuthenticated) {
       login();
       return;
@@ -195,7 +195,7 @@ function AdDetailPage() {
       setContactValue({
         phoneNumber: (_a2 = profileWithContact.phoneNumber) == null ? void 0 : _a2[0],
         telegram: (_b2 = profileWithContact.telegram) == null ? void 0 : _b2[0],
-        instagram: (_c = profileWithContact.instagram) == null ? void 0 : _c[0]
+        instagram: (_c2 = profileWithContact.instagram) == null ? void 0 : _c2[0]
       });
       setContactVisible(true);
     } catch {
@@ -261,6 +261,8 @@ function AdDetailPage() {
   const creator = ad.creatorProfile;
   const creatorPhotos = (creator == null ? void 0 : creator.photos) ?? [];
   const avatarUrl = getProfileAvatarUrl(creator);
+  const city = (_c = ad.city) == null ? void 0 : _c.trim();
+  const address = (_d = ad.address) == null ? void 0 : _d.trim();
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl mx-auto px-4 py-6 space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
@@ -378,6 +380,42 @@ function AdDetailPage() {
         formatDate(ad.publishedAt)
       ] })
     ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "card bg-base-100 shadow-sm",
+        "data-ocid": "ad_detail.location_card",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "card-title text-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { size: 16 }),
+            t("adDetail.location")
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2 text-sm", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-x-2 gap-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-medium", children: [
+                t("meetType.label"),
+                ":"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: ad.meetType === "online" ? t("meetType.online") : t("meetType.inPerson") })
+            ] }),
+            city && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-x-2 gap-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-medium", children: [
+                t("createAd.city"),
+                ":"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: city })
+            ] }),
+            address && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-x-2 gap-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-medium", children: [
+                t("adDetail.address"),
+                ":"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: address })
+            ] })
+          ] })
+        ] })
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card bg-base-100 shadow-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "card-title text-lg", children: t("adDetail.description") }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "whitespace-pre-wrap text-base-content/80", children: ad.description })
