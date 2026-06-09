@@ -1,4 +1,4 @@
-import { u as useTranslation, j as jsxRuntimeExports, a7 as LifeBuoy } from "./index-Dw-TU7ma.js";
+import { u as useTranslation, j as jsxRuntimeExports, a7 as LifeBuoy } from "./index-NWVy8DzM.js";
 const OPENCHAT_COMMUNITY_URL = "https://oc.app/community/asd5m-cyaaa-aaaac-bfdla-cai/channel/1918497539";
 function SupportPage() {
   const { t } = useTranslation();
@@ -16,6 +16,8 @@ function SupportPage() {
           "a",
           {
             href: OPENCHAT_COMMUNITY_URL,
+            target: "_blank",
+            rel: "noreferrer",
             className: "btn btn-neutral gap-2",
             "data-ocid": "support.open_openchat_button",
             children: [
