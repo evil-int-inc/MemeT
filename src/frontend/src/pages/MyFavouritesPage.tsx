@@ -1,4 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
+import { AppCard, AppCardBody } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useBackend } from "@/services/backend";
 import type { FavouriteWithAd } from "@/types";
 import { EventTypeIcon } from "@/utils/eventTypeIcon";
@@ -48,7 +50,7 @@ export default function MyFavouritesPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-12">
-          <span className="loading loading-infinity loading-lg" />
+          <LoadingSpinner size="lg" />
         </div>
       ) : favourites.length === 0 ? (
         <div className="text-center py-12">
@@ -61,17 +63,17 @@ export default function MyFavouritesPage() {
       ) : (
         <div className="space-y-4">
           {favourites.map((fav: FavouriteWithAd, index: number) => (
-            <div
+            <AppCard
               key={fav.favourite.adId}
-              className="card bg-base-100 shadow-xl border border-base-300"
+              className="shadow-xl border border-base-300"
               data-ocid={`favourite.item.${index + 1}`}
             >
-              <div className="card-body">
+              <AppCardBody>
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1 min-w-0">
                     <button
                       type="button"
-                      className="card-title text-xl cursor-pointer hover:underline text-left bg-transparent border-none p-0"
+                      className="text-xl font-bold cursor-pointer hover:underline text-left bg-transparent border-none p-0"
                       onClick={() =>
                         navigate({
                           to: "/ad/$id",
@@ -126,15 +128,15 @@ export default function MyFavouritesPage() {
                     aria-label={t("favourites.removeTooltip")}
                   >
                     {removeMutation.isPending ? (
-                      <span className="loading loading-infinity loading-xs" />
+                      <LoadingSpinner size="xs" />
                     ) : (
                       <Star className="w-4 h-4" />
                     )}
                     {t("favourites.removeButton")}
                   </button>
                 </div>
-              </div>
-            </div>
+              </AppCardBody>
+            </AppCard>
           ))}
         </div>
       )}

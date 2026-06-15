@@ -1,3 +1,5 @@
+import { AppCard, AppCardActions, AppCardBody, AppCardTitle } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { buildCancelUrl, buildSuccessUrl } from "@/lib/stripe";
 import { useBackend } from "@/services/backend";
 import { useMutation } from "@tanstack/react-query";
@@ -48,13 +50,13 @@ export default function PaymentCancelPage() {
 
   return (
     <div className="max-w-lg mx-auto mt-12 px-4">
-      <div
-        className="card bg-base-100 shadow-xl border border-warning/20"
+      <AppCard
+        className="shadow-xl border border-warning/20"
         data-ocid="payment-cancel.card"
       >
-        <div className="card-body items-center text-center gap-4">
+        <AppCardBody className="items-center text-center gap-4">
           <AlertCircle className="w-16 h-16 text-warning" />
-          <h2 className="card-title text-2xl">{t("payment.cancel")}</h2>
+          <AppCardTitle className="text-2xl">{t("payment.cancel")}</AppCardTitle>
           <p className="text-base-content/70">{t("payment.cancelDesc")}</p>
 
           {retryError && (
@@ -87,7 +89,7 @@ export default function PaymentCancelPage() {
             </div>
           )}
 
-          <div className="card-actions flex-col w-full gap-2 mt-2">
+          <AppCardActions className="flex-col w-full gap-2 mt-2">
             {adId && (
               <button
                 type="button"
@@ -97,7 +99,7 @@ export default function PaymentCancelPage() {
                 data-ocid="payment-cancel.retry_button"
               >
                 {retryMutation.isPending ? (
-                  <span className="loading loading-infinity loading-sm" />
+                  <LoadingSpinner size="sm" />
                 ) : (
                   <RefreshCw className="w-5 h-5" />
                 )}
@@ -122,9 +124,9 @@ export default function PaymentCancelPage() {
               <Home className="w-5 h-5" />
               {t("nav.feed")}
             </a>
-          </div>
-        </div>
-      </div>
+          </AppCardActions>
+        </AppCardBody>
+      </AppCard>
     </div>
   );
 }

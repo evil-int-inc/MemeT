@@ -1,6 +1,7 @@
 import { ExternalBlob } from "@/backend";
 import { Sex } from "@/backend";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
 import {
   MAX_PHOTO_SIZE_MB,
   MAX_PROFILE_PHOTOS,
@@ -702,7 +703,7 @@ export default function ProfilePage() {
               data-ocid="profile.detect_city.button"
             >
               {isDetecting ? (
-                <span className="loading loading-infinity loading-xs" />
+                <LoadingSpinner size="xs" />
               ) : (
                 <MapPin size={16} />
               )}
@@ -883,9 +884,9 @@ export default function ProfilePage() {
                   />
                 </div>
               </div>
-              <span className="badge badge-ghost">
+              <Badge variant="ghost">
                 {t("profile.defaultAvatar")}: {selectedDefaultAvatar}
-              </span>
+              </Badge>
               <p className="text-sm text-base-content/50">
                 {t("profile.noPhotos")}
               </p>
@@ -961,7 +962,7 @@ export default function ProfilePage() {
                 data-ocid="profile.photos.add_button"
               >
                 {uploadingIndex !== null ? (
-                  <span className="loading loading-infinity loading-sm" />
+                  <LoadingSpinner size="sm" />
                 ) : (
                   <Plus size={16} />
                 )}
@@ -982,7 +983,7 @@ export default function ProfilePage() {
           >
             {isSaving ? (
               <>
-                <span className="loading loading-infinity loading-sm" />
+                <LoadingSpinner size="sm" />
                 {t("profile.saving")}
               </>
             ) : (

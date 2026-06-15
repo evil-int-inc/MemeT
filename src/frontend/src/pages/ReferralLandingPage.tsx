@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { APP_NAME } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";

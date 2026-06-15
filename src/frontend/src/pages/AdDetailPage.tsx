@@ -1,3 +1,7 @@
+import { AppCard, AppCardBody, AppCardTitle } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { getProfileAvatarUrl } from "@/utils/avatar";
@@ -53,10 +57,10 @@ function AdDetailSkeleton() {
       className="animate-pulse space-y-4 p-6"
       data-ocid="ad_detail.loading_state"
     >
-      <div className="h-8 bg-base-300 rounded w-2/3" />
-      <div className="h-4 bg-base-300 rounded w-1/3" />
-      <div className="h-32 bg-base-300 rounded" />
-      <div className="h-24 bg-base-300 rounded" />
+      <Skeleton className="h-8 w-2/3" />
+      <Skeleton className="h-4 w-1/3" />
+      <Skeleton className="h-32" />
+      <Skeleton className="h-24" />
     </div>
   );
 }
@@ -245,11 +249,11 @@ export default function AdDetailPage() {
 
       {/* ── ad photos gallery ── */}
       {ad.photos && ad.photos.length > 0 && (
-        <div
-          className="card bg-base-100 shadow-sm"
+        <AppCard
+          className="shadow-sm"
           data-ocid="ad_detail.photos_gallery"
         >
-          <div className="card-body gap-3">
+          <AppCardBody className="gap-3">
             {ad.photos.length > 1 && (
               <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
                 {ad.photos.map((photo, idx) => (
@@ -283,13 +287,13 @@ export default function AdDetailPage() {
                 loading="lazy"
               />
             </div>
-          </div>
-        </div>
+          </AppCardBody>
+        </AppCard>
       )}
 
       {/* ── header card ── */}
-      <div className="card bg-base-100 shadow-lg" data-ocid="ad_detail.card">
-        <div className="card-body gap-3">
+      <AppCard className="shadow-lg" data-ocid="ad_detail.card">
+        <AppCardBody className="gap-3">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h1 className="text-2xl font-bold break-words flex-1">
               {ad.eventName}
@@ -324,39 +328,39 @@ export default function AdDetailPage() {
 
           {/* badges */}
           <div className="flex flex-wrap gap-2">
-            <span className="badge badge-primary badge-lg gap-1">
+            <Badge size="lg" className="gap-1">
               <EventTypeIcon eventType={ad.eventType} className="w-3.5 h-3.5" />
               {t(`eventType.${enumLabel(ad.eventType)}`)}
-            </span>
+            </Badge>
             {ad.meetType === "online" ? (
-              <span className="badge badge-accent badge-lg gap-1">
+              <Badge variant="accent" size="lg" className="gap-1">
                 <Globe size={12} />
                 {t("meetType.online")}
-              </span>
+              </Badge>
             ) : (
               <>
                 {ad.city && (
-                  <span className="badge badge-secondary badge-lg gap-1">
+                  <Badge variant="secondary" size="lg" className="gap-1">
                     <MapPin size={12} />
                     {ad.city}
-                  </span>
+                  </Badge>
                 )}
                 {ad.address && (
-                  <span className="badge badge-secondary badge-lg gap-1">
+                  <Badge variant="secondary" size="lg" className="gap-1">
                     <MapPin size={12} />
                     {ad.address}
-                  </span>
+                  </Badge>
                 )}
               </>
             )}
-            <span className="badge badge-outline badge-lg gap-1">
+            <Badge variant="outline" size="lg" className="gap-1">
               <Users size={12} />
               {t(`companionSex.${enumLabel(ad.expectedCompanionSex)}`)}
-            </span>
-            <span className="badge badge-outline badge-lg gap-1">
+            </Badge>
+            <Badge variant="outline" size="lg" className="gap-1">
               <Wallet size={12} />
               {t(`createAd.howPays.${ad.howPaysForEvent}`)}
-            </span>
+            </Badge>
           </div>
 
           {/* dates */}
@@ -366,19 +370,19 @@ export default function AdDetailPage() {
               {t("adDetail.publishedAt")}: {formatDate(ad.publishedAt)}
             </div>
           )}
-        </div>
-      </div>
+        </AppCardBody>
+      </AppCard>
 
       {/* ── location ── */}
-      <div
-        className="card bg-base-100 shadow-sm"
+      <AppCard
+        className="shadow-sm"
         data-ocid="ad_detail.location_card"
       >
-        <div className="card-body gap-3">
-          <h2 className="card-title text-lg">
+        <AppCardBody className="gap-3">
+          <AppCardTitle className="text-lg">
             <MapPin size={16} />
             {t("adDetail.location")}
-          </h2>
+          </AppCardTitle>
           <div className="space-y-2 text-sm">
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <span className="font-medium">{t("meetType.label")}:</span>
@@ -401,30 +405,32 @@ export default function AdDetailPage() {
               </div>
             )}
           </div>
-        </div>
-      </div>
+        </AppCardBody>
+      </AppCard>
 
       {/* ── description ── */}
-      <div className="card bg-base-100 shadow-sm">
-        <div className="card-body">
-          <h2 className="card-title text-lg">{t("adDetail.description")}</h2>
+      <AppCard className="shadow-sm">
+        <AppCardBody>
+          <AppCardTitle className="text-lg">
+            {t("adDetail.description")}
+          </AppCardTitle>
           <p className="whitespace-pre-wrap text-base-content/80">
             {ad.description}
           </p>
-        </div>
-      </div>
+        </AppCardBody>
+      </AppCard>
 
       {/* ── link preview ── */}
       {ad.eventLink && (
-        <div
-          className="card bg-base-100 shadow-sm"
+        <AppCard
+          className="shadow-sm"
           data-ocid="ad_detail.link_preview"
         >
-          <div className="card-body gap-3">
-            <h2 className="card-title text-lg">
+          <AppCardBody className="gap-3">
+            <AppCardTitle className="text-lg">
               <ExternalLink size={16} />
               {t("adDetail.eventLink")}
-            </h2>
+            </AppCardTitle>
             {ad.linkPreview ? (
               <a
                 href={ad.eventLink}
@@ -473,21 +479,21 @@ export default function AdDetailPage() {
                 {extractDomain(ad.eventLink)}
               </a>
             )}
-          </div>
-        </div>
+          </AppCardBody>
+        </AppCard>
       )}
 
       {/* ── creator card ── */}
       {creator && (
-        <div
-          className="card bg-base-100 shadow-sm"
+        <AppCard
+          className="shadow-sm"
           data-ocid="ad_detail.creator_card"
         >
-          <div className="card-body gap-4">
-            <h2 className="card-title text-lg">
+          <AppCardBody className="gap-4">
+            <AppCardTitle className="text-lg">
               <User size={16} />
               {t("adDetail.aboutCreator")}
-            </h2>
+            </AppCardTitle>
 
             <div className="flex gap-4 items-start">
               {/* avatar */}
@@ -505,9 +511,9 @@ export default function AdDetailPage() {
 
                 {/* Sex badge */}
                 <div className="flex flex-wrap gap-2">
-                  <span className="badge badge-outline">
+                  <Badge variant="outline">
                     {t(`sex.${enumLabel(creator.sex)}`)}
-                  </span>
+                  </Badge>
                 </div>
 
                 {/* Bio right under sex */}
@@ -534,7 +540,7 @@ export default function AdDetailPage() {
                     data-ocid="ad_detail.creator_like_button"
                   >
                     {profileLikeMutation.isPending ? (
-                      <span className="loading loading-infinity loading-xs" />
+                      <LoadingSpinner size="xs" />
                     ) : (
                       <Heart
                         size={16}
@@ -548,20 +554,20 @@ export default function AdDetailPage() {
                 {/* Other badges */}
                 <div className="flex flex-wrap gap-2">
                   {creator.age !== undefined && creator.age !== null && (
-                    <span className="badge badge-outline">
+                    <Badge variant="outline">
                       {Number(creator.age)} {t("common.yearsOld")}
-                    </span>
+                    </Badge>
                   )}
                   {creator.city && (
-                    <span className="badge badge-outline gap-1">
+                    <Badge variant="outline" className="gap-1">
                       <MapPin size={10} />
                       {creator.city}
-                    </span>
+                    </Badge>
                   )}
                   {creator.language && (
-                    <span className="badge badge-outline">
+                    <Badge variant="outline">
                       {creator.language}
-                    </span>
+                    </Badge>
                   )}
                 </div>
               </div>
@@ -709,7 +715,7 @@ export default function AdDetailPage() {
                     data-ocid="ad_detail.show_contact_button"
                   >
                     {contactLoading ? (
-                      <span className="loading loading-infinity loading-xs" />
+                      <LoadingSpinner size="xs" />
                     ) : (
                       <Eye size={14} />
                     )}
@@ -720,25 +726,25 @@ export default function AdDetailPage() {
                 </div>
               )}
             </div>
-          </div>
-        </div>
+          </AppCardBody>
+        </AppCard>
       )}
 
       {/* ── interested users (owner only) ── */}
       {isOwner && (
-        <div
-          className="card bg-base-100 shadow-sm"
+        <AppCard
+          className="shadow-sm"
           data-ocid="ad_detail.interested_users_section"
         >
-          <div className="card-body gap-4">
-            <h2 className="card-title text-lg">
+          <AppCardBody className="gap-4">
+            <AppCardTitle className="text-lg">
               <Users size={16} />
               {t("joinRequests.interestedUsers")}
-            </h2>
+            </AppCardTitle>
 
             {joinRequestsLoading ? (
               <div className="flex justify-center py-8">
-                <span className="loading loading-infinity loading-md" />
+                <LoadingSpinner size="md" />
               </div>
             ) : !joinRequests || joinRequests.length === 0 ? (
               <div className="text-center py-6 text-base-content/50">
@@ -770,12 +776,12 @@ export default function AdDetailPage() {
                     });
 
                   return (
-                    <div
+                    <AppCard
                       key={req.id}
-                      className="card bg-base-200 shadow-md"
+                      className="bg-base-200 shadow-md"
                       data-ocid={`ad_detail.interested_user.${idx + 1}`}
                     >
-                      <div className="card-body p-4 gap-3">
+                      <AppCardBody className="p-4 gap-3">
                         <div className="flex gap-3 items-start">
                           <div className="avatar flex-shrink-0">
                             <button
@@ -804,20 +810,20 @@ export default function AdDetailPage() {
                             )}
                             <div className="flex flex-wrap gap-2">
                               {profile?.sex && (
-                                <span className="badge badge-outline badge-sm">
+                                <Badge variant="outline" size="sm">
                                   {t(`sex.${profile.sex}`)}
-                                </span>
+                                </Badge>
                               )}
                               {reqAge != null && (
-                                <span className="badge badge-outline badge-sm">
+                                <Badge variant="outline" size="sm">
                                   {reqAge} {t("common.yearsOld")}
-                                </span>
+                                </Badge>
                               )}
                               {profile?.city && (
-                                <span className="badge badge-outline badge-sm gap-1">
+                                <Badge variant="outline" size="sm" className="gap-1">
                                   <MapPin size={10} />
                                   {profile.city}
-                                </span>
+                                </Badge>
                               )}
                             </div>
                             <div className="space-y-0.5 text-sm text-base-content/70">
@@ -859,14 +865,14 @@ export default function AdDetailPage() {
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      </AppCardBody>
+                    </AppCard>
                   );
                 })}
               </div>
             )}
-          </div>
-        </div>
+          </AppCardBody>
+        </AppCard>
       )}
 
       {/* ── delete modal ── */}
@@ -910,7 +916,7 @@ export default function AdDetailPage() {
                 data-ocid="ad_detail.confirm_button"
               >
                 {deleteMutation.isPending ? (
-                  <span className="loading loading-infinity loading-xs" />
+                  <LoadingSpinner size="xs" />
                 ) : (
                   <Trash2 size={14} />
                 )}

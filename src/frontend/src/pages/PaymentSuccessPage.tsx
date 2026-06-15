@@ -1,3 +1,5 @@
+import { AppCard, AppCardActions, AppCardBody, AppCardTitle } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { useMutation } from "@tanstack/react-query";
@@ -68,7 +70,7 @@ export default function PaymentSuccessPage() {
         className="flex flex-col items-center justify-center min-h-[60vh] gap-4"
         data-ocid="payment-success.loading_state"
       >
-        <span className="loading loading-infinity loading-lg" />
+        <LoadingSpinner size="lg" />
         <p className="text-lg font-medium">{t("payment.confirming")}</p>
       </div>
     );
@@ -80,7 +82,7 @@ export default function PaymentSuccessPage() {
         className="flex flex-col items-center justify-center min-h-[60vh] gap-4"
         data-ocid="payment-success.loading_state"
       >
-        <span className="loading loading-infinity loading-lg" />
+        <LoadingSpinner size="lg" />
         <p className="text-lg font-medium">{t("payment.confirming")}</p>
       </div>
     );
@@ -89,15 +91,17 @@ export default function PaymentSuccessPage() {
   if (confirmError) {
     return (
       <div className="max-w-lg mx-auto mt-12 px-4">
-        <div
-          className="card bg-base-100 shadow-xl border border-error/20"
+        <AppCard
+          className="shadow-xl border border-error/20"
           data-ocid="payment-success.error_state"
         >
-          <div className="card-body items-center text-center gap-4">
+          <AppCardBody className="items-center text-center gap-4">
             <XCircle className="w-16 h-16 text-error" />
-            <h2 className="card-title text-2xl">{t("payment.confirmError")}</h2>
+            <AppCardTitle className="text-2xl">
+              {t("payment.confirmError")}
+            </AppCardTitle>
             <p className="text-base-content/70">{confirmError}</p>
-            <div className="card-actions flex-col w-full gap-2 mt-2">
+            <AppCardActions className="flex-col w-full gap-2 mt-2">
               {adId && (
                 <a
                   href="/my-ads"
@@ -116,27 +120,27 @@ export default function PaymentSuccessPage() {
                 <Home className="w-5 h-5" />
                 {t("nav.feed")}
               </a>
-            </div>
-          </div>
-        </div>
+            </AppCardActions>
+          </AppCardBody>
+        </AppCard>
       </div>
     );
   }
 
   return (
     <div className="max-w-lg mx-auto mt-12 px-4">
-      <div
-        className="card bg-base-100 shadow-xl border border-success/20"
+      <AppCard
+        className="shadow-xl border border-success/20"
         data-ocid="payment-success.success_state"
       >
-        <div className="card-body items-center text-center gap-4">
+        <AppCardBody className="items-center text-center gap-4">
           <CheckCircle2 className="w-16 h-16 text-success" />
-          <h2 className="card-title text-2xl">{t("payment.success")}</h2>
+          <AppCardTitle className="text-2xl">{t("payment.success")}</AppCardTitle>
           <p className="text-base-content/70">{t("payment.successDesc")}</p>
           <p className="text-sm text-base-content/50">
             {t("payment.successRedirect")}
           </p>
-          <div className="card-actions flex-col w-full gap-2 mt-2">
+          <AppCardActions className="flex-col w-full gap-2 mt-2">
             {confirmedAdId && (
               <a
                 href={`/ad/${confirmedAdId}`}
@@ -163,9 +167,9 @@ export default function PaymentSuccessPage() {
               <Home className="w-5 h-5" />
               {t("nav.feed")}
             </a>
-          </div>
-        </div>
-      </div>
+          </AppCardActions>
+        </AppCardBody>
+      </AppCard>
     </div>
   );
 }

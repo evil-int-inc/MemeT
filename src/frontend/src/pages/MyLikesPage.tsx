@@ -1,4 +1,7 @@
 import { useAuth } from "@/hooks/useAuth";
+import { AppCard, AppCardBody } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
 import { useBackend } from "@/services/backend";
 import { getProfileAvatarUrl } from "@/utils/avatar";
 import { Principal } from "@icp-sdk/core/principal";
@@ -63,7 +66,7 @@ export default function MyLikesPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-12">
-          <span className="loading loading-infinity loading-lg" />
+          <LoadingSpinner size="lg" />
         </div>
       ) : likedProfiles.length === 0 ? (
         <div className="text-center py-12" data-ocid="likes.empty_state">
@@ -80,12 +83,12 @@ export default function MyLikesPage() {
               unlikeMutation.variables === principalStr;
 
             return (
-              <div
+              <AppCard
                 key={principalStr}
-                className="card bg-base-100 shadow border border-base-300"
+                className="shadow border border-base-300"
                 data-ocid={`likes.item.${index + 1}`}
               >
-                <div className="card-body gap-3 p-4">
+                <AppCardBody className="gap-3 p-4">
                   <div className="flex items-center gap-3">
                     <img
                       src={avatarSrc}
@@ -99,14 +102,18 @@ export default function MyLikesPage() {
                       </p>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {profile.sex && (
-                          <span className="badge badge-neutral badge-sm">
+                          <Badge variant="neutral" size="sm">
                             {profile.sex}
-                          </span>
+                          </Badge>
                         )}
                         {profile.city && (
-                          <span className="badge badge-outline badge-sm truncate max-w-[120px]">
+                          <Badge
+                            variant="outline"
+                            size="sm"
+                            className="truncate max-w-[120px]"
+                          >
                             {profile.city}
-                          </span>
+                          </Badge>
                         )}
                       </div>
                     </div>
@@ -143,14 +150,14 @@ export default function MyLikesPage() {
                       data-ocid={`likes.remove_button.${index + 1}`}
                     >
                       {isPending ? (
-                        <span className="loading loading-infinity loading-xs" />
+                        <LoadingSpinner size="xs" />
                       ) : (
                         <Heart className="w-4 h-4 fill-current" />
                       )}
                     </button>
                   </div>
-                </div>
-              </div>
+                </AppCardBody>
+              </AppCard>
             );
           })}
         </div>

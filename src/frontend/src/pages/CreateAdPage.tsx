@@ -1,6 +1,7 @@
 import { ExternalBlob, HowPaysForEvent, MeetType } from "@/backend";
 import type { EventType, ExpectedCompanionSex } from "@/backend";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
 import {
   AD_PUBLISH_PRICE_USD,
   EVENT_TYPES,
@@ -722,9 +723,9 @@ export default function CreateAdPage() {
           <div className={inputLabelClassName}>
             <span className={inputLabelTextClassName}>
               {t("createAd.photos")}{" "}
-              <span className="badge badge-ghost badge-sm">
+              <Badge variant="ghost" size="sm">
                 {t("createAd.photosOptional")}
-              </span>
+              </Badge>
             </span>
           </div>
           <p className="text-sm text-base-content/60">
@@ -741,7 +742,7 @@ export default function CreateAdPage() {
               data-ocid="create-ad.photos_upload_button"
             >
               {uploadingIndex !== null ? (
-                <span className="loading loading-infinity loading-md" />
+                <LoadingSpinner size="md" />
               ) : (
                 <>
                   <Camera className="w-8 h-8 text-base-content/40" />
@@ -810,7 +811,7 @@ export default function CreateAdPage() {
           data-ocid="create-ad.submit_button"
         >
           {isSubmitting ? (
-            <span className="loading loading-infinity loading-sm" />
+            <LoadingSpinner size="sm" />
           ) : (
             <CreditCard className="w-5 h-5" />
           )}
@@ -891,7 +892,7 @@ export default function CreateAdPage() {
             data-ocid="create-ad.promo_publish_button"
           >
             {promoPublishMutation.isPending ? (
-              <span className="loading loading-infinity" />
+              <LoadingSpinner />
             ) : (
               t("createAd.saveByPromoCode")
             )}
@@ -920,7 +921,7 @@ export default function CreateAdPage() {
           </div>
           <p className="text-sm">{t("payment.newTabDesc")}</p>
           <div className="flex items-center gap-2 mt-1">
-            <span className="loading loading-infinity loading-sm" />
+            <LoadingSpinner size="sm" />
             <span className="text-sm">{t("payment.polling")}</span>
           </div>
         </div>

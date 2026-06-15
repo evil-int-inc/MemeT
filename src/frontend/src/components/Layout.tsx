@@ -1,4 +1,5 @@
 import { SUPPORTED_LOCALES } from "@/constants";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
 import { useBackend } from "@/services/backend";
@@ -279,7 +280,7 @@ export default function Layout({ children }: LayoutProps) {
                 data-ocid="layout.logout_button"
               >
                 {isLoading ? (
-                  <span className="loading loading-infinity loading-xs" />
+                  <LoadingSpinner size="xs" />
                 ) : (
                   <LogOut className="w-4 h-4" />
                 )}
@@ -554,7 +555,7 @@ export default function Layout({ children }: LayoutProps) {
                 data-ocid="layout.sidebar_logout"
               >
                 {isLoading ? (
-                  <span className="loading loading-infinity loading-xs" />
+                  <LoadingSpinner size="xs" />
                 ) : (
                   <LogOut className="w-4 h-4" />
                 )}

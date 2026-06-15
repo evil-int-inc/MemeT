@@ -1,22 +1,19 @@
-import { AdStatus, PaymentStatus } from "@/backend";
+import { AdStatus } from "@/backend";
 import type { Advertisement } from "@/backend";
+import DeleteAdDialog from "@/components/cards/DeleteAdDialog";
+import MyAdCard from "@/components/cards/MyAdCard";
+import MyAdCardSkeleton from "@/components/cards/MyAdCardSkeleton";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
-import i18n from "@/i18n";
 import { useBackend } from "@/services/backend";
-import { EventTypeIcon } from "@/utils/eventTypeIcon";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import {
   CheckCircle2,
-  CreditCard,
-  Edit,
   ExternalLink,
-  Eye,
   FileText,
   Plus,
   RefreshCw,
-  Trash2,
-  Wallet,
 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,288 +32,6 @@ function sortAds(ads: Advertisement[]): Advertisement[] {
     const bOrder = STATUS_ORDER[b.status] ?? 99;
     return aOrder - bOrder;
   });
-}
-
-function formatDate(ts: bigint): string {
-  return new Date(Number(ts) / 1_000_000).toLocaleDateString(i18n.language, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function StatusBadge({ status }: { status: AdStatus }) {
-  const { t } = useTranslation();
-  const map: Record<string, string> = {
-    draft: "badge-ghost",
-    pending_payment: "badge-warning",
-    published: "badge-success",
-    rejected: "badge-error",
-    deleted: "badge-neutral",
-  };
-  const cls = map[status] ?? "badge-ghost";
-  const statusLabel = t(`adStatus.${status}`);
-  return (
-    <span
-      className={`badge ${cls} badge-sm font-medium`}
-      title={`${t("myAds.status")}: ${statusLabel}`}
-    >
-      {statusLabel}
-    </span>
-  );
-}
-
-function PaymentBadge({ paymentStatus }: { paymentStatus: PaymentStatus }) {
-  const { t } = useTranslation();
-  const map: Record<string, string> = {
-    unpaid: "badge-ghost",
-    pending: "badge-warning",
-    paid: "badge-success",
-    failed: "badge-error",
-  };
-  const cls = map[paymentStatus] ?? "badge-ghost";
-  const paymentLabel = t(`paymentStatus.${paymentStatus}`);
-  return (
-    <span
-      className={`badge ${cls} badge-sm`}
-      title={`${t("myAds.paymentStatus")}: ${paymentLabel}`}
-    >
-      {paymentLabel}
-    </span>
-  );
-}
-
-function SkeletonCard() {
-  return (
-    <div className="card bg-base-100 shadow-sm border border-base-200 animate-pulse">
-      <div className="card-body gap-3">
-        <div className="skeleton h-5 w-2/3 rounded" />
-        <div className="flex gap-2">
-          <div className="skeleton h-4 w-16 rounded-full" />
-          <div className="skeleton h-4 w-16 rounded-full" />
-        </div>
-        <div className="skeleton h-4 w-1/3 rounded" />
-        <div className="flex gap-2 mt-2">
-          <div className="skeleton h-8 w-16 rounded" />
-          <div className="skeleton h-8 w-16 rounded" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-interface DeleteModalProps {
-  adId: string;
-  adName: string;
-  onConfirm: () => void;
-  onCancel: () => void;
-  isPending: boolean;
-}
-
-function DeleteModal({
-  adName,
-  onConfirm,
-  onCancel,
-  isPending,
-}: DeleteModalProps) {
-  const { t } = useTranslation();
-  return (
-    <div className="modal modal-open">
-      <div className="modal-box">
-        <h3 className="font-bold text-lg">{t("myAds.deleteModal.title")}</h3>
-        <p className="py-4">
-          {t("myAds.deleteModal.message", { name: adName })}
-        </p>
-        <div className="modal-action">
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={onCancel}
-            disabled={isPending}
-            data-ocid="my-ads.delete_modal.cancel_button"
-          >
-            {t("common.cancel")}
-          </button>
-          <button
-            type="button"
-            className="btn btn-error"
-            onClick={onConfirm}
-            disabled={isPending}
-            data-ocid="my-ads.delete_modal.confirm_button"
-          >
-            {isPending ? (
-              <span className="loading loading-infinity loading-sm" />
-            ) : (
-              <Trash2 className="w-4 h-4" />
-            )}
-            {t("common.delete")}
-          </button>
-        </div>
-      </div>
-      <div
-        className="modal-backdrop"
-        onClick={onCancel}
-        onKeyDown={(e) => e.key === "Escape" && onCancel()}
-        role="button"
-        tabIndex={-1}
-        aria-label="Close modal"
-      />
-    </div>
-  );
-}
-
-interface AdCardProps {
-  ad: Advertisement;
-  onDeleteRequest: (ad: Advertisement) => void;
-  isRetrying: boolean;
-  onRetryPayment: (ad: Advertisement) => void;
-}
-
-function AdCard({
-  ad,
-  onDeleteRequest,
-  isRetrying,
-  onRetryPayment,
-}: AdCardProps) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
-  const statusKind = ad.status;
-  const paymentKind = ad.paymentStatus;
-  const canRetry =
-    statusKind === AdStatus.pending_payment ||
-    paymentKind === PaymentStatus.failed;
-  const isDeleted = statusKind === AdStatus.deleted;
-  const eventTypeLabel = t(`eventType.${ad.eventType}`);
-  const locationLabel = ad.isVirtual
-    ? t("common.virtual")
-    : (ad.city ?? t("common.noCity"));
-  const howPaysLabel = t(`createAd.howPays.${ad.howPaysForEvent}`);
-
-  return (
-    <div
-      className="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-shadow duration-200"
-      data-ocid={`my-ads.ad_card.${ad.id}`}
-    >
-      <div className="card-body gap-2">
-        <div className="flex items-start justify-between gap-2 flex-wrap">
-          <h3 className="card-title text-base font-semibold truncate max-w-xs">
-            {ad.eventName}
-          </h3>
-          <div className="flex gap-1.5 flex-wrap">
-            <StatusBadge status={ad.status} />
-            <PaymentBadge paymentStatus={ad.paymentStatus} />
-          </div>
-        </div>
-
-        <div className="flex gap-2 flex-wrap">
-          <span
-            className="badge badge-outline badge-sm gap-1"
-            title={`${t("createAd.eventType")}: ${eventTypeLabel}`}
-          >
-            <EventTypeIcon eventType={ad.eventType} className="w-3 h-3" />
-            {eventTypeLabel}
-          </span>
-          <span
-            className="badge badge-outline badge-sm"
-            title={
-              ad.isVirtual
-                ? `${t("meetType.label")}: ${t("meetType.online")}`
-                : `${t("createAd.city")}: ${locationLabel}`
-            }
-          >
-            {locationLabel}
-          </span>
-          <span
-            className="badge badge-outline badge-sm gap-1"
-            title={`${t("createAd.howPaysForEvent")}: ${howPaysLabel}`}
-          >
-            <Wallet className="w-3 h-3" />
-            {howPaysLabel}
-          </span>
-        </div>
-
-        <p className="text-xs text-base-content/60">
-          {t("myAds.createdAt", { date: formatDate(ad.createdAt) })}
-        </p>
-
-        {!isDeleted && (
-          <div className="card-actions justify-end mt-1 flex-wrap gap-2">
-            {statusKind === AdStatus.draft && (
-              <>
-                <button
-                  type="button"
-                  className="btn btn-xs btn-neutral btn-outline gap-1"
-                  onClick={() =>
-                    navigate({ to: "/create-ad", search: { edit: ad.id } })
-                  }
-                  data-ocid={`my-ads.edit_button.${ad.id}`}
-                >
-                  <Edit className="w-3 h-3" />
-                  {t("common.edit")}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-xs btn-outline btn-error gap-1"
-                  onClick={() => onDeleteRequest(ad)}
-                  data-ocid={`my-ads.delete_button.${ad.id}`}
-                >
-                  <Trash2 className="w-3 h-3" />
-                  {t("common.delete")}
-                </button>
-              </>
-            )}
-
-            {canRetry && (
-              <button
-                type="button"
-                className="btn btn-xs btn-neutral gap-1"
-                onClick={() => onRetryPayment(ad)}
-                disabled={isRetrying}
-                data-ocid={`my-ads.retry_payment_button.${ad.id}`}
-              >
-                {isRetrying ? (
-                  <span className="loading loading-infinity loading-xs" />
-                ) : (
-                  <CreditCard className="w-3 h-3" />
-                )}
-                {t("myAds.retryPayment")}
-              </button>
-            )}
-
-            {statusKind === AdStatus.published && (
-              <>
-                <button
-                  type="button"
-                  className="btn btn-xs btn-outline gap-1"
-                  onClick={() => navigate({ to: `/ad/${ad.id}` })}
-                  data-ocid={`my-ads.view_button.${ad.id}`}
-                >
-                  <Eye className="w-3 h-3" />
-                  {t("common.view")}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-xs btn-outline btn-error gap-1"
-                  onClick={() => onDeleteRequest(ad)}
-                  data-ocid={`my-ads.delete_button.${ad.id}`}
-                >
-                  <Trash2 className="w-3 h-3" />
-                  {t("common.delete")}
-                </button>
-              </>
-            )}
-          </div>
-        )}
-
-        {isDeleted && (
-          <p className="text-xs text-base-content/40 italic mt-1">
-            {t("adStatus.deleted")}
-          </p>
-        )}
-      </div>
-    </div>
-  );
 }
 
 const POLL_INTERVAL_MS = 3000;
@@ -504,7 +219,7 @@ export default function MyAdsPage() {
       {showLoading && (
         <div className="grid gap-4" data-ocid="my-ads.loading_state">
           {[1, 2, 3].map((i) => (
-            <SkeletonCard key={i} />
+            <MyAdCardSkeleton key={i} />
           ))}
         </div>
       )}
@@ -543,7 +258,7 @@ export default function MyAdsPage() {
         <div className="grid gap-4" data-ocid="my-ads.ad_list">
           {ads.map((ad, idx) => (
             <div key={ad.id} data-ocid={`my-ads.item.${idx + 1}`}>
-              <AdCard
+              <MyAdCard
                 ad={ad}
                 onDeleteRequest={setDeleteTarget}
                 isRetrying={retryingId === ad.id}
@@ -562,7 +277,7 @@ export default function MyAdsPage() {
             <p className="font-semibold">{t("payment.newTabOpened")}</p>
             <p className="text-sm">{t("payment.newTabDesc")}</p>
           </div>
-          <span className="loading loading-infinity loading-sm ml-auto" />
+          <LoadingSpinner size="sm" className="ml-auto" />
         </div>
       )}
 
@@ -601,8 +316,7 @@ export default function MyAdsPage() {
 
       {/* Delete confirmation modal */}
       {deleteTarget && (
-        <DeleteModal
-          adId={deleteTarget.id}
+        <DeleteAdDialog
           adName={deleteTarget.eventName}
           onConfirm={() => deleteMutation.mutate(deleteTarget.id)}
           onCancel={() => setDeleteTarget(null)}

@@ -1,3 +1,6 @@
+import { AppCard, AppCardBody, AppCardTitle } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { getProfileAvatarUrl } from "@/utils/avatar";
@@ -107,7 +110,7 @@ export default function PublicProfilePage() {
         className="flex items-center justify-center min-h-[60vh]"
         data-ocid="public_profile.loading_state"
       >
-        <span className="loading loading-infinity loading-lg" />
+        <LoadingSpinner size="lg" />
       </div>
     );
   }
@@ -153,11 +156,11 @@ export default function PublicProfilePage() {
       </button>
 
       {/* Profile header card */}
-      <div
-        className="card bg-base-100 shadow-lg"
+      <AppCard
+        className="shadow-lg"
         data-ocid="public_profile.card"
       >
-        <div className="card-body gap-5">
+        <AppCardBody className="gap-5">
           <h1 className="text-xl font-bold">{t("profile.publicTitle")}</h1>
 
           {/* Avatar + name row */}
@@ -186,9 +189,9 @@ export default function PublicProfilePage() {
               {/* Sex badge + Bio */}
               <div className="flex flex-wrap gap-2 pt-1">
                 {profile.sex && (
-                  <span className="badge badge-outline">
+                  <Badge variant="outline">
                     {t(`sex.${profile.sex}`)}
-                  </span>
+                  </Badge>
                 )}
               </div>
               {profile.bio && (
@@ -216,7 +219,7 @@ export default function PublicProfilePage() {
                   data-ocid="public_profile.like_button"
                 >
                   {profileLikeMutation.isPending ? (
-                    <span className="loading loading-infinity loading-xs" />
+                    <LoadingSpinner size="xs" />
                   ) : (
                     <Heart
                       size={16}
@@ -230,26 +233,26 @@ export default function PublicProfilePage() {
               {/* Other badges */}
               <div className="flex flex-wrap gap-2 pt-1">
                 {age !== null && (
-                  <span className="badge badge-outline">
+                  <Badge variant="outline">
                     {age} {t("common.yearsOld")}
-                  </span>
+                  </Badge>
                 )}
                 {profile.city && (
-                  <span className="badge badge-outline gap-1">
+                  <Badge variant="outline" className="gap-1">
                     <MapPin size={10} />
                     {profile.city}
-                  </span>
+                  </Badge>
                 )}
                 {profile.hideContactsInAds && (
-                  <span className="badge badge-accent gap-1">
+                  <Badge variant="accent" className="gap-1">
                     <Globe size={10} />
                     {t("profile.hideContactsInAds")}
-                  </span>
+                  </Badge>
                 )}
                 {profile.language && (
-                  <span className="badge badge-outline">
+                  <Badge variant="outline">
                     {profile.language}
-                  </span>
+                  </Badge>
                 )}
               </div>
             </div>
@@ -297,17 +300,17 @@ export default function PublicProfilePage() {
               ))}
             </div>
           )}
-        </div>
-      </div>
+        </AppCardBody>
+      </AppCard>
 
       {/* Extra photos grid */}
       {profile.photos && profile.photos.length > 1 && (
-        <div
-          className="card bg-base-100 shadow-sm"
+        <AppCard
+          className="shadow-sm"
           data-ocid="public_profile.photos_section"
         >
-          <div className="card-body gap-3">
-            <h2 className="card-title text-base">{t("profile.photos")}</h2>
+          <AppCardBody className="gap-3">
+            <AppCardTitle className="text-base">{t("profile.photos")}</AppCardTitle>
             <div className="grid grid-cols-3 gap-2">
               {profile.photos.map((photo, idx) => (
                 <div
@@ -324,8 +327,8 @@ export default function PublicProfilePage() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </AppCardBody>
+        </AppCard>
       )}
     </div>
   );

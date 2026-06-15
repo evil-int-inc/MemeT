@@ -15,16 +15,25 @@ const badgeVariants = cva("badge", {
       info: "badge-info",
       accent: "badge-accent",
       ghost: "badge-ghost",
+      neutral: "badge-neutral",
+    },
+    size: {
+      default: "",
+      xs: "badge-xs",
+      sm: "badge-sm",
+      lg: "badge-lg",
     },
   },
   defaultVariants: {
     variant: "default",
+    size: "default",
   },
 });
 
 function Badge({
   className,
   variant,
+  size,
   asChild: _asChild = false,
   ...props
 }: React.ComponentProps<"span"> &
@@ -32,10 +41,26 @@ function Badge({
   return (
     <span
       data-slot="badge"
-      className={cn(badgeVariants({ variant }), className)}
+      className={cn(badgeVariants({ variant, size }), className)}
       {...props}
     />
   );
 }
 
-export { Badge, badgeVariants };
+function BadgeButton({
+  className,
+  variant,
+  size,
+  ...props
+}: React.ComponentProps<"button"> & VariantProps<typeof badgeVariants>) {
+  return (
+    <button
+      type="button"
+      data-slot="badge-button"
+      className={cn(badgeVariants({ variant, size }), className)}
+      {...props}
+    />
+  );
+}
+
+export { Badge, BadgeButton, badgeVariants };

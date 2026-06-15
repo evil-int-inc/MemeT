@@ -1,5 +1,6 @@
 import type { ReferralEntry } from "@/backend";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import { AppCard, AppCardBody } from "@/components/cards/AppCard";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
 import { useBackend } from "@/services/backend";
 import { useQuery } from "@tanstack/react-query";
@@ -24,11 +25,11 @@ function ReferralCard({
 }: { entry: ReferralEntry; index: number }) {
   const { t, i18n } = useTranslation();
   return (
-    <div
-      className="card bg-base-100 border border-base-300 shadow-sm"
+    <AppCard
+      className="border border-base-300 shadow-sm"
       data-ocid={`referrals.item.${index + 1}`}
     >
-      <div className="card-body p-5">
+      <AppCardBody className="p-5">
         <div className="flex items-center gap-4">
           <div className="avatar placeholder">
             <div className="bg-neutral text-neutral-content rounded-full w-12">
@@ -64,8 +65,8 @@ function ReferralCard({
             </span>
           </div>
         </div>
-      </div>
-    </div>
+      </AppCardBody>
+    </AppCard>
   );
 }
 
